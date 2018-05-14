@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Find Services from all over the world!</ui:insert></title>
+        <link rel="shortcut icon" href="resources/images/um6p-min.png" type="image/png"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <link rel="stylesheet" href="resources/bootstrap-4.0.0/css/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/modern-business-index.css" type="text/css"/>
+        <h:outputScript name="bootstrap-4.0.0/js/bootstrap.js" />
+
+
+    </h:head>
+
+
+    <h:body style="padding: 0px; margin: 0px;">
+
+
+
+        <h:form id="menuForm">
+
+            <div class="aboveNav" style="padding: 0px; margin: 0px">
+
+
+
+                <div class="row" style="padding: 0px; margin: 0px" >
+                    <div class="col-md-3">
+                        <i class="fa fa-map-marker"><h4>Lot 660, Hay Moulay Rachid Ben Guerir, 43150, Morocco</h4></i>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fa fa-clock-o"><h4>Mon – Sat: 9:00am–18:00pm</h4> </i>
+                    </div>
+
+                    <div class="col-md-2">
+                        <i class="fa fa-envelope"><h4>yassine.simou@emines.um6p.ma</h4> </i>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fa fa-phone"><h4>+212 525 072 855 </h4> </i>
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="aboveNavSocial">
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <div class="mx-auto order-0">
+                    <a class="navbar-brand" href="/plannOCP/faces/index.xhtml"> <img src="resources/images/um6p.png" style="width:120px;height: 60px ;vertical-align: middle" alt="EDE logo"/></a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive" >
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Structuel data
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right"  style="background-color: #d9d9d9;">
+
+                                <p:commandLink class="nav-link" >
+                                    Panel
+                                </p:commandLink>
+                                <p:commandLink class="nav-link" >
+                                    Trench
+                                </p:commandLink>
+                                <p:commandLink class="nav-link" >
+                                    Parcel
+                                </p:commandLink>
+                                <p:commandLink class="nav-link" >
+                                    Sub Panel
+                                </p:commandLink>
+
+                                <p:commandLink class="nav-link" >
+                                    CCL
+                                </p:commandLink>
+
+                                <p:commandLink class="nav-link" >
+                                    Level
+                                </p:commandLink>
+
+                                <p:commandLink class="nav-link" >
+                                    Layer
+                                </p:commandLink>
+                            </div>
+                        </li>
+
+
+
+                        <li class="nav-item dropdown" style="width: 90px;">
+                            <a class="dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Chimie
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="background-color: #d9d9d9;">
+                                <p:commandLink  class="nav-link" >
+                                    Chemical Component 
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link" >
+                                    Chemical Component - Layer  
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link" >
+                                    Sequence-Level  
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link" >
+                                    Composition-Level-Sequence  
+                                </p:commandLink>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Exploitation
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="background-color: #d9d9d9;">
+                                <p:commandLink  class="nav-link"  >
+                                    Block
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Machine
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Position
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Movement
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Accessibility
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Treatment
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Opération
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Statut
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Statut-Block
+                                </p:commandLink>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Stock
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right"  style="background-color: #d9d9d9;">
+                                <p:commandLink  class="nav-link"  >
+                                    Stock 
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Possibility-Storage
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Storage 
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Unit Of Time  
+                                </p:commandLink>
+                                <p:commandLink  class="nav-link"  >
+                                    Availability Machine
+                                </p:commandLink>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </h:form>
+
+        <h:form id="mainForm">
+            <div >
+                <header class="masthead text-white text-center" >
+
+                    <div class="container">
+                         <br></br>
+                          <br></br>
+                        <div class="row" >
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6"><h1 class="mb-1" align="center">WELCOME !</h1></div>
+                        </div>
+                        <br></br>
+                    </div>
+                </header>
+            </div>
+        </h:form>
+
+        <footer id="myFooter" class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="resources/images/ocp.jpg" style="width:200px;vertical-align: middle"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>Get started</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Sign up</a></li>
+                            <li><a href="#">Downloads</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>About us</h5>
+                        <ul>
+                            <li><a href="#">Company Information</a></li>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Reviews</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>Support</h5>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Help desk</a></li>
+                            <li><a href="#">Forums</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="social-networks">
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>2018 © UM6P </p>
+            </div>
+        </footer>
+
+
+
+
+
+        <br />
+    </h:body>
+
+</html>
+

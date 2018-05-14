@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovementEditDlg" widgetVar="MovementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditMovementTitle}">
+            <h:form id="MovementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movementController.selected != null}">
+                        <p:outputLabel value="EditMovementLabel_machine}" for="machine" />
+                        <p:selectOneMenu id="machine" value="#{movementController.selected.machine}" >
+                            <f:selectItem itemLabel="SelectOneMessage}"/>
+                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                           var="machineItem"
+                                           itemValue="#{machineItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="EditMovementLabel_depart}" for="depart" />
+                        <p:selectOneMenu id="depart" value="#{movementController.selected.depart}" >
+                            <f:selectItem itemLabel="SelectOneMessage}"/>
+                            <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                           var="departItem"
+                                           itemValue="#{departItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="EditMovementLabel_arrive}" for="arrive" />
+                        <p:selectOneMenu id="arrive" value="#{movementController.selected.arrive}" >
+                            <f:selectItem itemLabel="SelectOneMessage}"/>
+                            <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                           var="arriveItem"
+                                           itemValue="#{arriveItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="EditMovementLabel_duree}" for="duree" />
+                        <p:inputText id="duree" value="#{movementController.selected.duree}" title="EditMovementTitle_duree}" />
+                        <p:outputLabel value="EditMovementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{movementController.selected.id}" title="EditMovementTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movementController.update}" value="Save}" update="display,:MovementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MovementEditDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="MovementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubPanelEditDlg" widgetVar="SubPanelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditSubPanelTitle}">
+            <h:form id="SubPanelEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subPanelController.selected != null}">
+                        <p:outputLabel value="EditSubPanelLabel_surface}" for="surface" />
+                        <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="EditSubPanelTitle_surface}" />
+                        <p:outputLabel value="EditSubPanelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{subPanelController.selected.id}" title="EditSubPanelTitle_id}" />
+                        <p:outputLabel value="EditSubPanelLabel_sequenceLevel}" for="sequenceLevel" />
+                        <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
+                            <f:selectItem itemLabel="SelectOneMessage}"/>
+                            <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                           var="sequenceLevelItem"
+                                           itemValue="#{sequenceLevelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="EditSubPanelLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="EditSubPanelTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{subPanelController.update}" value="Save}" update="display,:SubPanelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubPanelEditDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="SubPanelEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

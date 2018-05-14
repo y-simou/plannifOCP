@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templateCrud.xhtml">
+
+
+
+        <ui:define name="title">
+            <h:outputText value="Accessibility"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+
+
+
+
+            <!--   Big container   -->
+
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <nav class="sidebar bg-dark">
+                    <p style="text-align: center;">
+                        <a href="../manager/Profile.xhtml">
+                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
+                        </a>
+                    </p>
+                </nav>
+
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Accessibility : </h1>
+                    <hr></hr>
+                    <h:form id="AccessibilityListForm"><br></br>
+                        <div class="container">
+                            <p:dataTable value="#{accessibilityController.items}" var="item"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="level Layer"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.levelLayer.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="machine"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.machine.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="accessibility"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.accessibile ? 'accessible' : 'not accessible'}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton actionListener="#{accessibilityController.setSelected(item)}" update=":AccessibilityListForm:AccessibilityEditForm" oncomplete="PF('AccessibilityEditDialog').show()" value="Edit"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{accessibilityController.setSelected(item)}" update=":AccessibilityListForm:AccessibilityViewForm" oncomplete="PF('AccessibilityViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton  icon="ui-icon-pencil" value="Create Accessibility"  oncomplete="PF('AccessibilityCreateDialog').show()" />
+                        </div>
+                        <br></br><hr></hr>
+
+                        <ui:include src="Create.xhtml"/>
+                        <ui:include src="Edit.xhtml"/>
+                        <ui:include src="View.xhtml"/>
+                    </h:form>
+                </div>
+            </div>
+
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

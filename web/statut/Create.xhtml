@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StatutCreateDlg" widgetVar="StatutCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateStatutTitle}">
+            <h:form id="StatutCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{statutController.selected != null}">
+                        <p:outputLabel value="CreateStatutLabel_treatment}" for="treatment" />
+                        <p:inputText id="treatment" value="#{statutController.selected.treatment}" title="CreateStatutTitle_treatment}" />
+                        <p:outputLabel value="CreateStatutLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{statutController.selected.id}" title="CreateStatutTitle_id}" />
+                        <p:outputLabel value="CreateStatutLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{statutController.selected.nom}" title="CreateStatutTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statutController.create}" value="Save}" update="display,:StatutListForm:datalist,:growl" oncomplete="handleSubmit(args,'StatutCreateDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="StatutCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

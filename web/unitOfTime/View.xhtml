@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnitOfTimeViewDlg" widgetVar="UnitOfTimeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewUnitOfTimeTitle}">
+            <h:form id="UnitOfTimeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unitOfTimeController.selected != null}">
+                        <h:outputText value="ViewUnitOfTimeLabel_unite}"/>
+                        <h:outputText value="#{unitOfTimeController.selected.unite}" title="ViewUnitOfTimeTitle_unite}"/>
+                        <h:outputText value="ViewUnitOfTimeLabel_id}"/>
+                        <h:outputText value="#{unitOfTimeController.selected.id}" title="ViewUnitOfTimeTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="UnitOfTimeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

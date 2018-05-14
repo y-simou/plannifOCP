@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AccessibilityCreateDlg" widgetVar="AccessibilityCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
+
+            <h:form id="AccessibilityCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <h:panelGroup id="display">
+                    <div class="form-control">
+                        <h4 align="center">Create Accessibility :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p:outputLabel value="Level :  " for="levelLayer" />
+                                    <p:selectOneMenu id="levelLayer" value="#{accessibilityController.selected.levelLayer}" >
+                                        <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                       var="levelLayerItem"
+                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p:outputLabel value="Machien :  " for="machine" />
+                                    <p:selectOneMenu id="machine" value="#{accessibilityController.selected.machine}" >
+                                        <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                       var="machineItem"
+                                                       itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p:outputLabel value="Accessible ?  " for="access" />
+                                    <p:selectOneMenu id="access" value="#{accessibilityController.selected.accessibile}" >
+                                        <f:selectItem itemValue="#{1}" itemLabel="true"/>
+                                        <f:selectItem itemValue="#{0}" itemLabel="false"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <div class="f1-buttons" align="center">
+                                        <p:commandButton  value="Save" actionListener="#{accessibilityController.create}" oncomplete="handleSubmit(args,'AccessibilityCreateDialog');" ></p:commandButton>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"/>
+                                <br></br>
+                            </div>
+                        </div>
+                        <br></br>
+                        <p:commandLink oncomplete="handleSubmit(args,'AccessibilityCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </h:panelGroup>
+
+
+            </h:form>
+
+
+        </p:dialog>
+
+
+    </ui:composition>
+</html>

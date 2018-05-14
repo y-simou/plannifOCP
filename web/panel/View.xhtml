@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PanelViewDlg" widgetVar="PanelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewPanelTitle}">
+            <h:form id="PanelViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{panelController.selected != null}">
+                        <h:outputText value="ViewPanelLabel_id}"/>
+                        <h:outputText value="#{panelController.selected.id}" title="ViewPanelTitle_id}"/>
+                        <h:outputText value="ViewPanelLabel_surface}"/>
+                        <h:outputText value="#{panelController.selected.surface}" title="ViewPanelTitle_surface}"/>
+                        <h:outputText value="ViewPanelLabel_datePDebutExploitation}"/>
+                        <h:outputText value="#{panelController.selected.datePDebutExploitation}" title="ViewPanelTitle_datePDebutExploitation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="ViewPanelLabel_datePFinExploitation}"/>
+                        <h:outputText value="#{panelController.selected.datePFinExploitation}" title="ViewPanelTitle_datePFinExploitation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="ViewPanelLabel_reserves}"/>
+                        <h:outputText value="#{panelController.selected.reserves}" title="ViewPanelTitle_reserves}"/>
+                        <h:outputText value="ViewPanelLabel_x}"/>
+                        <h:outputText value="#{panelController.selected.x}" title="ViewPanelTitle_x}"/>
+                        <h:outputText value="ViewPanelLabel_y}"/>
+                        <h:outputText value="#{panelController.selected.y}" title="ViewPanelTitle_y}"/>
+                        <h:outputText value="ViewPanelLabel_nom}"/>
+                        <h:outputText value="#{panelController.selected.nom}" title="ViewPanelTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="PanelViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

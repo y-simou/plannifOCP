@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrenchViewDlg" widgetVar="TrenchViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewTrenchTitle}">
+            <h:form id="TrenchViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trenchController.selected != null}">
+                        <h:outputText value="ViewTrenchLabel_surface}"/>
+                        <h:outputText value="#{trenchController.selected.surface}" title="ViewTrenchTitle_surface}"/>
+                        <h:outputText value="ViewTrenchLabel_id}"/>
+                        <h:outputText value="#{trenchController.selected.id}" title="ViewTrenchTitle_id}"/>
+                        <h:outputText value="ViewTrenchLabel_datePDebutExploitation}"/>
+                        <h:outputText value="#{trenchController.selected.datePDebutExploitation}" title="ViewTrenchTitle_datePDebutExploitation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="ViewTrenchLabel_datePFinExploitation}"/>
+                        <h:outputText value="#{trenchController.selected.datePFinExploitation}" title="ViewTrenchTitle_datePFinExploitation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="ViewTrenchLabel_reserves}"/>
+                        <h:outputText value="#{trenchController.selected.reserves}" title="ViewTrenchTitle_reserves}"/>
+                        <h:outputText value="ViewTrenchLabel_x}"/>
+                        <h:outputText value="#{trenchController.selected.x}" title="ViewTrenchTitle_x}"/>
+                        <h:outputText value="ViewTrenchLabel_y}"/>
+                        <h:outputText value="#{trenchController.selected.y}" title="ViewTrenchTitle_y}"/>
+                        <h:outputText value="ViewTrenchLabel_panel}"/>
+                        <h:outputText value="#{trenchController.selected.panel}" title="ViewTrenchTitle_panel}"/>
+                        <h:outputText value="ViewTrenchLabel_nom}"/>
+                        <h:outputText value="#{trenchController.selected.nom}" title="ViewTrenchTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="TrenchViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

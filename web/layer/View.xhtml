@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LayerViewDlg" widgetVar="LayerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewLayerTitle}">
+            <h:form id="LayerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{layerController.selected != null}">
+                        <h:outputText value="ViewLayerLabel_id}"/>
+                        <h:outputText value="#{layerController.selected.id}" title="ViewLayerTitle_id}"/>
+                        <h:outputText value="ViewLayerLabel_level}"/>
+                        <h:outputText value="#{layerController.selected.level}" title="ViewLayerTitle_level}"/>
+                        <h:outputText value="ViewLayerLabel_nom}"/>
+                        <h:outputText value="#{layerController.selected.nom}" title="ViewLayerTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="LayerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

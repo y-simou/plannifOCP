@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ChemicalComponentLayerViewDlg" widgetVar="ChemicalComponentLayerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewChemicalComponentLayerTitle}">
+            <h:form id="ChemicalComponentLayerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{chemicalComponentLayerController.selected != null}">
+                        <h:outputText value="ViewChemicalComponentLayerLabel_layer}"/>
+                        <h:outputText value="#{chemicalComponentLayerController.selected.layer}" title="ViewChemicalComponentLayerTitle_layer}"/>
+                        <h:outputText value="ViewChemicalComponentLayerLabel_chemicalComponent}"/>
+                        <h:outputText value="#{chemicalComponentLayerController.selected.chemicalComponent}" title="ViewChemicalComponentLayerTitle_chemicalComponent}"/>
+                        <h:outputText value="ViewChemicalComponentLayerLabel_teneur}"/>
+                        <h:outputText value="#{chemicalComponentLayerController.selected.teneur}" title="ViewChemicalComponentLayerTitle_teneur}"/>
+                        <h:outputText value="ViewChemicalComponentLayerLabel_id}"/>
+                        <h:outputText value="#{chemicalComponentLayerController.selected.id}" title="ViewChemicalComponentLayerTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="ChemicalComponentLayerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

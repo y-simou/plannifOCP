@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TreatmentCreateDlg" widgetVar="TreatmentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateTreatmentTitle}">
+            <h:form id="TreatmentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{treatmentController.selected != null}">
+                        <p:outputLabel value="CreateTreatmentLabel_machine}" for="machine" />
+                        <p:selectOneMenu id="machine" value="#{treatmentController.selected.machine}" >
+                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                           var="machineItem"
+                                           itemValue="#{machineItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateTreatmentLabel_operation}" for="operation" />
+                        <p:selectOneMenu id="operation" value="#{treatmentController.selected.operation}" >
+                            <f:selectItems value="#{operationController.itemsAvailableSelectOne}"
+                                           var="operationItem"
+                                           itemValue="#{operationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateTreatmentLabel_block}" for="block" />
+                        <p:selectOneMenu id="block" value="#{treatmentController.selected.block}" >
+                            <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                           var="blockItem"
+                                           itemValue="#{blockItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateTreatmentLabel_temps}" for="temps" />
+                        <p:inputText id="temps" value="#{treatmentController.selected.temps}" title="CreateTreatmentTitle_temps}" />
+                        <p:outputLabel value="CreateTreatmentLabel_chronologicalOrder}" for="chronologicalOrder" />
+                        <p:inputText id="chronologicalOrder" value="#{treatmentController.selected.chronologicalOrder}" title="CreateTreatmentTitle_chronologicalOrder}" />
+                        <p:outputLabel value="CreateTreatmentLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{treatmentController.selected.id}" title="CreateTreatmentTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{treatmentController.create}" value="Save}" update="display,:TreatmentListForm:datalist,:growl" oncomplete="handleSubmit(args,'TreatmentCreateDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="TreatmentCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

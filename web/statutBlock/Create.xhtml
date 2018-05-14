@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StatutBlockCreateDlg" widgetVar="StatutBlockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateStatutBlockTitle}">
+            <h:form id="StatutBlockCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{statutBlockController.selected != null}">
+                        <p:outputLabel value="CreateStatutBlockLabel_block}" for="block" />
+                        <p:selectOneMenu id="block" value="#{statutBlockController.selected.block}" >
+                            <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                           var="blockItem"
+                                           itemValue="#{blockItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateStatutBlockLabel_statutInitial}" for="statutInitial" />
+                        <p:selectOneMenu id="statutInitial" value="#{statutBlockController.selected.statutInitial}" >
+                            <f:selectItems value="#{statutController.itemsAvailableSelectOne}"
+                                           var="statutInitialItem"
+                                           itemValue="#{statutInitialItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateStatutBlockLabel_statutFinal}" for="statutFinal" />
+                        <p:selectOneMenu id="statutFinal" value="#{statutBlockController.selected.statutFinal}" >
+                            <f:selectItems value="#{statutController.itemsAvailableSelectOne}"
+                                           var="statutFinalItem"
+                                           itemValue="#{statutFinalItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="CreateStatutBlockLabel_dateChangement}" for="dateChangement" />
+                        <p:calendar id="dateChangement" pattern="MM/dd/yyyy" value="#{statutBlockController.selected.dateChangement}" title="EditStatutBlockTitle_dateChangement}"  showOn="button"/>
+                        <p:outputLabel value="CreateStatutBlockLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{statutBlockController.selected.id}" title="CreateStatutBlockTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statutBlockController.create}" value="Save}" update="display,:StatutBlockListForm:datalist,:growl" oncomplete="handleSubmit(args,'StatutBlockCreateDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="StatutBlockCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

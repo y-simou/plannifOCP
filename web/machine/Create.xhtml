@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MachineCreateDlg" widgetVar="MachineCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateMachineTitle}">
+            <h:form id="MachineCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{machineController.selected != null}">
+                        <p:outputLabel value="CreateMachineLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{machineController.selected.id}" title="CreateMachineTitle_id}" />
+                        <p:outputLabel value="CreateMachineLabel_designation}" for="designation" />
+                        <p:inputText id="designation" value="#{machineController.selected.designation}" title="CreateMachineTitle_designation}" />
+                        <p:outputLabel value="CreateMachineLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{machineController.selected.type}" title="CreateMachineTitle_type}" />
+                        <p:outputLabel value="CreateMachineLabel_rendement}" for="rendement" />
+                        <p:inputText id="rendement" value="#{machineController.selected.rendement}" title="CreateMachineTitle_rendement}" />
+                        <p:outputLabel value="CreateMachineLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{machineController.selected.nom}" title="CreateMachineTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{machineController.create}" value="Save}" update="display,:MachineListForm:datalist,:growl" oncomplete="handleSubmit(args,'MachineCreateDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="MachineCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

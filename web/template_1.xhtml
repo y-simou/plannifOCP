@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html" locale="fr">
+        <h:head>
+            <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+            <meta name="viewport" content="width=device-width" />
+            <link rel="shortcut icon" href="resources/images/symbol.png" type="image/png"/>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:outputStylesheet name="bootstrap-3.3.6/css/bootstrap.min.css"/>
+            <h:outputStylesheet name="css/modern-business.css"/>
+
+
+        </h:head>
+
+        <h:body style="background-image: url('../resources/images/managerbg.png')">
+            <p:growl id="growl" life="5000" showDetail="true"/>
+
+
+            <h:form id="menuForm" style="margin: 0px">
+
+                <div class="aboveNav" style="padding: 0px; margin: 0px">
+
+
+
+                    <div class="row" style="padding: 0px; margin: 0px" >
+                        <div class="col-md-3">
+                            <i class="fa fa-map-marker"><h4>11 Résidence BAB Al Manar Marrakech</h4></i>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-clock-o"><h4>Mon – Sat: 9:00am–18:00pm</h4> </i>
+                        </div>
+
+                        <div class="col-md-2">
+                            <i class="fa fa-envelope"><h4>clients@bricola.ma</h4> </i>
+                        </div>
+                        <div class="col-md-2">
+                            <i class="fa fa-phone"><h4>+212 5 24059716 </h4> </i>
+                        </div>
+                        <div class="col-md-2">
+
+                            <div class="aboveNavSocial">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar" role="navigation">
+
+
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <p:commandLink class="navbar-brand" action="#"> 
+                            <p:graphicImage value="../resources/images/logo.png" style="width:120px;vertical-align: middle;margin: 0px;" alt="EDE logo"/>
+                        </p:commandLink>
+                        <!--<a class="navbar-brand" href="/bricola/faces/index.xhtml"> <img src="../resources/images/logo.png" style="width:120px;vertical-align: middle;margin: 0px;" alt="EDE logo"/></a>-->
+
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#"  class="dropdown-toggle" data-toggle="dropdown">structuel data<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Panel
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Trench
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Parcel
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Sub Panel
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            CCL
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Level
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        
+                                        <p:commandLink  class="nav-link" >
+                                            Layer
+                                        </p:commandLink>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exploitation<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Block
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Machine
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Position
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Movement
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Accessibility
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Treatment
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Opération
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Statut
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link" style="color:  black;">
+                                            Statut-Block
+                                        </p:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chimie<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Chemical Component  
+                                        </p:commandLink>
+                                    </li>
+                                    <li> 
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Chemical Component - Layer 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Sequence-Level 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Composition-Level-Sequence 
+                                        </p:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stock<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Stock 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Possibility-Storage 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Storage 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Unit Of Time 
+                                        </p:commandLink>
+                                    </li>
+                                    <li>
+                                        <p:commandLink  class="nav-link"  style="color:  black;">
+                                            Availability Machine
+                                        </p:commandLink>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                    <!-- /.container -->
+                </nav>
+            </h:form>
+
+            <p:layoutUnit position="center" id="pageLayout" >
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </h:body>
+    </f:view>
+</html>
