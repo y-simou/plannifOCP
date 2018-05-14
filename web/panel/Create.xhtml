@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PanelCreateDlg" widgetVar="PanelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreatePanelTitle}">
+            <h:form id="PanelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{panelController.selected != null}">
+                        <p:outputLabel value="CreatePanelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{panelController.selected.id}" title="CreatePanelTitle_id}" />
+                        <p:outputLabel value="CreatePanelLabel_surface}" for="surface" />
+                        <p:inputText id="surface" value="#{panelController.selected.surface}" title="CreatePanelTitle_surface}" />
+                        <p:outputLabel value="CreatePanelLabel_datePDebutExploitation}" for="datePDebutExploitation" />
+                        <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{panelController.selected.datePDebutExploitation}" title="EditPanelTitle_datePDebutExploitation}"  showOn="button"/>
+                        <p:outputLabel value="CreatePanelLabel_datePFinExploitation}" for="datePFinExploitation" />
+                        <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{panelController.selected.datePFinExploitation}" title="EditPanelTitle_datePFinExploitation}"  showOn="button"/>
+                        <p:outputLabel value="CreatePanelLabel_reserves}" for="reserves" />
+                        <p:inputText id="reserves" value="#{panelController.selected.reserves}" title="CreatePanelTitle_reserves}" />
+                        <p:outputLabel value="CreatePanelLabel_x}" for="x" />
+                        <p:inputText id="x" value="#{panelController.selected.x}" title="CreatePanelTitle_x}" />
+                        <p:outputLabel value="CreatePanelLabel_y}" for="y" />
+                        <p:inputText id="y" value="#{panelController.selected.y}" title="CreatePanelTitle_y}" />
+                        <p:outputLabel value="CreatePanelLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{panelController.selected.nom}" title="CreatePanelTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{panelController.create}" value="Save}" update="display,:PanelListForm:datalist,:growl" oncomplete="handleSubmit(args,'PanelCreateDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="PanelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

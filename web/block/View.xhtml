@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BlockViewDlg" widgetVar="BlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="200" showHeader="false">
+            <h:form id="BlockViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{blockController.selected != null}">
+                        <h:outputText value="Id"/>
+                        <h:outputText value="#{blockController.selected.id}" title="Id"/>
+                        <h:outputText value="Nom"/>
+                        <h:outputText value="#{blockController.selected.nom}" title="Nom"/>
+                        <h:outputText value="Puissance"/>
+                        <h:outputText value="#{blockController.selected.puissance}" title="Puissance"/>
+                        <h:outputText value="Volume"/>
+                        <h:outputText value="#{blockController.selected.volume}" title="Volume"/>
+                        <h:outputText value="Priority"/>
+                        <h:outputText value="#{blockController.selected.priority}" title="Priority"/>
+                        <h:outputText value="Parcel"/>
+                        <h:outputText value="#{blockController.selected.parcel.nom}" title="Parcel"/>
+                        <h:outputText value="Level"/>
+                        <h:outputText value="#{blockController.selected.level.nom}" title="Level"/>
+                    </p:panelGrid>
+                    <p:commandLink oncomplete="handleSubmit(args,'BlockViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

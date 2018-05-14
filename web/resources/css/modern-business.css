@@ -1,0 +1,329 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+
+
+
+@media (min-width: 992px) {
+    
+}
+
+.carousel-item {
+    height: 65vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.business-header {
+    height: 60vh;
+    min-height: 700px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h4,
+h5,
+h6 {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+}
+
+h3{
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+}
+
+h4{
+    color : #6c757d 
+}
+
+header.masthead {
+    position: relative;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 600px;
+}
+
+header.masthead .overlay {
+    position: absolute;
+    background-color: #212529;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+}
+
+header.masthead h1 {
+    font-size: 2rem;
+}
+
+@media (min-width: 800px) {
+    header.masthead {
+        padding-top: 12rem;
+        padding-bottom: 12rem;
+    }
+    header.masthead h1 {
+        font-size: 3rem;
+    }
+}
+
+.btn { background-color: #00539b; color: white  }
+.btn:hover { background-color: #00b1b0 ; color: white}
+
+.space { padding-right:0;
+         padding-left:0;
+}
+
+.header-top{
+    color: rgba(255, 255, 255, 0.8);
+    min-height: 40px;
+    padding-top: 10px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+nav{
+    height: 75px;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+
+#myFooter {
+    background-color: #f5f5f5;
+    color: #6c757d !important;
+    padding-top: 30px;
+}
+
+#myFooter .footer-copyright {
+    background-color: #e8e8e8;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#myFooter .row {
+    margin-bottom: 60px;
+}
+
+#myFooter .navbar-brand {
+    margin-top: 45px;
+    height: 65px;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: #6c757d;
+}
+
+#myFooter ul {
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+}
+
+#myFooter h5 {
+    font-size: 18px;
+    color: #6c757d;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#myFooter h2 a{
+    font-size: 50px;
+    text-align: center;
+    color: #6c757d;
+}
+
+#myFooter a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+#myFooter a:hover,
+#myFooter a:focus {
+    text-decoration: none;
+    color: black;
+}
+
+#myFooter .social-networks {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 16px;
+}
+
+#myFooter .social-networks a {
+    font-size: 32px;
+    color: #6c757d;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+#myFooter .social-networks a:hover {
+    text-decoration: none;
+}
+
+#myFooter .facebook:hover {
+    color: #0077e2;
+}
+
+#myFooter .google:hover {
+    color: #ef1a1a;
+}
+
+#myFooter .twitter:hover {
+    color: #00aced;
+}
+
+#myFooter .btn {
+    color: white;
+    background-color: #00539b;
+    border-radius: 20px;
+    border: none;
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    line-height: 25px;
+}
+
+#myFooter .btn:hover {
+    
+    background-color: #00b1b0;
+}
+
+
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+
+/* CSS used for positioning the footers at the bottom of the page. */
+/* You can remove this. */
+
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100%;
+}
+
+.content{
+   flex: 1 0 auto;
+   -webkit-flex: 1 0 auto;
+   min-height: 200px;
+}
+
+#myFooter{
+   flex: 0 0 auto;
+   -webkit-flex: 0 0 auto;
+}
+
+.navbar {
+    background-color: #f0efef;
+    color: #7a7777;
+    margin-bottom: 0px;
+    min-height: 60px;
+    height: 60px;
+}
+
+
+
+
+.navbar-nav > li > a:hover {
+    color: #00b1b0;
+    background: #f3f2f2;
+    font-weight: bold;
+    
+    
+}
+
+
+.navbar-nav > li > a {
+    color: #00539b;
+    font-size: 15px;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navbar-collapse{
+   margin-right: 25px;
+}
+
+.navbar-brand{
+    margin-top: 5px;
+    margin-left: 50px;
+    padding: 0px;
+    text-align: center;
+}
+
+.aboveNav{
+    vertical-align: middle;
+    line-height: 30px; 
+    height: 30px;
+    text-align: center;
+    background-color: #f3f2f2;
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: solid;
+    border-width: 1px;
+    width: 100%;
+    margin: 0px
+    
+}
+
+.aboveNav h4 {
+    font-size: 13px;
+    display: inline;
+    margin-left: 10px ;
+    color: #00b1b0;
+    font-weight: lighter;
+}
+
+.aboveNav i {
+    color: #00539b;
+}
+
+.aboveNavSocial a{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

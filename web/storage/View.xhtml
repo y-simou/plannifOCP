@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewStorageTitle}">
+            <h:form id="StorageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{storageController.selected != null}">
+                        <h:outputText value="ViewStorageLabel_stock}"/>
+                        <h:outputText value="#{storageController.selected.stock}" title="ViewStorageTitle_stock}"/>
+                        <h:outputText value="ViewStorageLabel_machine}"/>
+                        <h:outputText value="#{storageController.selected.machine}" title="ViewStorageTitle_machine}"/>
+                        <h:outputText value="ViewStorageLabel_block}"/>
+                        <h:outputText value="#{storageController.selected.block}" title="ViewStorageTitle_block}"/>
+                        <h:outputText value="ViewStorageLabel_dateTransport}"/>
+                        <h:outputText value="#{storageController.selected.dateTransport}" title="ViewStorageTitle_dateTransport}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="ViewStorageLabel_quantity}"/>
+                        <h:outputText value="#{storageController.selected.quantity}" title="ViewStorageTitle_quantity}"/>
+                        <h:outputText value="ViewStorageLabel_id}"/>
+                        <h:outputText value="#{storageController.selected.id}" title="ViewStorageTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="StorageViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

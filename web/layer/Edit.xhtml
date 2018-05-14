@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+       <p:dialog id="LayerEditDlg" widgetVar="LayerEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+
+            <h:form id="LayerEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Layer :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:inputText id="nom" value="#{layerController.selected.nom}" title="Name" />
+
+                                    <p:outputLabel value="Level :  " for="levelLayer" />
+                                    <p:selectOneMenu id="levelLayer" value="#{layerController.selected.level}" >
+                                        <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                       var="levelLayerItem"
+                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{layerController.update()}" onclick="handleSubmit(args, 'LayerEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'LayerEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

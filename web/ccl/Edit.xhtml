@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CCLEditDlg" widgetVar="CCLEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+            <h:form id="CCLEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Modifie CCL :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Nom" for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{cCLController.selected.nom}" title="Nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Sequence Level" for="sequenceLevel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="sequenceLevel" value="#{cCLController.selected.sequenceLevel}" >
+                                                <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                                               var="sequenceLevelItem"
+                                                               itemLabel="#{sequenceLevelItem.id}"
+                                                               itemValue="#{sequenceLevelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Sub Panel" for="subPanel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="subPanel" value="#{cCLController.selected.subPanel}" >
+                                                <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
+                                                               var="subPanelItem"
+                                                               itemLabel="#{subPanelItem.nom}"
+                                                               itemValue="#{subPanelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Surface" for="surface" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="surface" value="#{cCLController.selected.surface}" title="Surface" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Modifie" actionListener="#{cCLController.update()}" onclick="handleSubmit(args, 'CCLEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'CCLEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="ListTreatmentTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TreatmentListForm">
+                <p:panel header="ListTreatmentTitle}">
+                    <p:dataTable id="datalist" value="#{treatmentController.items}" var="item"
+                                 selectionMode="single" selection="#{treatmentController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_machine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.machine}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_operation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.operation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_block}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.block}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_temps}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.temps}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_chronologicalOrder}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.chronologicalOrder}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ListTreatmentTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{treatmentController.prepareCreate}" update=":TreatmentCreateForm" oncomplete="PF('TreatmentCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":TreatmentViewForm" oncomplete="PF('TreatmentViewDialog').show()" disabled="#{empty treatmentController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":TreatmentEditForm" oncomplete="PF('TreatmentEditDialog').show()" disabled="#{empty treatmentController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{treatmentController.delete()}" update=":growl,datalist" disabled="#{empty treatmentController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

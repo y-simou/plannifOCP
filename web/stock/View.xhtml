@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StockViewDlg" widgetVar="StockViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewStockTitle}">
+            <h:form id="StockViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stockController.selected != null}">
+                        <h:outputText value="ViewStockLabel_id}"/>
+                        <h:outputText value="#{stockController.selected.id}" title="ViewStockTitle_id}"/>
+                        <h:outputText value="ViewStockLabel_capacity}"/>
+                        <h:outputText value="#{stockController.selected.capacity}" title="ViewStockTitle_capacity}"/>
+                        <h:outputText value="ViewStockLabel_initialQte}"/>
+                        <h:outputText value="#{stockController.selected.initialQte}" title="ViewStockTitle_initialQte}"/>
+                        <h:outputText value="ViewStockLabel_nom}"/>
+                        <h:outputText value="#{stockController.selected.nom}" title="ViewStockTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="StockViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

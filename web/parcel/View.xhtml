@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewParcelTitle}">
+            <h:form id="ParcelViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{parcelController.selected != null}">
+                        <h:outputText value="ViewParcelLabel_id}"/>
+                        <h:outputText value="#{parcelController.selected.id}" title="ViewParcelTitle_id}"/>
+                        <h:outputText value="ViewParcelLabel_x}"/>
+                        <h:outputText value="#{parcelController.selected.x}" title="ViewParcelTitle_x}"/>
+                        <h:outputText value="ViewParcelLabel_y}"/>
+                        <h:outputText value="#{parcelController.selected.y}" title="ViewParcelTitle_y}"/>
+                        <h:outputText value="ViewParcelLabel_trench}"/>
+                        <h:outputText value="#{parcelController.selected.trench}" title="ViewParcelTitle_trench}"/>
+                        <h:outputText value="ViewParcelLabel_subPanel}"/>
+                        <h:outputText value="#{parcelController.selected.subPanel}" title="ViewParcelTitle_subPanel}"/>
+                        <h:outputText value="ViewParcelLabel_nom}"/>
+                        <h:outputText value="#{parcelController.selected.nom}" title="ViewParcelTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Close}" onclick="ParcelViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

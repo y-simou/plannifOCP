@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html" locale="fr">
+        <h:head>
+            <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+            <meta name="viewport" content="width=device-width" />
+            <link rel="shortcut icon" href="resources/images/symbol.png" type="image/png"/>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:outputStylesheet name="bootstrap-4.0.0/css/bootstrap.css"/>
+            <h:outputStylesheet name="css/crudcss.css"/>
+            <h:outputStylesheet name="css/style.css"/>
+            <h:outputStylesheet name="font-awesome-4.6.3/css/font-awesome.css"/>
+
+            <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+            <h:outputScript library="js" name="workerProfileJs.js"/>
+
+        </h:head>
+
+        <h:body>
+            <p:growl id="growl" life="5000" showDetail="true"/>
+
+
+            <h:form id="menuForm" style="margin: 0px">
+                <div class="aboveNav" style="padding: 0px; margin: 0px">
+
+                    <div class="row" style="padding: 0px; margin: 0px" >
+                        <div class="col-md-3">
+                            <h6><i class="fa fa-map-marker"/>Lot 660, Hay Moulay Rachid Ben Guerir, 43150</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <h6><i class="fa fa-clock-o"/>Mon – Sat: 9:00am–18:00pm</h6>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h6><i class="fa fa-envelope"/>yassine.simou@emines.um6p.ma</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <h6><i class="fa fa-phone"/>+212 525 072 855 </h6>
+                        </div>
+                        <div class="col-md-2">
+
+                            <div class="aboveNavSocial">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand navbar-dark bg-info">
+                    <a class="sidebar-toggle text-light mr-3"><i class="fa fa-bars"></i></a>
+                    <a href="../index.xhtml">
+                        <img src="../resources/images/ocpum6p.png" style="border-radius: 0%;height: 42px" width="150" />
+                    </a>
+                    <div class="navbar-collapse collapse" style="height: 45px">
+
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item dropdown">
+
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Structuel data
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right"  style="background-color: #17A2B8;">
+
+                                    <p:commandLink  class="nav-link" action="#{panelController.redirect()}">
+                                        Panel
+                                    </p:commandLink>
+                                    <p:commandLink  class="nav-link" action="#{trenchController.redirect()}">
+                                        Trench
+                                    </p:commandLink>
+                                    <p:commandLink  class="nav-link" action="#{parcelController.redirect()}">
+                                        Parcel
+                                    </p:commandLink>
+                                    <p:commandLink  class="nav-link" action="#{subPanelController.redirect()}">
+                                        Sub Panel
+                                    </p:commandLink>
+
+                                    <p:commandLink  class="nav-link" action="#{cCLController.redirect()}">
+                                        CCL
+                                    </p:commandLink>
+
+                                    <p:commandLink  class="nav-link" action="#{levelLayerController.redirect()}">
+                                        Level
+                                    </p:commandLink>
+
+                                    <p:commandLink  class="nav-link" action="#{layerController.redirect()}">
+                                        Layer
+                                    </p:commandLink>
+                                </div>
+                            </li>
+
+
+
+                            <li class="nav-item dropdown" style="width: 90px;">
+                                <a class="dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Chimie
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" style="background-color: #17A2B8;">
+                                    <p:commandLink   class="nav-link" action="#{chemicalComponentController.redirect()}">
+                                        Chemical Component 
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{chemicalComponentLayerController.redirect()}">
+                                        Chemical Component - Layer  
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{sequenceLevelController.redirect()}">
+                                        Sequence-Level  
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{compositionLevelSequenceController.redirect()}">
+                                        Composition-Level-Sequence  
+                                    </p:commandLink>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Exploitation
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" style="background-color: #17A2B8;">
+                                    <p:commandLink   class="nav-link" action="#{blockController.redirect()}" >
+                                        Block
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{machineController.redirect()}" >
+                                        Machine
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{positionController.redirect()}" >
+                                        Position
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{movementController.redirect()}" >
+                                        Movement
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{accessibilityController.redirect()}" >
+                                        Accessibility
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{treatmentController.redirect()}" >
+                                        Treatment
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{operationController.redirect()}" >
+                                        Opération
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{statutController.redirect()}" >
+                                        Statut
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{statutBlockController.redirect()}" >
+                                        Statut-Block
+                                    </p:commandLink>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Stock
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right"  style="background-color: #17A2B8;">
+                                    <p:commandLink   class="nav-link" action="#{stockController.redirect()}" >
+                                        Stock 
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{possibilityStorageController.redirect()}" >
+                                        Possibility-Storage
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{storageController.redirect()}" >
+                                        Storage 
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{unitOfTimeController.redirect()}" >
+                                        Unit Of Time  
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{availabilityMachineController.redirect()}" >
+                                        Availability Machine
+                                    </p:commandLink>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </h:form>
+
+            <p:layoutUnit position="center" id="pageLayout" >
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </h:body>
+    </f:view>
+</html>

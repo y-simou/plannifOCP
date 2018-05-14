@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OperationEditDlg" widgetVar="OperationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditOperationTitle}">
+            <h:form id="OperationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{operationController.selected != null}">
+                        <p:outputLabel value="EditOperationLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{operationController.selected.nom}" title="EditOperationTitle_nom}" />
+                        <p:outputLabel value="EditOperationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{operationController.selected.id}" title="EditOperationTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{operationController.update}" value="Save}" update="display,:OperationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OperationEditDialog');"/>
+                    <p:commandButton value="Cancel}" onclick="OperationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

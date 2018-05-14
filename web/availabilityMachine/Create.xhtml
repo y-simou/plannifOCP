@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AvailabilityMachineCreateDlg" widgetVar="AvailabilityMachineCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+
+            <h:form id="AvailabilityMachineCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Availability Machine :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Machine :  " for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{availabilityMachineController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Unit Of Time" for="unitOfTime" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="unitOfTime" value="#{availabilityMachineController.selected.unitOfTime}" >
+                                                <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
+                                                               var="unitOfTimeItem"
+                                                               itemValue="#{unitOfTimeItem}"
+                                                               itemLabel="#{unitOfTimeItem.unite}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="How many :" />
+                                        </p:column>
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Available ?" for="available" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="available" value="#{availabilityMachineController.selected.available}" style="width: 100px">
+                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
+                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{availabilityMachineController.create}" onclick="handleSubmit(args, 'AvailabilityMachineCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'AvailabilityMachineCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
