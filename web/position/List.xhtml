@@ -6,72 +6,94 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListPositionTitle}"></h:outputText>
+            <h:outputText value="Position"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="PositionListForm">
-                <p:panel header="ListPositionTitle}">
-                    <p:dataTable id="datalist" value="#{positionController.items}" var="item"
-                                 selectionMode="single" selection="#{positionController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <nav class="sidebar bg-dark">
+                    <p style="text-align: center;">
+                        <a href="../index.xhtml">
+                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
+                        </a>
+                    </p>
+                </nav>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPositionTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPositionTitle_x}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.x}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPositionTitle_y}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.y}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPositionTitle_datePosition}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.datePosition}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPositionTitle_nom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nom}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{positionController.prepareCreate}" update=":PositionCreateForm" oncomplete="PF('PositionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":PositionViewForm" oncomplete="PF('PositionViewDialog').show()" disabled="#{empty positionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":PositionEditForm" oncomplete="PF('PositionEditDialog').show()" disabled="#{empty positionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{positionController.destroy}" update=":growl,datalist" disabled="#{empty positionController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Position : </h1>
+                    <hr></hr>
+                    <h:form id="PositionListForm"><br></br>
+                        <div class="container">
+                            <p:dataTable value="#{positionController.items}" var="item" 
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         style="text-align: center;" rowStyleClass="high"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="X"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.x}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Y"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.y}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date Position"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.datePosition}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </p:column>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                                <p:column> 
+                                    <p:commandLink actionListener="#{positionController.delete(item)}" update=":PositionListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{positionController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":PositionEditForm" oncomplete="PF('PositionEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{positionController.setSelected(item)}" styleClass="margin" update=":PositionViewForm" oncomplete="PF('PositionViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton  icon="ui-icon-pencil" value="Create Position"  oncomplete="PF('PositionCreateDialog').show()" />
+                        </div>
+                        <br></br><hr></hr>
+
+
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
+
+            
         </ui:define>
     </ui:composition>
 

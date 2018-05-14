@@ -29,4 +29,9 @@ public class OperationFacade extends AbstractFacade<Operation> {
         super(Operation.class);
     }
     
+    public void delete(Operation operation){
+        getEntityManager().createQuery("DELETE FROM Treatment t where t.operation.id='"+ operation.getId() +"'").executeUpdate();
+        remove(operation);
+    }
+    
 }

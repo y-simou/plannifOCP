@@ -6,70 +6,89 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListMovementTitle}"></h:outputText>
+            <h:outputText value="Movement"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="MovementListForm">
-                <p:panel header="ListMovementTitle}">
-                    <p:dataTable id="datalist" value="#{movementController.items}" var="item"
-                                 selectionMode="single" selection="#{movementController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <nav class="sidebar bg-dark">
+                    <p style="text-align: center;">
+                        <a href="../index.xhtml">
+                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
+                        </a>
+                    </p>
+                </nav>
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Movement : </h1>
+                    <hr></hr>
+                    <h:form id="MovementListForm"><br></br>
+                        <div class="container">
+                            <p:dataTable value="#{movementController.items}" var="item" 
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         style="text-align: center;" rowStyleClass="high"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Machine"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.machine.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="From"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.depart.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="To"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.arrive.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Duration"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.duree}"/>
+                                </p:column>
+                                <p:column> 
+                                    <p:commandLink actionListener="#{movementController.delete(item)}" update=":MovementListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{movementController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":MovementEditForm" oncomplete="PF('MovementEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{movementController.setSelected(item)}" styleClass="margin" update=":MovementViewForm" oncomplete="PF('MovementViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton  icon="ui-icon-pencil" value="Create Movement"  oncomplete="PF('MovementCreateDialog').show()" />
+                        </div>
+                        <br></br><hr></hr>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListMovementTitle_machine}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.machine}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListMovementTitle_depart}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.depart}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListMovementTitle_arrive}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.arrive}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListMovementTitle_duree}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.duree}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListMovementTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{movementController.prepareCreate}" update=":MovementCreateForm" oncomplete="PF('MovementCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":MovementViewForm" oncomplete="PF('MovementViewDialog').show()" disabled="#{empty movementController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":MovementEditForm" oncomplete="PF('MovementEditDialog').show()" disabled="#{empty movementController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{movementController.destroy}" update=":growl,datalist" disabled="#{empty movementController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
+          
         </ui:define>
     </ui:composition>
 

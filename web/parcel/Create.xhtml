@@ -8,34 +8,79 @@
 
     <ui:composition>
 
-        <p:dialog id="ParcelCreateDlg" widgetVar="ParcelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateParcelTitle}">
-            <h:form id="ParcelCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{parcelController.selected != null}">
-                        <p:outputLabel value="CreateParcelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{parcelController.selected.id}" title="CreateParcelTitle_id}" />
-                        <p:outputLabel value="CreateParcelLabel_x}" for="x" />
-                        <p:inputText id="x" value="#{parcelController.selected.x}" title="CreateParcelTitle_x}" />
-                        <p:outputLabel value="CreateParcelLabel_y}" for="y" />
-                        <p:inputText id="y" value="#{parcelController.selected.y}" title="CreateParcelTitle_y}" />
-                        <p:outputLabel value="CreateParcelLabel_trench}" for="trench" />
-                        <p:selectOneMenu id="trench" value="#{parcelController.selected.trench}" >
-                            <f:selectItems value="#{trenchController.itemsAvailableSelectOne}"
-                                           var="trenchItem"
-                                           itemValue="#{trenchItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateParcelLabel_subPanel}" for="subPanel" />
-                        <p:selectOneMenu id="subPanel" value="#{parcelController.selected.subPanel}" >
-                            <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
-                                           var="subPanelItem"
-                                           itemValue="#{subPanelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateParcelLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{parcelController.selected.nom}" title="CreateParcelTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{parcelController.create}" value="Save}" update="display,:ParcelListForm:datalist,:growl" oncomplete="handleSubmit(args,'ParcelCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="ParcelCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="ParcelCreateDlg" widgetVar="ParcelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="300" showHeader="false">
+
+            <h:form id="ParcelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Parcel :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Name : " for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{parcelController.selected.nom}" title="Name" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:outputLabel value="X :" for="x" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="x" value="#{parcelController.selected.x}" title="x" />
+                                        </p:column>  <p:column>
+                                            <p:outputLabel value="Sub Panel :" for="subPanel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="subPanel" value="#{parcelController.selected.subPanel}" >
+                                                <f:selectItems value="#{subParcelController.itemsAvailableSelectOne}"
+                                                               var="subParcelItem"
+                                                               itemValue="#{subParcelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row> 
+
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Y :" for="y" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="y" value="#{parcelController.selected.y}" title="Y" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench :" for="trench" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{parcelController.selected.trench}" >
+                                                <f:selectItems value="#{trenchController.itemsAvailableSelectOne}"
+                                                               var="trenchItem"
+                                                               itemValue="#{trenchItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{parcelController.create}" onclick="handleSubmit(args, 'ParcelCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'ParcelCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

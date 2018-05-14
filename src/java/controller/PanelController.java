@@ -26,13 +26,13 @@ public class PanelController implements Serializable {
 
     public PanelController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/panel//List?faces-redirect=true";
     }
 
     public Panel getSelected() {
-        if (selected ==null) {
+        if (selected == null) {
             selected = new Panel();
         }
         return selected;
@@ -60,14 +60,18 @@ public class PanelController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Panel panel) {
+        ejbFacade.delete(panel);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class PanelController implements Serializable {
         }
         return items;
     }
-
 
     public Panel getPanel(java.lang.Long id) {
         return getFacade().find(id);

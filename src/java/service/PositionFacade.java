@@ -29,4 +29,9 @@ public class PositionFacade extends AbstractFacade<Position> {
         super(Position.class);
     }
     
+    public void delete(Position position){
+        getEntityManager().createQuery("DELETE FROM Movement m where m.arrive.id='"+ position.getId() +"' OR m.depart.id='"+ position.getId() +"'").executeUpdate();
+        remove(position);
+    }
+    
 }

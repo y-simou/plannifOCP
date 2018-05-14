@@ -8,26 +8,65 @@
 
     <ui:composition>
 
-        <p:dialog id="PositionCreateDlg" widgetVar="PositionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreatePositionTitle}">
-            <h:form id="PositionCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{positionController.selected != null}">
-                        <p:outputLabel value="CreatePositionLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{positionController.selected.id}" title="CreatePositionTitle_id}" />
-                        <p:outputLabel value="CreatePositionLabel_x}" for="x" />
-                        <p:inputText id="x" value="#{positionController.selected.x}" title="CreatePositionTitle_x}" />
-                        <p:outputLabel value="CreatePositionLabel_y}" for="y" />
-                        <p:inputText id="y" value="#{positionController.selected.y}" title="CreatePositionTitle_y}" />
-                        <p:outputLabel value="CreatePositionLabel_datePosition}" for="datePosition" />
-                        <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionController.selected.datePosition}" title="EditPositionTitle_datePosition}"  showOn="button"/>
-                        <p:outputLabel value="CreatePositionLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{positionController.selected.nom}" title="CreatePositionTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{positionController.create}" value="Save}" update="display,:PositionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PositionCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="PositionCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="PositionCreateDlg" widgetVar="PositionCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+
+            <h:form id="PositionCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Position :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Name :" for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{positionController.selected.nom}" title="Name" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Date Position :" for="datePosition" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionController.selected.datePosition}" title="Date Position"  showOn="button"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="X :" for="x" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="x" value="#{positionController.selected.x}" title="X" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Y :" for="y" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="y" value="#{positionController.selected.y}" title="Y" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{positionController.create}" onclick="handleSubmit(args, 'PositionCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'PositionCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
+
+      
 
     </ui:composition>
 </html>

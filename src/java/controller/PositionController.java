@@ -26,8 +26,8 @@ public class PositionController implements Serializable {
 
     public PositionController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/position/List?faces-redirect=true";
     }
 
@@ -60,14 +60,18 @@ public class PositionController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Position position) {
+        ejbFacade.delete(position);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

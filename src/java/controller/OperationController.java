@@ -26,13 +26,13 @@ public class OperationController implements Serializable {
 
     public OperationController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/operation/List?faces-redirect=true";
     }
 
     public Operation getSelected() {
-        if (selected == null ) {
+        if (selected == null) {
             selected = new Operation();
         }
         return selected;
@@ -60,14 +60,18 @@ public class OperationController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Operation operation) {
+        ejbFacade.delete(operation);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class OperationController implements Serializable {
         }
         return items;
     }
-
 
     public Operation getOperation(int id) {
         return getFacade().find(id);

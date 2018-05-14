@@ -29,4 +29,12 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
         super(Parcel.class);
     }
     
+    public void delete(Parcel parcel){
+        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Storage st where st.block.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Block b where b.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
+        remove(parcel);
+    }
+    
 }

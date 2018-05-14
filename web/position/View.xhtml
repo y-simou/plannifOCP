@@ -8,24 +8,55 @@
 
     <ui:composition>
 
-        <p:dialog id="PositionViewDlg" widgetVar="PositionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewPositionTitle}">
+
+        <p:dialog id="PositionViewDlg" widgetVar="PositionViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
             <h:form id="PositionViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{positionController.selected != null}">
-                        <h:outputText value="ViewPositionLabel_id}"/>
-                        <h:outputText value="#{positionController.selected.id}" title="ViewPositionTitle_id}"/>
-                        <h:outputText value="ViewPositionLabel_x}"/>
-                        <h:outputText value="#{positionController.selected.x}" title="ViewPositionTitle_x}"/>
-                        <h:outputText value="ViewPositionLabel_y}"/>
-                        <h:outputText value="#{positionController.selected.y}" title="ViewPositionTitle_y}"/>
-                        <h:outputText value="ViewPositionLabel_datePosition}"/>
-                        <h:outputText value="#{positionController.selected.datePosition}" title="ViewPositionTitle_datePosition}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="ViewPositionLabel_nom}"/>
-                        <h:outputText value="#{positionController.selected.nom}" title="ViewPositionTitle_nom}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="PositionViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{positionController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Name :" for="nom" />
+                                    <h:outputText id="nom" value=" #{positionController.selected.nom}" title="Name" />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputText value="X :"/>
+                                    <h:outputText value=" #{positionController.selected.x}" title="X"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Y :"/>
+                                    <h:outputText value=" #{positionController.selected.y}" title="Y"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h:outputText value="Date Position :"/>
+                                    <h:outputText value="  #{positionController.selected.datePosition}" title="Date Position">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </div>
+                                <hr></hr>
+                                <div class="col-md-12">
+                                    <p:commandLink oncomplete="handleSubmit(args,'PositionViewDialog');"> 
+                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                                    </p:commandLink>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

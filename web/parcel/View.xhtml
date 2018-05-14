@@ -3,29 +3,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
-        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewParcelTitle}">
+        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="270" showHeader="false">
             <h:form id="ParcelViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{parcelController.selected != null}">
-                        <h:outputText value="ViewParcelLabel_id}"/>
-                        <h:outputText value="#{parcelController.selected.id}" title="ViewParcelTitle_id}"/>
-                        <h:outputText value="ViewParcelLabel_x}"/>
-                        <h:outputText value="#{parcelController.selected.x}" title="ViewParcelTitle_x}"/>
-                        <h:outputText value="ViewParcelLabel_y}"/>
-                        <h:outputText value="#{parcelController.selected.y}" title="ViewParcelTitle_y}"/>
-                        <h:outputText value="ViewParcelLabel_trench}"/>
-                        <h:outputText value="#{parcelController.selected.trench}" title="ViewParcelTitle_trench}"/>
-                        <h:outputText value="ViewParcelLabel_subPanel}"/>
-                        <h:outputText value="#{parcelController.selected.subPanel}" title="ViewParcelTitle_subPanel}"/>
-                        <h:outputText value="ViewParcelLabel_nom}"/>
-                        <h:outputText value="#{parcelController.selected.nom}" title="ViewParcelTitle_nom}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="ParcelViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{parcelController.selected.id}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value="Sub Panel"/>
+                                    <h:outputText value=" #{parcelController.selected.subPanel.nom}" title="Sub Panel"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputText value="X"/>
+                                    <h:outputText value=" #{parcelController.selected.x}" title="X"/>
+                                </div>
+
+                            </div>
+                            <hr></hr>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputText value="Name :"/>
+                                    <h:outputText value=" #{parcelController.selected.nom}" title="Name"/>
+                                </div> 
+                                <div class="col-md-4">
+                                    <h:outputText value="Trench :"/>
+                                    <h:outputText value=" #{parcelController.selected.trench.nom}" title="Trench"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputText value="Y"/>
+                                    <h:outputText value=" #{parcelController.selected.y}" title="Y"/>
+                                </div>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'ParcelViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

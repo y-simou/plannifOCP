@@ -66,8 +66,8 @@ public class ParcelController implements Serializable {
         ejbFacade.edit(selected);
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Parcel parcel) {
+        ejbFacade.delete(parcel);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

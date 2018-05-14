@@ -8,38 +8,78 @@
 
     <ui:composition>
 
-        <p:dialog id="MovementCreateDlg" widgetVar="MovementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateMovementTitle}">
-            <h:form id="MovementCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{movementController.selected != null}">
-                        <p:outputLabel value="CreateMovementLabel_machine}" for="machine" />
-                        <p:selectOneMenu id="machine" value="#{movementController.selected.machine}" >
-                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                           var="machineItem"
-                                           itemValue="#{machineItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateMovementLabel_depart}" for="depart" />
-                        <p:selectOneMenu id="depart" value="#{movementController.selected.depart}" >
-                            <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
-                                           var="departItem"
-                                           itemValue="#{departItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateMovementLabel_arrive}" for="arrive" />
-                        <p:selectOneMenu id="arrive" value="#{movementController.selected.arrive}" >
-                            <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
-                                           var="arriveItem"
-                                           itemValue="#{arriveItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateMovementLabel_duree}" for="duree" />
-                        <p:inputText id="duree" value="#{movementController.selected.duree}" title="CreateMovementTitle_duree}" />
-                        <p:outputLabel value="CreateMovementLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{movementController.selected.id}" title="CreateMovementTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{movementController.create}" value="Save}" update="display,:MovementListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovementCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="MovementCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="MovementCreateDlg" widgetVar="MovementCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="310" showHeader="false">
+
+            <h:form id="MovementCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Movement :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="Machine :" for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{movementController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemLabel="#{machineItem.nom}"
+                                                               itemValue="#{machineItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="From" for="depart" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="depart" value="#{movementController.selected.depart}" >
+                                                <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                                               var="departItem"
+                                                               itemLabel="#{departItem.nom}"
+                                                               itemValue="#{departItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="To" for="arrive" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="arrive" value="#{movementController.selected.arrive}" >
+                                                <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                                               var="arriveItem"
+                                                               itemLabel="#{arriveItem.nom}"
+                                                               itemValue="#{arriveItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Duration" for="duree" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="duree" value="#{movementController.selected.duree}" title="Duration" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{movementController.create}" onclick="handleSubmit(args, 'MovementCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'MovementCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
+
 
     </ui:composition>
 </html>

@@ -26,13 +26,13 @@ public class MovementController implements Serializable {
 
     public MovementController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/movement/List?faces-redirect=true";
     }
 
     public Movement getSelected() {
-        if (selected== null) {
+        if (selected == null) {
             selected = new Movement();
         }
         return selected;
@@ -60,25 +60,28 @@ public class MovementController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Movement movement) {
+        ejbFacade.remove(movement);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<Movement> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }
-
 
     public Movement getMovement(java.lang.Long id) {
         return getFacade().find(id);
