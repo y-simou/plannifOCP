@@ -24,6 +24,10 @@ public class ChemicalComponentController implements Serializable {
     private List<ChemicalComponent> items = null;
     private ChemicalComponent selected;
 
+    public String redirect() {
+        return "/chemicalComponent/List?faces-redirect=true";
+    }
+
     public ChemicalComponentController() {
     }
 
@@ -56,14 +60,18 @@ public class ChemicalComponentController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(ChemicalComponent chemicalComponent) {
+        ejbFacade.remove(chemicalComponent);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -74,7 +82,6 @@ public class ChemicalComponentController implements Serializable {
         }
         return items;
     }
-
 
     public ChemicalComponent getChemicalComponent(java.lang.Long id) {
         return getFacade().find(id);

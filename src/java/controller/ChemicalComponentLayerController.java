@@ -27,6 +27,10 @@ public class ChemicalComponentLayerController implements Serializable {
     public ChemicalComponentLayerController() {
     }
 
+    public String redirect() {
+        return "/chemicalComponentLayer/List?faces-redirect=true";
+    }
+
     public ChemicalComponentLayer getSelected() {
         if (selected == null) {
             selected = new ChemicalComponentLayer();
@@ -55,26 +59,29 @@ public class ChemicalComponentLayerController implements Serializable {
     }
 
     public void create() {
-       ejbFacade.create(selected);
+        ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
-       ejbFacade.edit(selected);
+        ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void delete(ChemicalComponentLayer chemicalComponentLayer) {
+        ejbFacade.remove(chemicalComponentLayer);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<ChemicalComponentLayer> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }
-
 
     public ChemicalComponentLayer getChemicalComponentLayer(java.lang.Long id) {
         return getFacade().find(id);

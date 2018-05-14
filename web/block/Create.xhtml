@@ -8,36 +8,86 @@
 
     <ui:composition>
 
-        <p:dialog id="BlockCreateDlg" widgetVar="BlockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateBlockTitle}">
-            <h:form id="BlockCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{blockController.selected != null}">
-                        <p:outputLabel value="CreateBlockLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{blockController.selected.id}" title="CreateBlockTitle_id}" />
-                        <p:outputLabel value="CreateBlockLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{blockController.selected.nom}" title="CreateBlockTitle_nom}" />
-                        <p:outputLabel value="CreateBlockLabel_puissance}" for="puissance" />
-                        <p:inputText id="puissance" value="#{blockController.selected.puissance}" title="CreateBlockTitle_puissance}" />
-                        <p:outputLabel value="CreateBlockLabel_volume}" for="volume" />
-                        <p:inputText id="volume" value="#{blockController.selected.volume}" title="CreateBlockTitle_volume}" />
-                        <p:outputLabel value="CreateBlockLabel_priority}" for="priority" />
-                        <p:inputText id="priority" value="#{blockController.selected.priority}" title="CreateBlockTitle_priority}" />
-                        <p:outputLabel value="CreateBlockLabel_parcel}" for="parcel" />
-                        <p:selectOneMenu id="parcel" value="#{blockController.selected.parcel}" >
-                            <f:selectItems value="#{parcelController.itemsAvailableSelectOne}"
-                                           var="parcelItem"
-                                           itemValue="#{parcelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateBlockLabel_level}" for="level" />
-                        <p:selectOneMenu id="level" value="#{blockController.selected.level}" >
-                            <f:selectItems value="#{levelController.itemsAvailableSelectOne}"
-                                           var="levelItem"
-                                           itemValue="#{levelItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{blockController.create}" value="Save}" update="display,:BlockListForm:datalist,:growl" oncomplete="handleSubmit(args,'BlockCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="BlockCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="BlockCreateDlg" widgetVar="BlockCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+
+            <h:form id="BlockCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Block :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Nom :  " for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{blockController.selected.nom}" title="Nom" />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Puissance" for="puissance" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="puissance" value="#{blockController.selected.puissance}" title="Puissance" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Volume" for="volume" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="volume" value="#{blockController.selected.volume}" title="Volume" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Priority" for="priority" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="priority" value="#{blockController.selected.priority}" title="Priority" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel" for="parcel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{blockController.selected.parcel}" >
+                                                <f:selectItems value="#{parcelController.itemsAvailableSelectOne}"
+                                                               var="parcelItem"
+                                                               itemLabel="#{parcelItem.nom}"
+                                                               itemValue="#{parcelItem}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level" for="level" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{blockController.selected.level}" >
+                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                               var="levelItem"
+                                                               itemLabel="#{levelItem.nom}"
+                                                               itemValue="#{levelItem}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{blockController.create}" onclick="handleSubmit(args, 'BlockCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'BlockCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

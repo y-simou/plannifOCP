@@ -26,6 +26,10 @@ public class UnitOfTimeController implements Serializable {
 
     public UnitOfTimeController() {
     }
+    
+    public String redirect(){
+        return "/unitOfTime/List?faces-redirect=true";
+    }
 
     public UnitOfTime getSelected() {
         if (selected == null) {

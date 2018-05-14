@@ -9,9 +9,9 @@
     <ui:composition>
         <p:dialog id="AccessibilityViewDlg" widgetVar="AccessibilityViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
             <h:form id="AccessibilityViewForm">
-                <h:panelGroup id="display">
+                <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
-                        <h4 align="center">More information :</h4>
+                        <h4 align="center">More informations :</h4>
                         <hr></hr>
                         <br></br>
                         <div class="container" align="center">
@@ -32,14 +32,16 @@
                                     <h:outputText value="#{accessibilityController.selected.machine.nom}" />
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="#{item.accessibile ? 'accessible' : 'not accessible'}"/>
+                                    <h:outputText value="#{accessibilityController.selected.accessibile ? 'accessible' : 'not accessible'}"/>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <hr></hr>
                         <p:commandLink oncomplete="handleSubmit(args,'AccessibilityViewDialog');"> 
                             <h:graphicImage value="../resources/images/retour.png" alt="retour" />
                         </p:commandLink>
+                    </div>
+                        
                 </h:panelGroup>
             </h:form>
         </p:dialog>

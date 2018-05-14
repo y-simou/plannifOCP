@@ -26,6 +26,10 @@ public class AvailabilityMachineController implements Serializable {
 
     public AvailabilityMachineController() {
     }
+    
+    public String redirect(){
+        return "/availabilityMachine/List?faces-redirect=true";
+    }
 
     public AvailabilityMachine getSelected() {
         if(selected==null)
@@ -55,21 +59,25 @@ public class AvailabilityMachineController implements Serializable {
 
     public void create() {
        ejbFacade.create(selected);
+       selected = null;
+       items = null;
     }
 
     public void update() {
        ejbFacade.edit(selected);
+       selected = null;
+       items = null;
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
+    public void delete(AvailabilityMachine machine) {
+      ejbFacade.remove(machine);
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<AvailabilityMachine> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

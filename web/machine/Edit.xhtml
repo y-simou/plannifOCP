@@ -8,24 +8,61 @@
 
     <ui:composition>
 
-        <p:dialog id="MachineEditDlg" widgetVar="MachineEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditMachineTitle}">
-            <h:form id="MachineEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{machineController.selected != null}">
-                        <p:outputLabel value="EditMachineLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{machineController.selected.id}" title="EditMachineTitle_id}" />
-                        <p:outputLabel value="EditMachineLabel_designation}" for="designation" />
-                        <p:inputText id="designation" value="#{machineController.selected.designation}" title="EditMachineTitle_designation}" />
-                        <p:outputLabel value="EditMachineLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{machineController.selected.type}" title="EditMachineTitle_type}" />
-                        <p:outputLabel value="EditMachineLabel_rendement}" for="rendement" />
-                        <p:inputText id="rendement" value="#{machineController.selected.rendement}" title="EditMachineTitle_rendement}" />
-                        <p:outputLabel value="EditMachineLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{machineController.selected.nom}" title="EditMachineTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{machineController.update}" value="Save}" update="display,:MachineListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MachineEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="MachineEditDialog.hide()"/>
-                </h:panelGroup>
+          <p:dialog id="MachineEditDlg" widgetVar="MachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="340" showHeader="false">
+
+            <h:form id="MachineEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Machine :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Name" for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{machineController.selected.nom}" title="Name" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Type" for="type" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="type" value="#{machineController.selected.type}" title="Type" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Designation" for="designation" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputTextarea rows="3" cols="30" id="designation" value="#{machineController.selected.designation}" title="Designation" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Rendement" for="rendement" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="rendement" value="#{machineController.selected.rendement}" title="Rendement" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{machineController.update()}" onclick="handleSubmit(args, 'MachineEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'MachineEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

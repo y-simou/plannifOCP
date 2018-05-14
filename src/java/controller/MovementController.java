@@ -26,6 +26,10 @@ public class MovementController implements Serializable {
 
     public MovementController() {
     }
+    
+    public String redirect(){
+        return "/movement/List?faces-redirect=true";
+    }
 
     public Movement getSelected() {
         if (selected== null) {

@@ -8,32 +8,63 @@
 
     <ui:composition>
 
-        <p:dialog id="ChemicalComponentLayerEditDlg" widgetVar="ChemicalComponentLayerEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditChemicalComponentLayerTitle}">
-            <h:form id="ChemicalComponentLayerEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{chemicalComponentLayerController.selected != null}">
-                        <p:outputLabel value="EditChemicalComponentLayerLabel_layer}" for="layer" />
-                        <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.layer}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{layerController.itemsAvailableSelectOne}"
-                                           var="layerItem"
-                                           itemValue="#{layerItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditChemicalComponentLayerLabel_chemicalComponent}" for="chemicalComponent" />
-                        <p:selectOneMenu id="chemicalComponent" value="#{chemicalComponentLayerController.selected.chemicalComponent}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{chemicalComponentController.itemsAvailableSelectOne}"
-                                           var="chemicalComponentItem"
-                                           itemValue="#{chemicalComponentItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditChemicalComponentLayerLabel_teneur}" for="teneur" />
-                        <p:inputText id="teneur" value="#{chemicalComponentLayerController.selected.teneur}" title="EditChemicalComponentLayerTitle_teneur}" />
-                        <p:outputLabel value="EditChemicalComponentLayerLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{chemicalComponentLayerController.selected.id}" title="EditChemicalComponentLayerTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{chemicalComponentLayerController.update}" value="Save}" update="display,:ChemicalComponentLayerListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ChemicalComponentLayerEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="ChemicalComponentLayerEditDialog.hide()"/>
-                </h:panelGroup>
+     <p:dialog id="ChemicalComponentLayerEditDlg" widgetVar="ChemicalComponentLayerEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="750" height="260" showHeader="false">
+
+            <h:form id="ChemicalComponentLayerEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Chemical Component Layer :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Layer" for="layer" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.layer}" >
+                                                <f:selectItems value="#{layerController.itemsAvailableSelectOne}"
+                                                               var="layerItem"
+                                                               itemLabel="#{layerItem.nom}"
+                                                               itemValue="#{layerItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Chemical Component" for="chemicalComponent" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="chemicalComponent" value="#{chemicalComponentLayerController.selected.chemicalComponent}" >
+                                                <f:selectItems value="#{chemicalComponentController.itemsAvailableSelectOne}"
+                                                               var="chemicalComponentItem"
+                                                               itemLabel="#{chemicalComponentItem.nom}"
+                                                               itemValue="#{chemicalComponentItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Teneur" for="teneur" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="teneur" value="#{chemicalComponentLayerController.selected.teneur}" title="Teneur" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{chemicalComponentLayerController.update()}" onclick="handleSubmit(args, 'ChemicalComponentLayerEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'ChemicalComponentLayerEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

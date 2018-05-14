@@ -27,6 +27,10 @@ public class CompositionLevelSequenceController implements Serializable {
     public CompositionLevelSequenceController() {
     }
 
+    public String redirect() {
+        return "/compositionLevelSequence/List?faces-redirect=true";
+    }
+
     public CompositionLevelSequence getSelected() {
         if (selected == null) {
             selected = new CompositionLevelSequence();
@@ -57,14 +61,18 @@ public class CompositionLevelSequenceController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(CompositionLevelSequence compositionLevelSequence) {
+        ejbFacade.remove(compositionLevelSequence);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -75,7 +83,6 @@ public class CompositionLevelSequenceController implements Serializable {
         }
         return items;
     }
-
 
     public CompositionLevelSequence getCompositionLevelSequence(java.lang.Long id) {
         return getFacade().find(id);

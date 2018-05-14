@@ -50,6 +50,8 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+
 @-ms-viewport {
   width: device-width;
 }
@@ -3853,15 +3855,13 @@ tbody.collapse.show {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  font: large bold ;
   font-size: 20px;
-  color: #689801;
-  background-color: #d9d9d9;
-  width: 140px;
+  color: #fff;
+  background-color: #17A2B8;
+  width: 150px;
 }
 
-.nav-link:hover, .nav-link:focus {
-  text-decoration: none;
-}
 
 .nav-link.disabled {
   color: #6c757d;
@@ -3893,7 +3893,7 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  font-size: 15px;
+  font-size: 20px;
   color: #689801;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
@@ -8979,3 +8979,4 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+

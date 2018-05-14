@@ -3,23 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
-        <p:dialog id="ChemicalComponentEditDlg" widgetVar="ChemicalComponentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditChemicalComponentTitle}">
-            <h:form id="ChemicalComponentEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{chemicalComponentController.selected != null}">
-                        <p:outputLabel value="EditChemicalComponentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{chemicalComponentController.selected.id}" title="EditChemicalComponentTitle_id}" />
-                        <p:outputLabel value="EditChemicalComponentLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{chemicalComponentController.selected.nom}" title="EditChemicalComponentTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{chemicalComponentController.update}" value="Save}" update="display,:ChemicalComponentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ChemicalComponentEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="ChemicalComponentEditDialog.hide()"/>
-                </h:panelGroup>
+       <p:dialog id="ChemicalComponentEditDlg" widgetVar="ChemicalComponentEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="350" height="250" showHeader="false">
+
+            <h:form id="ChemicalComponentEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit ChemicalComponent :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="2" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+
+                                    <p:outputLabel value="Name :  " for="nom" />
+                                    <p:inputText id="nom" value="#{chemicalComponentController.selected.nom}" title="Name" />
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{chemicalComponentController.update()}" onclick="handleSubmit(args, 'ChemicalComponentEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'ChemicalComponentEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

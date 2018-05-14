@@ -8,36 +8,70 @@
 
     <ui:composition>
 
-        <p:dialog id="CCLEditDlg" widgetVar="CCLEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditCCLTitle}">
-            <h:form id="CCLEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{cCLController.selected != null}">
-                        <p:outputLabel value="EditCCLLabel_sousPanneau}" for="sousPanneau" />
-                        <p:inputText id="sousPanneau" value="#{cCLController.selected.sousPanneau}" title="EditCCLTitle_sousPanneau}" />
-                        <p:outputLabel value="EditCCLLabel_sequenceLevel}" for="sequenceLevel" />
-                        <p:selectOneMenu id="sequenceLevel" value="#{cCLController.selected.sequenceLevel}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                           var="sequenceLevelItem"
-                                           itemValue="#{sequenceLevelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditCCLLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{cCLController.selected.id}" title="EditCCLTitle_id}" />
-                        <p:outputLabel value="EditCCLLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{cCLController.selected.nom}" title="EditCCLTitle_nom}" />
-                        <p:outputLabel value="EditCCLLabel_subPanel}" for="subPanel" />
-                        <p:selectOneMenu id="subPanel" value="#{cCLController.selected.subPanel}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
-                                           var="subPanelItem"
-                                           itemValue="#{subPanelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditCCLLabel_surface}" for="surface" />
-                        <p:inputText id="surface" value="#{cCLController.selected.surface}" title="EditCCLTitle_surface}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{cCLController.update}" value="Save}" update="display,:CCLListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CCLEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="CCLEditDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="CCLEditDlg" widgetVar="CCLEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+            <h:form id="CCLEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Modifie CCL :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Nom" for="nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="nom" value="#{cCLController.selected.nom}" title="Nom" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Sequence Level" for="sequenceLevel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="sequenceLevel" value="#{cCLController.selected.sequenceLevel}" >
+                                                <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                                               var="sequenceLevelItem"
+                                                               itemLabel="#{sequenceLevelItem.id}"
+                                                               itemValue="#{sequenceLevelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Sub Panel" for="subPanel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="subPanel" value="#{cCLController.selected.subPanel}" >
+                                                <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
+                                                               var="subPanelItem"
+                                                               itemLabel="#{subPanelItem.nom}"
+                                                               itemValue="#{subPanelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Surface" for="surface" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="surface" value="#{cCLController.selected.surface}" title="Surface" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Modifie" actionListener="#{cCLController.update()}" onclick="handleSubmit(args, 'CCLEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'CCLEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

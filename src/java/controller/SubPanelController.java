@@ -26,6 +26,10 @@ public class SubPanelController implements Serializable {
 
     public SubPanelController() {
     }
+    
+    public String redirect(){
+        return "/subPanel/List?faces-redirect=true";
+    }
 
     public SubPanel getSelected() {
         if (selected == null ) {

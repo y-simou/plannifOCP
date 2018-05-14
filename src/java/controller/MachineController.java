@@ -27,6 +27,10 @@ public class MachineController implements Serializable {
     public MachineController() {
     }
 
+    public String redirect() {
+        return "/machine/List?faces-redirect=true";
+    }
+
     public Machine getSelected() {
         if (selected == null) {
             selected = new Machine();
@@ -56,14 +60,18 @@ public class MachineController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Machine machine) {
+        ejbFacade.delete(machine);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -74,7 +82,6 @@ public class MachineController implements Serializable {
         }
         return items;
     }
-
 
     public Machine getMachine(java.lang.Long id) {
         return getFacade().find(id);

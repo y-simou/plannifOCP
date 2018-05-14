@@ -26,6 +26,10 @@ public class StockController implements Serializable {
 
     public StockController() {
     }
+    
+    public String redirect(){
+        return "/stock/List?faces-redirect=true";
+    }
 
     public Stock getSelected() {
         if (selected == null) {

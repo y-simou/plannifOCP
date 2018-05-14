@@ -6,64 +6,83 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListCompositionLevelSequenceTitle}"></h:outputText>
+            <h:outputText value="Composition Level Sequence"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="CompositionLevelSequenceListForm">
-                <p:panel header="ListCompositionLevelSequenceTitle}">
-                    <p:dataTable id="datalist" value="#{compositionLevelSequenceController.items}" var="item"
-                                 selectionMode="single" selection="#{compositionLevelSequenceController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <nav class="sidebar bg-dark">
+                    <p style="text-align: center;">
+                        <a href="../index.xhtml">
+                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
+                        </a>
+                    </p>
+                </nav>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListCompositionLevelSequenceTitle_level}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.level}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListCompositionLevelSequenceTitle_sequenceLevel}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sequenceLevel}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListCompositionLevelSequenceTitle_existe}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.existe}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListCompositionLevelSequenceTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{compositionLevelSequenceController.prepareCreate}" update=":CompositionLevelSequenceCreateForm" oncomplete="PF('CompositionLevelSequenceCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":CompositionLevelSequenceViewForm" oncomplete="PF('CompositionLevelSequenceViewDialog').show()" disabled="#{empty compositionLevelSequenceController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":CompositionLevelSequenceEditForm" oncomplete="PF('CompositionLevelSequenceEditDialog').show()" disabled="#{empty compositionLevelSequenceController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{compositionLevelSequenceController.delete()}" update=":growl,datalist" disabled="#{empty compositionLevelSequenceController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Composition Level Sequence : </h1>
+                    <hr></hr>
+                    <h:form id="CompositionLevelSequenceListForm"><br></br>
+                        <div class="container">
+                            <p:dataTable value="#{compositionLevelSequenceController.items}" var="item" 
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         style="text-align: center;" rowStyleClass="high"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Level"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.level}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Sequence Level"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sequenceLevel}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Existe"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.existe ? 'existe' : 'Don t existe'}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandLink actionListener="#{compositionLevelSequenceController.delete(item)}" update=":CompositionLevelSequenceListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{compositionLevelSequenceController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":CompositionLevelSequenceEditForm" oncomplete="PF('CompositionLevelSequenceEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{compositionLevelSequenceController.setSelected(item)}" styleClass="margin" update=":CompositionLevelSequenceViewForm" oncomplete="PF('CompositionLevelSequenceViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton  icon="ui-icon-pencil" value="Create Composition Level Sequence"  oncomplete="PF('CompositionLevelSequenceCreateDialog').show()" />
+                        </div>
+                        <br></br><hr></hr>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

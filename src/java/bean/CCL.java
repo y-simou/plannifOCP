@@ -31,7 +31,7 @@ public class CCL implements Serializable {
     private String surface;
     
 
-    public SubPanel getSousPanneau() {
+    public SubPanel getSubPanel() {
         if(subPanel==null){
            subPanel = new SubPanel();
         }
@@ -51,7 +51,7 @@ public class CCL implements Serializable {
     }
     
 
-    public void setSousPanneau(SubPanel subPanel) {
+    public void setSubPanel(SubPanel subPanel) {
         this.subPanel = subPanel;
     }
 
@@ -82,13 +82,6 @@ public class CCL implements Serializable {
         this.nom = nom;
     }
 
-    public SubPanel getSubPanel() {
-        return subPanel;
-    }
-
-    public void setSubPanel(SubPanel subPanel) {
-        this.subPanel = subPanel;
-    }
 
     public String getSurface() {
         return surface;

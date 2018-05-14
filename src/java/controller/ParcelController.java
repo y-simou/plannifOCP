@@ -26,6 +26,10 @@ public class ParcelController implements Serializable {
 
     public ParcelController() {
     }
+    
+    public String redirect(){
+        return "/parcel/List?faces-redirect=true";
+    }
 
     public Parcel getSelected() {
         if (selected ==null) {

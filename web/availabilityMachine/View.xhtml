@@ -7,19 +7,40 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="AvailabilityMachineViewDlg" widgetVar="AvailabilityMachineViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewAvailabilityMachineTitle}">
+        <p:dialog id="AvailabilityMachineViewDlg" widgetVar="AvailabilityMachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="750" height="250" showHeader="false">
             <h:form id="AvailabilityMachineViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{availabilityMachineController.selected != null}">
-                        <h:outputText value="ViewAvailabilityMachineLabel_id}"/>
-                        <h:outputText value="#{availabilityMachineController.selected.id}" title="ViewAvailabilityMachineTitle_id}"/>
-                        <h:outputText value="ViewAvailabilityMachineLabel_machine}"/>
-                        <h:outputText value="#{availabilityMachineController.selected.machine}" title="ViewAvailabilityMachineTitle_machine}"/>
-                        <h:outputText value="ViewAvailabilityMachineLabel_unitOfTime}"/>
-                        <h:outputText value="#{availabilityMachineController.selected.unitOfTime}" title="ViewAvailabilityMachineTitle_unitOfTime}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="AvailabilityMachineViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value="#{availabilityMachineController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="machine :"/>
+                                    <h:outputText value="#{availabilityMachineController.selected.machine.nom}" />
+                                </div>
+                            </div>
+                        <hr></hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Time :"/>
+                                    <h:outputText value="#{availabilityMachineController.selected.unitOfTime.unite}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="#{availabilityMachineController.selected.available ? 'available' : 'not available'}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'AvailabilityMachineViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

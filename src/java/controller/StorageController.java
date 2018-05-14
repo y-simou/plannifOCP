@@ -26,6 +26,10 @@ public class StorageController implements Serializable {
 
     public StorageController() {
     }
+    
+    public String redirect(){
+        return "/storage/List?faces-redirect=true";
+    }
 
     public Storage getSelected() {
         if (selected == null) {

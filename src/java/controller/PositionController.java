@@ -26,6 +26,10 @@ public class PositionController implements Serializable {
 
     public PositionController() {
     }
+    
+    public String redirect(){
+        return "/position/List?faces-redirect=true";
+    }
 
     public Position getSelected() {
         if (selected == null) {

@@ -75,7 +75,7 @@ public class CompositionLevelSequence implements Serializable {
         return existe;
     }
 
-    public void isExiste(Boolean existe) {
+    public void setExiste(Boolean existe) {
         this.existe = existe;
     }
     

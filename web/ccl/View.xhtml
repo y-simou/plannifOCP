@@ -7,25 +7,47 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="CCLViewDlg" widgetVar="CCLViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewCCLTitle}">
+        <p:dialog id="CCLViewDlg" widgetVar="CCLViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
             <h:form id="CCLViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{cCLController.selected != null}">
-                        <h:outputText value="ViewCCLLabel_sousPanneau}"/>
-                        <h:outputText value="#{cCLController.selected.sousPanneau}" title="ViewCCLTitle_sousPanneau}"/>
-                        <h:outputText value="ViewCCLLabel_sequenceLevel}"/>
-                        <h:outputText value="#{cCLController.selected.sequenceLevel}" title="ViewCCLTitle_sequenceLevel}"/>
-                        <h:outputText value="ViewCCLLabel_id}"/>
-                        <h:outputText value="#{cCLController.selected.id}" title="ViewCCLTitle_id}"/>
-                        <h:outputText value="ViewCCLLabel_nom}"/>
-                        <h:outputText value="#{cCLController.selected.nom}" title="ViewCCLTitle_nom}"/>
-                        <h:outputText value="ViewCCLLabel_subPanel}"/>
-                        <h:outputText value="#{cCLController.selected.subPanel}" title="ViewCCLTitle_subPanel}"/>
-                        <h:outputText value="ViewCCLLabel_surface}"/>
-                        <h:outputText value="#{cCLController.selected.surface}" title="ViewCCLTitle_surface}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="CCLViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value="#{cCLController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Nom :"/>
+                                    <h:outputText value="#{cCLController.selected.nom}" />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Surface :" />
+                                    <h:outputText value="#{cCLController.selected.surface}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Sub Panel :"/>
+                                    <h:outputText value="#{cCLController.selected.subPanel.nom}" />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Sequence Level :"/>
+                                    <h:outputText value="#{cCLController.selected.sequenceLevel.id}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <p:commandLink oncomplete="handleSubmit(args,'CCLViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

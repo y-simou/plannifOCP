@@ -26,6 +26,10 @@ public class OperationController implements Serializable {
 
     public OperationController() {
     }
+    
+    public String redirect(){
+        return "/operation/List?faces-redirect=true";
+    }
 
     public Operation getSelected() {
         if (selected == null ) {

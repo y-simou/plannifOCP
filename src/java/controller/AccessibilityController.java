@@ -14,37 +14,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.context.RequestContext;
 
 @Named("accessibilityController")
 @SessionScoped
 public class AccessibilityController implements Serializable {
 
     @EJB
-    private service.AccessibilityFacade ejbFacade;
+    private AccessibilityFacade ejbFacade;
     private List<Accessibility> items = null;
     private Accessibility selected;
 
-    
-    
-    public void editDialog(Accessibility access){
-        selected = access;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println(selected);
-        context.update("AccessibilityEditForm");
-        context.execute("PF('AccessibilityEditDialog').show();");
-    }
-    
-    public void viewMore(Accessibility access){
-        selected = access;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println(access);
-        context.update("AccessibilityViewForm");
-        context.execute("PF('AccessibilityViewDialog').show();");
-    }
-    
-    
     public AccessibilityController() {
+    }
+    
+    public String redirect(){
+        return "/accessibility/List?faces-redirect=true";
     }
 
     public Accessibility getSelected() {
@@ -75,18 +59,18 @@ public class AccessibilityController implements Serializable {
     }
 
     public void create() {
-       ejbFacade.create(selected);
+        ejbFacade.create(selected);
+        items = ejbFacade.findAll();
     }
 
-    public void update() {
-        System.out.println("qsf");
+    public void modifie() {
         ejbFacade.edit(selected);
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void delete(Accessibility access) {
+        ejbFacade.remove(access);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<Accessibility> getItems() {
@@ -95,7 +79,6 @@ public class AccessibilityController implements Serializable {
         }
         return items;
     }
-
 
     public Accessibility getAccessibility(java.lang.Long id) {
         return getFacade().find(id);

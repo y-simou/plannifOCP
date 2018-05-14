@@ -26,6 +26,9 @@ public class SequenceLevelController implements Serializable {
 
     public SequenceLevelController() {
     }
+    public String redirect(){
+        return "/sequenceLevel/List?faces-redirect=true";
+    }
 
     public SequenceLevel getSelected() {
         if (selected == null) {

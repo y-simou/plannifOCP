@@ -8,30 +8,67 @@
 
     <ui:composition>
 
-        <p:dialog id="CompositionLevelSequenceCreateDlg" widgetVar="CompositionLevelSequenceCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateCompositionLevelSequenceTitle}">
-            <h:form id="CompositionLevelSequenceCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{compositionLevelSequenceController.selected != null}">
-                        <p:outputLabel value="CreateCompositionLevelSequenceLabel_level}" for="level" />
-                        <p:selectOneMenu id="level" value="#{compositionLevelSequenceController.selected.level}" >
-                            <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                           var="levelItem"
-                                           itemValue="#{levelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateCompositionLevelSequenceLabel_sequenceLevel}" for="sequenceLevel" />
-                        <p:selectOneMenu id="sequenceLevel" value="#{compositionLevelSequenceController.selected.sequenceLevel}" >
-                            <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                           var="sequenceLevelItem"
-                                           itemValue="#{sequenceLevelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateCompositionLevelSequenceLabel_existe}" for="existe" />
-                        <p:selectBooleanCheckbox id="existe" value="#{compositionLevelSequenceController.selected.existe}" />
-                        <p:outputLabel value="CreateCompositionLevelSequenceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{compositionLevelSequenceController.selected.id}" title="CreateCompositionLevelSequenceTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{compositionLevelSequenceController.create}" value="Save}" update="display,:CompositionLevelSequenceListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompositionLevelSequenceCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="CompositionLevelSequenceCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="CompositionLevelSequenceCreateDlg" widgetVar="CompositionLevelSequenceCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="750" height="260" showHeader="false">
+
+            <h:form id="CompositionLevelSequenceCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Composition Level Sequence :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Level :  " for="levelLayer" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="levelLayer" value="#{compositionLevelSequenceController.selected.level}" >
+                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                               var="levelLayerItem"
+                                                               itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Sequence Level" for="sequenceLevel" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="sequenceLevel" value="#{compositionLevelSequenceController.selected.sequenceLevel}" >
+                                                <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                                               var="sequenceLevelItem"
+                                                               itemLabel="#{sequenceLevelItem.id}"
+                                                               itemValue="#{sequenceLevelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Existe ?" for="access" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="access" value="#{compositionLevelSequenceController.selected.existe}" style="width: 100px">
+                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
+                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <hr></hr>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{compositionLevelSequenceController.create}" onclick="handleSubmit(args, 'CompositionLevelSequenceCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'CompositionLevelSequenceCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

@@ -27,6 +27,10 @@ public class LayerController implements Serializable {
     public LayerController() {
     }
 
+    public String redirect() {
+        return "/layer/List?faces-redirect=true";
+    }
+
     public Layer getSelected() {
         if (selected == null) {
             selected = new Layer();
@@ -55,17 +59,21 @@ public class LayerController implements Serializable {
     }
 
     public void create() {
-       ejbFacade.create(selected);
+        ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
-       ejbFacade.edit(selected);
+        ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void delete(Layer layer) {
+        ejbFacade.remove(layer);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<Layer> getItems() {
@@ -74,7 +82,6 @@ public class LayerController implements Serializable {
         }
         return items;
     }
-
 
     public Layer getLayer(java.lang.Long id) {
         return getFacade().find(id);

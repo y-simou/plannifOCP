@@ -26,6 +26,10 @@ public class StatutBlockController implements Serializable {
 
     public StatutBlockController() {
     }
+    
+    public String redirect(){
+        return "/statutBlock/List?faces-redirect=true";
+    }
 
     public StatutBlock getSelected() {
         if (selected == null) {

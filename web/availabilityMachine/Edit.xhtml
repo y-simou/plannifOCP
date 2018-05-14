@@ -7,31 +7,73 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+        <p:dialog id="AvailabilityMachineEditDlg" widgetVar="AvailabilityMachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
 
-        <p:dialog id="AvailabilityMachineEditDlg" widgetVar="AvailabilityMachineEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditAvailabilityMachineTitle}">
-            <h:form id="AvailabilityMachineEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{availabilityMachineController.selected != null}">
-                        <p:outputLabel value="EditAvailabilityMachineLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{availabilityMachineController.selected.id}" title="EditAvailabilityMachineTitle_id}" />
-                        <p:outputLabel value="EditAvailabilityMachineLabel_machine}" for="machine" />
-                        <p:selectOneMenu id="machine" value="#{availabilityMachineController.selected.machine}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                           var="machineItem"
-                                           itemValue="#{machineItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditAvailabilityMachineLabel_unitOfTime}" for="unitOfTime" />
-                        <p:selectOneMenu id="unitOfTime" value="#{availabilityMachineController.selected.unitOfTime}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
-                                           var="unitOfTimeItem"
-                                           itemValue="#{unitOfTimeItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{availabilityMachineController.update}" value="Save}" update="display,:AvailabilityMachineListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AvailabilityMachineEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="AvailabilityMachineEditDialog.hide()"/>
-                </h:panelGroup>
+            <h:form id="AvailabilityMachineEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Modifie Availability Machine :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Machine :  " for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{availabilityMachineController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Unit Of Time" for="unitOfTime" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="unitOfTime" value="#{availabilityMachineController.selected.unitOfTime}" >
+                                                <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
+                                                               var="unitOfTimeItem"
+                                                               itemValue="#{unitOfTimeItem}"
+                                                               itemLabel="#{unitOfTimeItem.unite}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="How many :"  />
+                                        </p:column> 
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Available ?" for="available" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="available" value="#{availabilityMachineController.selected.available}" style="width: 100px">
+                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
+                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Modifie" actionListener="#{availabilityMachineController.update}" onclick="handleSubmit(args, 'AvailabilityMachineEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'AvailabilityMachineEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

@@ -16,16 +16,12 @@
 
         <ui:define name="body">
 
-
-
-
-
             <!--   Big container   -->
 
             <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
                 <nav class="sidebar bg-dark">
                     <p style="text-align: center;">
-                        <a href="../manager/Profile.xhtml">
+                        <a href="../index.xhtml">
                             <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
                         </a>
                     </p>
@@ -38,11 +34,12 @@
                     <hr></hr>
                     <h:form id="AccessibilityListForm"><br></br>
                         <div class="container">
-                            <p:dataTable value="#{accessibilityController.items}" var="item"
+                            <p:dataTable value="#{accessibilityController.items}" var="item" 
                                          paginator="true"
                                          rowKey="#{item.id}"
                                          rows="10"
                                          rowsPerPageTemplate="10,20,30,40,50"
+                                         style="text-align: center;" rowStyleClass="high"
                                          >
                                 <p:column>
                                     <f:facet name="header">
@@ -68,10 +65,13 @@
                                     </f:facet>
                                     <p:outputLabel value="#{item.accessibile ? 'accessible' : 'not accessible'}"/>
                                 </p:column>
-                                <p:column>
-                                    <p:commandButton actionListener="#{accessibilityController.setSelected(item)}" update=":AccessibilityListForm:AccessibilityEditForm" oncomplete="PF('AccessibilityEditDialog').show()" value="Edit"  icon="ui-icon-pencil"/>
-                                    <p:commandLink actionListener="#{accessibilityController.setSelected(item)}" update=":AccessibilityListForm:AccessibilityViewForm" oncomplete="PF('AccessibilityViewDialog').show()"  > 
-                                        <h:graphicImage value="../resources/images/seeMore.png" alt="View" />
+                                <p:column> 
+                                    <p:commandLink actionListener="#{accessibilityController.delete(item)}" update=":AccessibilityListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{accessibilityController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":AccessibilityEditForm" oncomplete="PF('AccessibilityEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{accessibilityController.setSelected(item)}" styleClass="margin" update=":AccessibilityViewForm" oncomplete="PF('AccessibilityViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -79,10 +79,11 @@
                         </div>
                         <br></br><hr></hr>
 
-                        <ui:include src="Create.xhtml"/>
-                        <ui:include src="Edit.xhtml"/>
-                        <ui:include src="View.xhtml"/>
+
                     </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 

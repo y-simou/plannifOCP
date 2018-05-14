@@ -27,6 +27,10 @@ public class LevelLayerController implements Serializable {
     public LevelLayerController() {
     }
 
+    public String redirect() {
+        return "/levelLayer/List?faces-redirect=true";
+    }
+
     public LevelLayer getSelected() {
         if (selected == null) {
             selected = new LevelLayer();
@@ -56,14 +60,18 @@ public class LevelLayerController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(LevelLayer levelLayer) {
+        ejbFacade.delete(levelLayer);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -74,7 +82,6 @@ public class LevelLayerController implements Serializable {
         }
         return items;
     }
-
 
     public LevelLayer getLevelLayer(int id) {
         return getFacade().find(id);

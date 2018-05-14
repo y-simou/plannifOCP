@@ -8,26 +8,28 @@
 
     <ui:composition>
 
-        <p:dialog id="BlockViewDlg" widgetVar="BlockViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewBlockTitle}">
+        <p:dialog id="BlockViewDlg" widgetVar="BlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="200" showHeader="false">
             <h:form id="BlockViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{blockController.selected != null}">
-                        <h:outputText value="ViewBlockLabel_id}"/>
-                        <h:outputText value="#{blockController.selected.id}" title="ViewBlockTitle_id}"/>
-                        <h:outputText value="ViewBlockLabel_nom}"/>
-                        <h:outputText value="#{blockController.selected.nom}" title="ViewBlockTitle_nom}"/>
-                        <h:outputText value="ViewBlockLabel_puissance}"/>
-                        <h:outputText value="#{blockController.selected.puissance}" title="ViewBlockTitle_puissance}"/>
-                        <h:outputText value="ViewBlockLabel_volume}"/>
-                        <h:outputText value="#{blockController.selected.volume}" title="ViewBlockTitle_volume}"/>
-                        <h:outputText value="ViewBlockLabel_priority}"/>
-                        <h:outputText value="#{blockController.selected.priority}" title="ViewBlockTitle_priority}"/>
-                        <h:outputText value="ViewBlockLabel_parcel}"/>
-                        <h:outputText value="#{blockController.selected.parcel}" title="ViewBlockTitle_parcel}"/>
-                        <h:outputText value="ViewBlockLabel_level}"/>
-                        <h:outputText value="#{blockController.selected.level}" title="ViewBlockTitle_level}"/>
+                    <p:panelGrid columns="4" rendered="#{blockController.selected != null}">
+                        <h:outputText value="Id"/>
+                        <h:outputText value="#{blockController.selected.id}" title="Id"/>
+                        <h:outputText value="Nom"/>
+                        <h:outputText value="#{blockController.selected.nom}" title="Nom"/>
+                        <h:outputText value="Puissance"/>
+                        <h:outputText value="#{blockController.selected.puissance}" title="Puissance"/>
+                        <h:outputText value="Volume"/>
+                        <h:outputText value="#{blockController.selected.volume}" title="Volume"/>
+                        <h:outputText value="Priority"/>
+                        <h:outputText value="#{blockController.selected.priority}" title="Priority"/>
+                        <h:outputText value="Parcel"/>
+                        <h:outputText value="#{blockController.selected.parcel.nom}" title="Parcel"/>
+                        <h:outputText value="Level"/>
+                        <h:outputText value="#{blockController.selected.level.nom}" title="Level"/>
                     </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="BlockViewDialog.hide()"/>
+                    <p:commandLink oncomplete="handleSubmit(args,'BlockViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

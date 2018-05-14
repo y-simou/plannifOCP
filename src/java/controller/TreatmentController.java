@@ -26,6 +26,10 @@ public class TreatmentController implements Serializable {
 
     public TreatmentController() {
     }
+    
+    public String redirect(){
+        return "/treatment/List?faces-redirect=true";
+    }
 
     public Treatment getSelected() {
         if (selected == null ) {

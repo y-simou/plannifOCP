@@ -7,64 +7,70 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="AccessibilityEditDlg" widgetVar="AccessibilityEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
+        <p:dialog id="AccessibilityEditDlg" widgetVar="AccessibilityEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
 
             <h:form id="AccessibilityEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
-                <h:panelGroup id="display">
-                    <div class="form-control">
-                        <h4 align="center">Edit Accessibility :</h4>
-                        <hr></hr>
-                        <br></br>
-                        <div class="container" align="center">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p:outputLabel value="Level :  " for="levelLayer" />
-                                    <p:selectOneMenu id="levelLayer" label="#{accessibilityController.selected.levelLayer.nom}" value="#{accessibilityController.selected.levelLayer}" >
-                                        <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                                       var="levelLayerItem"
-                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
-                                    </p:selectOneMenu>
-                                </div>
+                <div class="form-control">
+                    <h4 align="center">Edit Accessibility :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
 
-                                <div class="col-md-6">
-                                    <p:outputLabel value="Machien :  " for="machine" />
-                                    <p:selectOneMenu id="machine" value="#{accessibilityController.selected.machine}" >
-                                        <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                                       var="machineItem"
-                                                       itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
-                            <br></br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p:outputLabel value="Accessible ?  " for="access" />
-                                    <p:selectOneMenu id="access" value="#{accessibilityController.selected.accessibile}" >
-                                        <f:selectItem itemValue="#{1}" itemLabel="true"/>
-                                        <f:selectItem itemValue="#{0}" itemLabel="false"/>
-                                    </p:selectOneMenu>
-                                </div>
-                                <div class="col-md-6" align="center">
-                                    <div class="f1-buttons" align="center">
-                                        <p:commandButton  value="Modifie" actionListener="#{accessibilityController.update}" oncomplete="handleSubmit(args,'AccessibilityEditDialog');" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3"/>
-                                <br></br>
+                                        <p:column>
+
+                                            <p:outputLabel value="Level :  " for="levelLayer" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="levelLayer" value="#{accessibilityController.selected.levelLayer}" >
+                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                               var="levelLayerItem"
+                                                               itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Machine :  " for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{accessibilityController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Accessible ?" for="access" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="access" value="#{accessibilityController.selected.accessibile}" style="width: 100px">
+                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
+                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column></p:column>
+                                        <p:column>
+                                            <div class="f1-buttons" align="center">
+                                                <p:commandButton  value="Modifie" actionListener="#{accessibilityController.modifie()}" onclick="handleSubmit(args, 'AccessibilityCreateDialog');" />
+                                            </div>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
                             </div>
                         </div>
-                        <br></br>
-                        <p:commandLink oncomplete="handleSubmit(args,'AccessibilityEditDialog');"> 
-                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                        </p:commandLink>
                     </div>
-                </h:panelGroup>
-
-
+                    <br></br>
+                    <p:commandLink oncomplete="handleSubmit(args,'AccessibilityEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
-
-
         </p:dialog>
     </ui:composition>
 </html>

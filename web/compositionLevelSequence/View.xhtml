@@ -8,20 +8,42 @@
 
     <ui:composition>
 
-        <p:dialog id="CompositionLevelSequenceViewDlg" widgetVar="CompositionLevelSequenceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewCompositionLevelSequenceTitle}">
+  
+        <p:dialog id="CompositionLevelSequenceViewDlg" widgetVar="CompositionLevelSequenceViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
             <h:form id="CompositionLevelSequenceViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{compositionLevelSequenceController.selected != null}">
-                        <h:outputText value="ViewCompositionLevelSequenceLabel_level}"/>
-                        <h:outputText value="#{compositionLevelSequenceController.selected.level}" title="ViewCompositionLevelSequenceTitle_level}"/>
-                        <h:outputText value="ViewCompositionLevelSequenceLabel_sequenceLevel}"/>
-                        <h:outputText value="#{compositionLevelSequenceController.selected.sequenceLevel}" title="ViewCompositionLevelSequenceTitle_sequenceLevel}"/>
-                        <h:outputText value="ViewCompositionLevelSequenceLabel_existe}"/>
-                        <p:selectBooleanCheckbox value="#{compositionLevelSequenceController.selected.existe}" disabled="true"/>
-                        <h:outputText value="ViewCompositionLevelSequenceLabel_id}"/>
-                        <h:outputText value="#{compositionLevelSequenceController.selected.id}" title="ViewCompositionLevelSequenceTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="CompositionLevelSequenceViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value="#{compositionLevelSequenceController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="level :"/>
+                                    <h:outputText value="#{compositionLevelSequenceController.selected.level.nom}" />
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                   <h:outputText value="Sequence Level :"/>
+                                     <h:outputText value="#{compositionLevelSequenceController.selected.sequenceLevel}" title="SequenceLevel"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="#{compositionLevelSequenceController.selected.existe ? 'existe' : 'Don t existe'}"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                    <p:commandLink oncomplete="handleSubmit(args,'CompositionLevelSequenceViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                        </div>
+                    </div>
+                   
                 </h:panelGroup>
             </h:form>
         </p:dialog>

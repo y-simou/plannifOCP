@@ -26,6 +26,10 @@ public class TrenchController implements Serializable {
 
     public TrenchController() {
     }
+    
+    public String redirect(){
+        return "/trench/List?faces-redirect=true";
+    }
 
     public Trench getSelected() {
         if (selected == null) {

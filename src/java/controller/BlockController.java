@@ -27,6 +27,10 @@ public class BlockController implements Serializable {
     public BlockController() {
     }
 
+    public String redirect() {
+        return "/block/List?faces-redirect=true";
+    }
+
     public Block getSelected() {
         if (selected == null) {
             selected = new Block();
@@ -55,22 +59,26 @@ public class BlockController implements Serializable {
     }
 
     public void create() {
-       ejbFacade.create(selected);
+        ejbFacade.create(selected);
+        selected = null;
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
-       ejbFacade.edit(selected);
+        ejbFacade.edit(selected);
+        selected = null;
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void delete(Block block) {
+        ejbFacade.remove(block);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<Block> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

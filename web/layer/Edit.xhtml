@@ -8,25 +8,41 @@
 
     <ui:composition>
 
-        <p:dialog id="LayerEditDlg" widgetVar="LayerEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditLayerTitle}">
-            <h:form id="LayerEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{layerController.selected != null}">
-                        <p:outputLabel value="EditLayerLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{layerController.selected.id}" title="EditLayerTitle_id}" />
-                        <p:outputLabel value="EditLayerLabel_level}" for="level" />
-                        <p:selectOneMenu id="level" value="#{layerController.selected.level}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                           var="levelItem"
-                                           itemValue="#{levelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditLayerLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{layerController.selected.nom}" title="EditLayerTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{layerController.update}" value="Save}" update="display,:LayerListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LayerEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="LayerEditDialog.hide()"/>
-                </h:panelGroup>
+       <p:dialog id="LayerEditDlg" widgetVar="LayerEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+
+            <h:form id="LayerEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Layer :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:inputText id="nom" value="#{layerController.selected.nom}" title="Name" />
+
+                                    <p:outputLabel value="Level :  " for="levelLayer" />
+                                    <p:selectOneMenu id="levelLayer" value="#{layerController.selected.level}" >
+                                        <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                       var="levelLayerItem"
+                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{layerController.update()}" onclick="handleSubmit(args, 'LayerEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'LayerEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 

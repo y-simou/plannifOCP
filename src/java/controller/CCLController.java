@@ -24,6 +24,11 @@ public class CCLController implements Serializable {
     private List<CCL> items = null;
     private CCL selected;
 
+    
+    public String redirect(){
+        return "/ccl/List?faces-redirect=true";
+    }
+    
     public CCLController() {
     }
 
@@ -56,21 +61,24 @@ public class CCLController implements Serializable {
 
     public void create() {
        ejbFacade.create(selected);
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
        ejbFacade.edit(selected);
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-      ejbFacade.remove(selected);
-            selected = null; // Remove selection
+    public void delete(CCL ccl) {
+      ejbFacade.remove(ccl);
             items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<CCL> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }
