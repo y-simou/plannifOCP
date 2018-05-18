@@ -3,23 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
-        <p:dialog id="PossibilityStorageViewDlg" widgetVar="PossibilityStorageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewPossibilityStorageTitle}">
+        <p:dialog id="PossibilityStorageViewDlg" widgetVar="PossibilityStorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
             <h:form id="PossibilityStorageViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{possibilityStorageController.selected != null}">
-                        <h:outputText value="ViewPossibilityStorageLabel_stock}"/>
-                        <h:outputText value="#{possibilityStorageController.selected.stock}" title="ViewPossibilityStorageTitle_stock}"/>
-                        <h:outputText value="ViewPossibilityStorageLabel_level}"/>
-                        <h:outputText value="#{possibilityStorageController.selected.level}" title="ViewPossibilityStorageTitle_level}"/>
-                        <h:outputText value="ViewPossibilityStorageLabel_id}"/>
-                        <h:outputText value="#{possibilityStorageController.selected.id}" title="ViewPossibilityStorageTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="PossibilityStorageViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{possibilityStorageController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Stock :"/>
+                                    <h:outputText value=" #{possibilityStorageController.selected.stock.nom}" title="Stock"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Level :"/>
+                                    <h:outputText value=" #{possibilityStorageController.selected.level.nom}" title="Level"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p:commandLink oncomplete="handleSubmit(args,'PossibilityStorageViewDialog');"> 
+                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                                    </p:commandLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

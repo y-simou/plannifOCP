@@ -26,7 +26,8 @@ public class SequenceLevelController implements Serializable {
 
     public SequenceLevelController() {
     }
-    public String redirect(){
+
+    public String redirect() {
         return "/sequenceLevel/List?faces-redirect=true";
     }
 
@@ -59,14 +60,18 @@ public class SequenceLevelController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(SequenceLevel sequenceLevel) {
+        ejbFacade.remove(sequenceLevel);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -77,7 +82,6 @@ public class SequenceLevelController implements Serializable {
         }
         return items;
     }
-
 
     public SequenceLevel getSequenceLevel(java.lang.Long id) {
         return getFacade().find(id);

@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:row>
+                                  <p:row>
 
 
                                         <p:column>
@@ -32,6 +32,24 @@
                                                                var="machineItem"
                                                                itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
                                             </p:selectOneMenu>
+                                        </p:column>  <p:column>
+                                            <p:outputLabel value="Available ?" for="available" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="available" value="#{availabilityMachineController.selected.available}" style="width: 100px">
+                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
+                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Time :" for="time" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="time" value="#{availabilityMachineController.selected.temps}" title="Time" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="Unit Of Time" for="unitOfTime" />
@@ -45,22 +63,6 @@
                                             </p:selectOneMenu>
                                         </p:column>
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="How many :"  />
-                                        </p:column> 
-                                        <p:column>
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="Available ?" for="available" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="available" value="#{availabilityMachineController.selected.available}" style="width: 100px">
-                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
-                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </div>

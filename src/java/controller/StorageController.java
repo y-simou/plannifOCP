@@ -26,8 +26,8 @@ public class StorageController implements Serializable {
 
     public StorageController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/storage/List?faces-redirect=true";
     }
 
@@ -60,14 +60,18 @@ public class StorageController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Storage storage) {
+        ejbFacade.remove(storage);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class StorageController implements Serializable {
         }
         return items;
     }
-
 
     public Storage getStorage(java.lang.Long id) {
         return getFacade().find(id);

@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -28,9 +27,7 @@ public class Position implements Serializable {
     private String nom;
     private Long x;
     private Long y;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date datePosition;
-
+        
     public Position() {
     }
 
@@ -38,18 +35,10 @@ public class Position implements Serializable {
         this.nom = nom;
     }
 
-    public Position(String nom, Long x, Long y, Date datePosition) {
-        this.nom = nom;
-        this.x = x;
-        this.y = y;
-        this.datePosition = datePosition;
-    }
-
     public Position(String nom, Long x, Long y) {
         this.nom = nom;
         this.x = x;
         this.y = y;
-        this.datePosition = new Date();
     }
 
     public Long getId() {
@@ -76,14 +65,6 @@ public class Position implements Serializable {
         this.y = y;
     }
 
-    public Date getDatePosition() {
-        return datePosition;
-    }
-
-    public void setDatePosition(Date datePosition) {
-        this.datePosition = datePosition;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -91,7 +72,6 @@ public class Position implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -116,10 +96,10 @@ public class Position implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "Position{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", datePosition=" + datePosition + '}';
+        return "Position{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + '}';
     }
 
 }

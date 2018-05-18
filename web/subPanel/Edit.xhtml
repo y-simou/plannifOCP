@@ -26,8 +26,12 @@
                         <p:outputLabel value="EditSubPanelLabel_nom}" for="nom" />
                         <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="EditSubPanelTitle_nom}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{subPanelController.update}" value="Save}" update="display,:SubPanelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubPanelEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="SubPanelEditDialog.hide()"/>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{subPanelController.update()}" onclick="handleSubmit(args, 'SubPanelEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'SubPanelEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

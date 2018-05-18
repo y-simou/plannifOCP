@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Stock implements Serializable {
     private String nom;
     private Long capacity;
     private Long initialQte;
+    @ManyToOne
+    private Site site;
 
     public Stock() {
     }
@@ -38,6 +41,13 @@ public class Stock implements Serializable {
         this.nom = nom;
         this.capacity = capacity;
         this.initialQte = initialQte;
+    }
+
+    public Stock(String nom, Long capacity, Long initialQte, Site site) {
+        this.nom = nom;
+        this.capacity = capacity;
+        this.initialQte = initialQte;
+        this.site = site;
     }
 
     public Long getId() {
@@ -73,6 +83,14 @@ public class Stock implements Serializable {
         this.nom = nom;
     }
 
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -98,12 +116,10 @@ public class Stock implements Serializable {
         return true;
     }
 
-    
-    
     @Override
     public String toString() {
-        return "Stock{" + "id=" + id + ", nom=" + nom + ", capacity=" + capacity + ", initialQte=" + initialQte + '}';
+        return "Stock{" + "id=" + id + ", nom=" + nom + ", capacity=" + capacity + ", initialQte=" + initialQte + ", site=" + site + '}';
     }
 
-
+    
 }

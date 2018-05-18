@@ -8,38 +8,86 @@
 
     <ui:composition>
 
-        <p:dialog id="StorageCreateDlg" widgetVar="StorageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateStorageTitle}">
-            <h:form id="StorageCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{storageController.selected != null}">
-                        <p:outputLabel value="CreateStorageLabel_stock}" for="stock" />
-                        <p:selectOneMenu id="stock" value="#{storageController.selected.stock}" >
-                            <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
-                                           var="stockItem"
-                                           itemValue="#{stockItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStorageLabel_machine}" for="machine" />
-                        <p:selectOneMenu id="machine" value="#{storageController.selected.machine}" >
-                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                           var="machineItem"
-                                           itemValue="#{machineItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStorageLabel_block}" for="block" />
-                        <p:selectOneMenu id="block" value="#{storageController.selected.block}" >
-                            <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
-                                           var="blockItem"
-                                           itemValue="#{blockItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStorageLabel_dateTransport}" for="dateTransport" />
-                        <p:calendar id="dateTransport" pattern="MM/dd/yyyy" value="#{storageController.selected.dateTransport}" title="EditStorageTitle_dateTransport}"  showOn="button"/>
-                        <p:outputLabel value="CreateStorageLabel_quantity}" for="quantity" />
-                        <p:inputText id="quantity" value="#{storageController.selected.quantity}" title="CreateStorageTitle_quantity}" />
-                        <p:outputLabel value="CreateStorageLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{storageController.selected.id}" title="CreateStorageTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{storageController.create}" value="Save}" update="display,:StorageListForm:datalist,:growl" oncomplete="handleSubmit(args,'StorageCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="StorageCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="StorageCreateDlg" widgetVar="StorageCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+
+            <h:form id="StorageCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Storage :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="Stock" for="stock" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="stock" value="#{storageController.selected.stock}" >
+                                                <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
+                                                               var="stockItem"
+                                                               itemLabel="#{stockItem.nom}"
+                                                               itemValue="#{stockItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Machine :  " for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{storageController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Block" for="block" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="block" value="#{storageController.selected.block}" >
+                                                <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                                               var="blockItem"
+                                                               itemLabel="#{blockItem.nom}"
+                                                               itemValue="#{blockItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Date Transport :" for="dateTransport" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="dateTransport" pattern="dd/MM/yyyy" value="#{storageController.selected.dateTransport}" title="dateTransport"  showOn="button"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Quantity :" for="quantity" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="quantity" value="#{storageController.selected.quantity}" title="Quantity" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="f1-buttons" align="right">
+                       <p:commandButton  value="Save" actionListener="#{storageController.create()}" onclick="handleSubmit(args, 'StorageCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'StorageCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

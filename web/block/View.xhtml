@@ -12,19 +12,19 @@
             <h:form id="BlockViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{blockController.selected != null}">
-                        <h:outputText value="Id"/>
+                        <h:outputText value="Id :"/>
                         <h:outputText value="#{blockController.selected.id}" title="Id"/>
-                        <h:outputText value="Nom"/>
+                        <h:outputText value="Nom :"/>
                         <h:outputText value="#{blockController.selected.nom}" title="Nom"/>
-                        <h:outputText value="Puissance"/>
+                        <h:outputText value="Puissance :"/>
                         <h:outputText value="#{blockController.selected.puissance}" title="Puissance"/>
-                        <h:outputText value="Volume"/>
+                        <h:outputText value="Volume :"/>
                         <h:outputText value="#{blockController.selected.volume}" title="Volume"/>
-                        <h:outputText value="Priority"/>
+                        <h:outputText value="Priority :"/>
                         <h:outputText value="#{blockController.selected.priority}" title="Priority"/>
-                        <h:outputText value="Parcel"/>
+                        <h:outputText value="Parcel :"/>
                         <h:outputText value="#{blockController.selected.parcel.nom}" title="Parcel"/>
-                        <h:outputText value="Level"/>
+                        <h:outputText value="Level :"/>
                         <h:outputText value="#{blockController.selected.level.nom}" title="Level"/>
                     </p:panelGrid>
                     <p:commandLink oncomplete="handleSubmit(args,'BlockViewDialog');"> 

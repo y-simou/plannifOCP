@@ -27,6 +27,7 @@ public class AvailabilityMachine implements Serializable {
     private Machine machine;
     @ManyToOne
     private UnitOfTime unitOfTime;
+    private Long temps;
     private boolean available;
 
     public Long getId() {
@@ -46,6 +47,13 @@ public class AvailabilityMachine implements Serializable {
         this.available = available;
     }
 
+    public AvailabilityMachine(Machine machine, UnitOfTime unitOfTime, Long temps, boolean available) {
+        this.machine = machine;
+        this.unitOfTime = unitOfTime;
+        this.temps = temps;
+        this.available = available;
+    }
+
     public Machine getMachine() {
         return machine;
     }
@@ -60,6 +68,14 @@ public class AvailabilityMachine implements Serializable {
 
     public void setUnitOfTime(UnitOfTime unitOfTime) {
         this.unitOfTime = unitOfTime;
+    }
+
+    public Long getTemps() {
+        return temps;
+    }
+
+    public void setTemps(Long temps) {
+        this.temps = temps;
     }
 
     public boolean isAvailable() {
@@ -92,8 +108,8 @@ public class AvailabilityMachine implements Serializable {
 
     @Override
     public String toString() {
-        return "AvailabilityMachine{" + "id=" + id + ", machine=" + machine + ", unitOfTime=" + unitOfTime + ", available=" + available + '}';
+        return "AvailabilityMachine{" + "id=" + id + ", machine=" + machine + ", unitOfTime=" + unitOfTime + ", temps=" + temps + ", available=" + available + '}';
     }
 
-    
+
 }

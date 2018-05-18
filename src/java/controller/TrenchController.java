@@ -26,8 +26,8 @@ public class TrenchController implements Serializable {
 
     public TrenchController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/trench/List?faces-redirect=true";
     }
 
@@ -60,14 +60,18 @@ public class TrenchController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Trench trench) {
+        ejbFacade.remove(trench);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

@@ -16,13 +16,17 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <h:outputLabel value="id :" />
                                     <h:outputText value="#{chemicalComponentController.selected.id}" />
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <h:outputLabel value="name :"/>
                                     <h:outputText value="#{chemicalComponentController.selected.nom}" />
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputLabel value="site :"/>
+                                    <h:outputText value="#{chemicalComponentController.selected.site.nom}" />
                                 </div>
                             </div>
                             <hr></hr>   

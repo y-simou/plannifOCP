@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,7 +24,14 @@ public class ChemicalComponent implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+    @ManyToOne
+    private Site site;
 
+    public ChemicalComponent(String nom, Site site) {
+        this.nom = nom;
+        this.site = site;
+    }
+    
     public ChemicalComponent() {
     }
 
@@ -41,6 +49,14 @@ public class ChemicalComponent implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
     
 
@@ -66,7 +82,7 @@ public class ChemicalComponent implements Serializable {
 
     @Override
     public String toString() {
-        return "ChemicalComponent{" + "id=" + id + ", nom=" + nom + '}';
+        return "ChemicalComponent{" + "id=" + id + ", nom=" + nom + ", site=" + site + '}';
     }
 
 

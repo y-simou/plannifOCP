@@ -26,8 +26,8 @@ public class StatutBlockController implements Serializable {
 
     public StatutBlockController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/statutBlock/List?faces-redirect=true";
     }
 
@@ -60,14 +60,18 @@ public class StatutBlockController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(StatutBlock statutBlock) {
+        ejbFacade.remove(statutBlock);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class StatutBlockController implements Serializable {
         }
         return items;
     }
-
 
     public StatutBlock getStatutBlock(java.lang.Long id) {
         return getFacade().find(id);

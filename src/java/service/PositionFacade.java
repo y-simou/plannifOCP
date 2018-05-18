@@ -6,6 +6,7 @@
 package service;
 
 import bean.Position;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,5 +34,15 @@ public class PositionFacade extends AbstractFacade<Position> {
         getEntityManager().createQuery("DELETE FROM Movement m where m.arrive.id='"+ position.getId() +"' OR m.depart.id='"+ position.getId() +"'").executeUpdate();
         remove(position);
     }
+    
+    public void creer(Position position){
+       position.setId(generateId("Position", "id"));
+        create(position);
+    }
+    
+    public List<Position> findAllDesc(){
+        return getEntityManager().createQuery("SELECT p FROM Position p where 1=1 Order by p.nom").getResultList();
+    }
+    
     
 }

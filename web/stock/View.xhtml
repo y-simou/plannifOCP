@@ -8,20 +8,47 @@
 
     <ui:composition>
 
-        <p:dialog id="StockViewDlg" widgetVar="StockViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewStockTitle}">
+        <p:dialog id="StockViewDlg" widgetVar="StockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
             <h:form id="StockViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{stockController.selected != null}">
-                        <h:outputText value="ViewStockLabel_id}"/>
-                        <h:outputText value="#{stockController.selected.id}" title="ViewStockTitle_id}"/>
-                        <h:outputText value="ViewStockLabel_capacity}"/>
-                        <h:outputText value="#{stockController.selected.capacity}" title="ViewStockTitle_capacity}"/>
-                        <h:outputText value="ViewStockLabel_initialQte}"/>
-                        <h:outputText value="#{stockController.selected.initialQte}" title="ViewStockTitle_initialQte}"/>
-                        <h:outputText value="ViewStockLabel_nom}"/>
-                        <h:outputText value="#{stockController.selected.nom}" title="ViewStockTitle_nom}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="StockViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{stockController.selected.id}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputLabel value="Nom :"/>
+                                    <h:outputText value=" #{stockController.selected.nom}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputLabel value="Site :"/>
+                                    <h:outputText value=" #{stockController.selected.site.nom}" />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputText value="Capacity :"/>
+                                    <h:outputText value=" #{stockController.selected.capacity}" title="Capacity"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Initial Quantity :"/>
+                                    <h:outputText value=" #{stockController.selected.initialQte}" title="Initial Quantity"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            
+                        </div>
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'StockViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -73,15 +73,15 @@
         margin-left: 0;
     }
 }
-
+/*
 .navbar-nav > .nav-link {
   display: block;
   padding: 0.5rem 1rem;
   font-size: 20px;
   color: #689801;
-  background-color: #17A2B8;
+  background-color: #53a3a3;
   width: 140px;
-}
+}*/
 
 .nav-link:hover, .nav-link:focus {
   color: #000;
@@ -99,4 +99,11 @@
     color: #fff;
     font-size: 15px;
     margin-top: 5px;
+}
+
+.img-rounded{
+    border-radius: 100%;
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
 }

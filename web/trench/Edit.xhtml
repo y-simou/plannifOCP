@@ -8,37 +8,56 @@
 
     <ui:composition>
 
-        <p:dialog id="TrenchEditDlg" widgetVar="TrenchEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditTrenchTitle}">
-            <h:form id="TrenchEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{trenchController.selected != null}">
-                        <p:outputLabel value="EditTrenchLabel_surface}" for="surface" />
-                        <p:inputText id="surface" value="#{trenchController.selected.surface}" title="EditTrenchTitle_surface}" />
-                        <p:outputLabel value="EditTrenchLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{trenchController.selected.id}" title="EditTrenchTitle_id}" />
-                        <p:outputLabel value="EditTrenchLabel_datePDebutExploitation}" for="datePDebutExploitation" />
-                        <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePDebutExploitation}" title="EditTrenchTitle_datePDebutExploitation}"  showOn="button"/>
-                        <p:outputLabel value="EditTrenchLabel_datePFinExploitation}" for="datePFinExploitation" />
-                        <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePFinExploitation}" title="EditTrenchTitle_datePFinExploitation}"  showOn="button"/>
-                        <p:outputLabel value="EditTrenchLabel_reserves}" for="reserves" />
-                        <p:inputText id="reserves" value="#{trenchController.selected.reserves}" title="EditTrenchTitle_reserves}" />
-                        <p:outputLabel value="EditTrenchLabel_x}" for="x" />
-                        <p:inputText id="x" value="#{trenchController.selected.x}" title="EditTrenchTitle_x}" />
-                        <p:outputLabel value="EditTrenchLabel_y}" for="y" />
-                        <p:inputText id="y" value="#{trenchController.selected.y}" title="EditTrenchTitle_y}" />
-                        <p:outputLabel value="EditTrenchLabel_panel}" for="panel" />
-                        <p:selectOneMenu id="panel" value="#{trenchController.selected.panel}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
-                                           var="panelItem"
-                                           itemValue="#{panelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditTrenchLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{trenchController.selected.nom}" title="EditTrenchTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{trenchController.update}" value="Save}" update="display,:TrenchListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrenchEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="TrenchEditDialog.hide()"/>
-                </h:panelGroup>
+         <p:dialog id="TrenchEditDlg" widgetVar="TrenchEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+
+            <h:form id="TrenchEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Trench :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:inputText id="nom" value="#{trenchController.selected.nom}" title="Name" />
+                                    <p:outputLabel value="Surface :" for="surface" />
+                                    <p:inputText id="surface" value="#{trenchController.selected.surface}" title="Surface" />
+
+                                    <p:outputLabel value="Reserves :" for="reserves" />
+                                    <p:inputText id="reserves" value="#{trenchController.selected.reserves}" title="Reserves" />
+                                    <p:outputLabel value="Panel :" for="panel" />
+                                    <p:selectOneMenu id="panel" value="#{trenchController.selected.panel}" >
+                                        <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                       var="panelItem"
+                                                       itemLabel="#{panelItem.nom}"
+                                                       itemValue="#{panelItem}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="X :" for="x" />
+                                    <p:inputText id="x" value="#{trenchController.selected.x}" title="X" />
+                                    <p:outputLabel value="Y :" for="y" />
+                                    <p:inputText id="y" value="#{trenchController.selected.y}" title="Y" />
+
+                                    <p:outputLabel value="Start of Operation :" for="datePDebutExploitation" />
+                                    <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePDebutExploitation}" title="Start of Operation"  showOn="button"/>
+                                    <p:outputLabel value="End of Operation :" for="datePFinExploitation" />
+                                    <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePFinExploitation}" title="End of Operation"  showOn="button"/>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <br></br>
+                   <div class="f1-buttons" align="right">
+                         <p:commandButton  value="Update" actionListener="#{trenchController.create()}" onclick="handleSubmit(args, 'TrenchEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'TrenchEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

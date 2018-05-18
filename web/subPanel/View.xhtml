@@ -8,20 +8,40 @@
 
     <ui:composition>
 
-        <p:dialog id="SubPanelViewDlg" widgetVar="SubPanelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewSubPanelTitle}">
+        <p:dialog id="SubPanelViewDlg" widgetVar="SubPanelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="350" showHeader="false">
             <h:form id="SubPanelViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{subPanelController.selected != null}">
-                        <h:outputText value="ViewSubPanelLabel_surface}"/>
-                        <h:outputText value="#{subPanelController.selected.surface}" title="ViewSubPanelTitle_surface}"/>
-                        <h:outputText value="ViewSubPanelLabel_id}"/>
-                        <h:outputText value="#{subPanelController.selected.id}" title="ViewSubPanelTitle_id}"/>
-                        <h:outputText value="ViewSubPanelLabel_sequenceLevel}"/>
-                        <h:outputText value="#{subPanelController.selected.sequenceLevel}" title="ViewSubPanelTitle_sequenceLevel}"/>
-                        <h:outputText value="ViewSubPanelLabel_nom}"/>
-                        <h:outputText value="#{subPanelController.selected.nom}" title="ViewSubPanelTitle_nom}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="SubPanelViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{subPanelController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Name :"/>
+                                    <h:outputText value=" #{subPanelController.selected.nom}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputText value="Surface :"/>
+                                    <h:outputText value=" #{subPanelController.selected.surface}" title="Surface"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Sequence Level :"/>
+                                    <h:outputText value=" #{subPanelController.selected.sequenceLevel.id}" title="Sequence Level"/>
+                                </div>
+                            </div>
+                        </div> <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'SubPanelViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -26,13 +26,13 @@ public class TreatmentController implements Serializable {
 
     public TreatmentController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/treatment/List?faces-redirect=true";
     }
 
     public Treatment getSelected() {
-        if (selected == null ) {
+        if (selected == null) {
             selected = new Treatment();
         }
         return selected;
@@ -60,14 +60,18 @@ public class TreatmentController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(Treatment treatment) {
+        ejbFacade.remove(treatment);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

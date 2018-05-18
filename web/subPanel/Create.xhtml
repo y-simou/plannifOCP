@@ -8,26 +8,42 @@
 
     <ui:composition>
 
-        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateSubPanelTitle}">
-            <h:form id="SubPanelCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{subPanelController.selected != null}">
-                        <p:outputLabel value="CreateSubPanelLabel_surface}" for="surface" />
-                        <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="CreateSubPanelTitle_surface}" />
-                        <p:outputLabel value="CreateSubPanelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{subPanelController.selected.id}" title="CreateSubPanelTitle_id}" />
-                        <p:outputLabel value="CreateSubPanelLabel_sequenceLevel}" for="sequenceLevel" />
-                        <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
-                            <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                           var="sequenceLevelItem"
-                                           itemValue="#{sequenceLevelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateSubPanelLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="CreateSubPanelTitle_nom}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{subPanelController.create}" value="Save}" update="display,:SubPanelListForm:datalist,:growl" oncomplete="handleSubmit(args,'SubPanelCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="SubPanelCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+
+            <h:form id="SubPanelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Sub Panel :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="2" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="Name" />
+                                    <p:outputLabel value="Surface" for="surface" />
+                                    <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="Surface" />
+                                    <p:outputLabel value="Sequence Level" for="sequenceLevel" />
+                                    <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
+                                        <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                                       var="sequenceLevelItem"
+                                                       itemLabel="#{sequenceLevelItem.id}"
+                                                       itemValue="#{sequenceLevelItem}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{subPanelController.create()}" onclick="handleSubmit(args, 'SubPanelCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'SubPanelCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

@@ -6,3 +6,9 @@ function handleSubmit(args, dialog) {
         PF(dialog).hide();
     }
 }
+
+function showStuff(idc, idh) {
+    document.getElementById(idc).style.display = 'block';
+    // hide the lorem ipsum text
+    document.getElementById(idh).style.display = 'none';
+}

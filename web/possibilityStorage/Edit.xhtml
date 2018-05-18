@@ -8,30 +8,57 @@
 
     <ui:composition>
 
-        <p:dialog id="PossibilityStorageEditDlg" widgetVar="PossibilityStorageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditPossibilityStorageTitle}">
-            <h:form id="PossibilityStorageEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{possibilityStorageController.selected != null}">
-                        <p:outputLabel value="EditPossibilityStorageLabel_stock}" for="stock" />
-                        <p:selectOneMenu id="stock" value="#{possibilityStorageController.selected.stock}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
-                                           var="stockItem"
-                                           itemValue="#{stockItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditPossibilityStorageLabel_level}" for="level" />
-                        <p:selectOneMenu id="level" value="#{possibilityStorageController.selected.level}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                           var="levelItem"
-                                           itemValue="#{levelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditPossibilityStorageLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{possibilityStorageController.selected.id}" title="EditPossibilityStorageTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{possibilityStorageController.update}" value="Save}" update="display,:PossibilityStorageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PossibilityStorageEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="PossibilityStorageEditDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="PossibilityStorageEditDlg" widgetVar="PossibilityStorageEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="230" showHeader="false">
+
+            <h:form id="PossibilityStorageEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Possibility Storage :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Stock :" for="stock" />
+
+                                        </p:column>
+                                          <p:column> 
+                                            <p:selectOneMenu id="stock" value="#{possibilityStorageController.selected.stock}" >
+                                                <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
+                                                               var="stockItem"
+                                                               itemLabel="#{stockItem.nom}"
+                                                               itemValue="#{stockItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level :" for="level" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{possibilityStorageController.selected.level}" >
+                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                               var="levelItem"
+                                                               itemLabel="#{levelItem.nom}"
+                                                               itemValue="#{levelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{possibilityStorageController.update()}" onclick="handleSubmit(args, 'PossibilityStorageEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'PossibilityStorageEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

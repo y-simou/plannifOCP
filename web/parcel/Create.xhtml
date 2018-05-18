@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ParcelCreateDlg" widgetVar="ParcelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="300" showHeader="false">
+        <p:dialog id="ParcelCreateDlg" widgetVar="ParcelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="370" showHeader="false">
 
             <h:form id="ParcelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -44,7 +44,6 @@
                                             </p:selectOneMenu>
                                         </p:column>
 
-
                                     </p:row>
                                     <p:row> 
 
@@ -67,6 +66,25 @@
                                                                var="trenchItem"
                                                                itemValue="#{trenchItem}"/>
                                             </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row> 
+
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Surface :" for="surface" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="surface" value="#{parcelController.selected.surface}" title="surface" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Epaisseur :" for="epaisseur" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="epaisseur" value="#{parcelController.selected.epaisseur}" title="Epaisseur" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

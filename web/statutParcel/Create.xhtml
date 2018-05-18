@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StatutParcelCreateDlg" widgetVar="StatutParcelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+
+            <h:form id="StatutParcelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Statut Parcel :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="Parcel :" for="parcel" />
+                                    <p:selectOneMenu id="parcel" value="#{statutParcelController.selected.parcel}" >
+                                        <f:selectItems value="#{parcelController.itemsAvailableSelectOne}"
+                                                       var="parcelItem"
+                                                       itemLabel="#{parcelItem.nom}"
+                                                       itemValue="#{parcelItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Statut :" for="nom" />
+                                    <p:inputText id="nom" value=" #{statutParcelController.selected.nom}" title="Statut" />
+                                    <p:outputLabel value="Treatment :" for="treatment" />
+                                    <p:inputText id="treatment" value="#{statutParcelController.selected.treatment}" title="Treatment" />
+                                    <p:outputLabel value="Date :" for="dateChangement" />
+                                    <p:calendar id="dateChangement" pattern="dd/MM/yyyy" value="#{statutParcelController.selected.dateTreatment}" title="Date" showOn="button"/>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{statutParcelController.create()}" onclick="handleSubmit(args, 'StatutParcelCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'StatutParcelCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -27,6 +27,8 @@ public class Parcel implements Serializable {
     private String nom;
     private Long x;
     private Long y;
+    private Long surface;
+    private Long epaisseur;
     @ManyToOne
     private Trench trench;
     @ManyToOne
@@ -47,6 +49,16 @@ public class Parcel implements Serializable {
         this.subPanel = subPanel;
     }
 
+    public Parcel(String nom, Long x, Long y, Long surface, Long epaisseur, Trench trench, SubPanel subPanel) {
+        this.nom = nom;
+        this.x = x;
+        this.y = y;
+        this.surface = surface;
+        this.epaisseur = epaisseur;
+        this.trench = trench;
+        this.subPanel = subPanel;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -101,6 +113,22 @@ public class Parcel implements Serializable {
         this.nom = nom;
     }
 
+    public Long getSurface() {
+        return surface;
+    }
+
+    public void setSurface(Long surface) {
+        this.surface = surface;
+    }
+
+    public Long getEpaisseur() {
+        return epaisseur;
+    }
+
+    public void setEpaisseur(Long epaisseur) {
+        this.epaisseur = epaisseur;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -125,10 +153,10 @@ public class Parcel implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", trench=" + getTrench().getNom() + ", subPanel=" + getSubPanel().getNom() + '}';
+        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", surface=" + surface + ", epaisseur=" + epaisseur +", trench=" + getTrench().getNom() + ", subPanel=" + getSubPanel().getNom() + '}';
     }
 
 }

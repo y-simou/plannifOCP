@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PositionMachineViewDlg" widgetVar="PositionMachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+            <h:form id="PositionMachineViewForm">
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{positionMachineController.selected.id}" />
+                                    <hr></hr>
+                                </div>
+                                <div class="col-md-12">
+                                   
+                                    <h:outputText value="Machine :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.machine.nom} " title="Machine"/>
+                                    <h:outputText value=" Type :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.machine.type} " title="type"/>
+                                    <h:outputText value=" Site :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.machine.site.nom}" title="site"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h:outputText value="Position Name :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.position.nom}  " title="Position"/>
+                                    <h:outputText value=" X :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.position.x} " title="x"/>
+                                    <h:outputText value=" Y :"/>
+                                    <h:outputText value=" #{positionMachineController.selected.position.y}" title="y"/>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr></hr>
+                                    <h:outputText value="Date :"/>
+                                    <h:outputText value="#{positionMachineController.selected.datePosition}" title="Date">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <p:commandLink oncomplete="handleSubmit(args,'PositionMachineViewDialog');"> 
+                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                                    </p:commandLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

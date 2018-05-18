@@ -28,20 +28,6 @@
                                             <p:inputText id="nom" value="#{cCLController.selected.nom}" title="Nom" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Sequence Level" for="sequenceLevel" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="sequenceLevel" value="#{cCLController.selected.sequenceLevel}" >
-                                                <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                                               var="sequenceLevelItem"
-                                                               itemLabel="#{sequenceLevelItem.id}"
-                                                               itemValue="#{sequenceLevelItem}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-
-                                    <p:row>
-                                        <p:column>
                                             <p:outputLabel value="Sub Panel" for="subPanel" />
                                         </p:column>
                                         <p:column>
@@ -52,6 +38,9 @@
                                                                itemValue="#{subPanelItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
+                                    </p:row>
+
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Surface" for="surface" />
                                         </p:column>

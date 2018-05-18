@@ -8,36 +8,44 @@
 
     <ui:composition>
 
-        <p:dialog id="StatutBlockCreateDlg" widgetVar="StatutBlockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateStatutBlockTitle}">
-            <h:form id="StatutBlockCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{statutBlockController.selected != null}">
-                        <p:outputLabel value="CreateStatutBlockLabel_block}" for="block" />
-                        <p:selectOneMenu id="block" value="#{statutBlockController.selected.block}" >
-                            <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
-                                           var="blockItem"
-                                           itemValue="#{blockItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStatutBlockLabel_statutInitial}" for="statutInitial" />
-                        <p:selectOneMenu id="statutInitial" value="#{statutBlockController.selected.statutInitial}" >
-                            <f:selectItems value="#{statutController.itemsAvailableSelectOne}"
-                                           var="statutInitialItem"
-                                           itemValue="#{statutInitialItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStatutBlockLabel_statutFinal}" for="statutFinal" />
-                        <p:selectOneMenu id="statutFinal" value="#{statutBlockController.selected.statutFinal}" >
-                            <f:selectItems value="#{statutController.itemsAvailableSelectOne}"
-                                           var="statutFinalItem"
-                                           itemValue="#{statutFinalItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateStatutBlockLabel_dateChangement}" for="dateChangement" />
-                        <p:calendar id="dateChangement" pattern="MM/dd/yyyy" value="#{statutBlockController.selected.dateChangement}" title="EditStatutBlockTitle_dateChangement}"  showOn="button"/>
-                        <p:outputLabel value="CreateStatutBlockLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{statutBlockController.selected.id}" title="CreateStatutBlockTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{statutBlockController.create}" value="Save}" update="display,:StatutBlockListForm:datalist,:growl" oncomplete="handleSubmit(args,'StatutBlockCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="StatutBlockCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="StatutBlockCreateDlg" widgetVar="StatutBlockCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+
+            <h:form id="StatutBlockCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create StatutBlock :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="Block :" for="block" />
+                                    <p:selectOneMenu id="block" value="#{statutBlockController.selected.block}" >
+                                        <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                                       var="blockItem"
+                                                       itemLabel="#{blockItem.nom}"
+                                                       itemValue="#{blockItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Date :" for="dateChangement" />
+                                    <p:calendar id="dateChangement" pattern="MM/dd/yyyy" value="#{statutBlockController.selected.dateChangement}" title="Date" showOn="button"/>
+                                    <p:outputLabel value="Statut Initial :" for="statutInitial" />
+                                    <p:inputText id="surface" value="#{statutBlockController.selected.statutInitial}" title="statutInitial" />
+                                    <p:outputLabel value="Statut Final :" for="statutFinal" />
+                                    <p:inputText id="surface" value="#{statutBlockController.selected.statutFinal}" title="statutFinal" />
+                                    
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{statutBlockController.create()}" onclick="handleSubmit(args, 'StatutBlockCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'StatutBlockCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

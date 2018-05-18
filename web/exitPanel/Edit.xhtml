@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        
+        <p:dialog id="ExitPanelEditDlg" widgetVar="ExitPanelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="310" showHeader="false">
+
+            <h:form id="ExitPanelEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Exit Panel :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="Panel :" for="panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="panel" value="#{exitPanelController.selected.panel}" >
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="panelItem"
+                                                               itemLabel="#{panelItem.nom}"
+                                                               itemValue="#{panelItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        
+                                    </p:row>
+                                    <p:row>
+                                        
+                                        <p:column>
+                                            <p:outputLabel value="X :" for="x" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="x" value="#{exitPanelController.selected.x}" title="X" />
+                                        </p:column>
+                                        
+                                    </p:row>
+                                    <p:row>
+                                        
+                                        <p:column>
+                                            <p:outputLabel value="Y :" for="y" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="y" value="#{exitPanelController.selected.y}" title="Y" />
+                                        </p:column>
+                                        
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Update" actionListener="#{exitPanelController.update()}" onclick="handleSubmit(args, 'ExitPanelEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'ExitPanelEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

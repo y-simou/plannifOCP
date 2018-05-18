@@ -30,6 +30,8 @@ public class Treatment implements Serializable {
     @ManyToOne
     private Block block;
     private Long temps;
+    @ManyToOne
+    private UnitOfTime unitOfTime;
     private Long chronologicalOrder;
 
     public Treatment() {
@@ -40,6 +42,15 @@ public class Treatment implements Serializable {
         this.operation = operation;
         this.block = block;
         this.temps = temps;
+        this.chronologicalOrder = chronologicalOrder;
+    }
+
+    public Treatment(Machine machine, Operation operation, Block block, Long temps, UnitOfTime unitOfTime, Long chronologicalOrder) {
+        this.machine = machine;
+        this.operation = operation;
+        this.block = block;
+        this.temps = temps;
+        this.unitOfTime = unitOfTime;
         this.chronologicalOrder = chronologicalOrder;
     }
 
@@ -83,6 +94,14 @@ public class Treatment implements Serializable {
         this.chronologicalOrder = chronologicalOrder;
     }
 
+    public UnitOfTime getUnitOfTime() {
+        return unitOfTime;
+    }
+
+    public void setUnitOfTime(UnitOfTime unitOfTime) {
+        this.unitOfTime = unitOfTime;
+    }
+    
 
     public Long getId() {
         return id;
@@ -114,9 +133,9 @@ public class Treatment implements Serializable {
 
     @Override
     public String toString() {
-        return "Treatment{" + "id=" + id + ", machine=" + getMachine().getNom() + ", operation=" + getOperation().getNom() + ", block=" + getBlock().getId() + ", temps=" + temps + ", chronologicalOrder=" + chronologicalOrder + '}';
+        return "Treatment{" + "id=" + id + ", machine=" + getMachine().getNom() + ", operation=" + getOperation().getNom() + ", block=" + getBlock().getId() + ", temps=" + temps + ", unitOfTime=" + unitOfTime + ", chronologicalOrder=" + chronologicalOrder + '}';
     }
 
     
-        
+
 }

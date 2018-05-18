@@ -21,25 +21,33 @@ public class LevelLayer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private int num;
     private String nom;
 
     public LevelLayer() {
     }
 
-    public LevelLayer(int num) {
-        this.num = num;
-    }
-
-    public LevelLayer(String nom) {
-        this.nom = nom;
-    }
-
     public LevelLayer(int num, String nom) {
         this.num = num;
         this.nom = nom;
     }
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public String getNom() {
         return nom;
@@ -50,29 +58,21 @@ public class LevelLayer implements Serializable {
     }
     
 
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) num;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the num fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof LevelLayer)) {
             return false;
         }
         LevelLayer other = (LevelLayer) object;
-        if (this.num != other.num) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -80,8 +80,7 @@ public class LevelLayer implements Serializable {
 
     @Override
     public String toString() {
-        return "Level{" + "num=" + num + ", nom=" + nom + '}';
+        return "LevelLayer{" + "id=" + id + ", num=" + num + ", nom=" + nom + '}';
     }
 
-    
 }

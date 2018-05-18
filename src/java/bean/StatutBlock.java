@@ -27,10 +27,8 @@ public class StatutBlock implements Serializable {
     private Long id;
     @ManyToOne
     private Block block;
-    @ManyToOne
-    private Statut statutInitial;
-    @ManyToOne
-    private Statut statutFinal;
+    private String statutInitial;
+    private String statutFinal;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateChangement;
 
@@ -41,7 +39,7 @@ public class StatutBlock implements Serializable {
         this.id = id;
     }
 
-    public StatutBlock(Block block, Statut statutInitial, Statut statutFinal, Date dateChangement) {
+    public StatutBlock(Block block, String statutInitial, String statutFinal, Date dateChangement) {
         this.block = block;
         this.statutInitial = statutInitial;
         this.statutFinal = statutFinal;
@@ -59,25 +57,19 @@ public class StatutBlock implements Serializable {
         this.block = block;
     }
 
-    public Statut getStatutInitial() {
-        if(statutInitial == null){
-            statutInitial = new Statut();
-        }
+    public String getStatutInitial() {
         return statutInitial;
     }
 
-    public void setStatutInitial(Statut statutInitial) {
+    public void setStatutInitial(String statutInitial) {
         this.statutInitial = statutInitial;
     }
 
-    public Statut getStatutFinal() {
-        if(statutFinal == null){
-            statutFinal = new Statut();
-        }
+    public String getStatutFinal() {
         return statutFinal;
     }
 
-    public void setStatutFinal(Statut statutFinal) {
+    public void setStatutFinal(String statutFinal) {
         this.statutFinal = statutFinal;
     }
 
@@ -119,7 +111,7 @@ public class StatutBlock implements Serializable {
 
     @Override
     public String toString() {
-        return "StatutBlock{" + "id=" + id + ", block=" + getBlock().getId() + ", statutInitial=" + getStatutInitial().getNom() + ", statutFinal=" + getStatutFinal().getNom() + ", dateChangement=" + dateChangement + '}';
+        return "StatutBlock{" + "id=" + id + ", block=" + getBlock().getId() + ", statutInitial=" + statutInitial + ", statutFinal=" + statutFinal + ", dateChangement=" + dateChangement + '}';
     }
 
 

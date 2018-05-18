@@ -8,38 +8,93 @@
 
     <ui:composition>
 
-        <p:dialog id="TreatmentCreateDlg" widgetVar="TreatmentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="CreateTreatmentTitle}">
-            <h:form id="TreatmentCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{treatmentController.selected != null}">
-                        <p:outputLabel value="CreateTreatmentLabel_machine}" for="machine" />
-                        <p:selectOneMenu id="machine" value="#{treatmentController.selected.machine}" >
-                            <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                           var="machineItem"
-                                           itemValue="#{machineItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateTreatmentLabel_operation}" for="operation" />
-                        <p:selectOneMenu id="operation" value="#{treatmentController.selected.operation}" >
-                            <f:selectItems value="#{operationController.itemsAvailableSelectOne}"
-                                           var="operationItem"
-                                           itemValue="#{operationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateTreatmentLabel_block}" for="block" />
-                        <p:selectOneMenu id="block" value="#{treatmentController.selected.block}" >
-                            <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
-                                           var="blockItem"
-                                           itemValue="#{blockItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="CreateTreatmentLabel_temps}" for="temps" />
-                        <p:inputText id="temps" value="#{treatmentController.selected.temps}" title="CreateTreatmentTitle_temps}" />
-                        <p:outputLabel value="CreateTreatmentLabel_chronologicalOrder}" for="chronologicalOrder" />
-                        <p:inputText id="chronologicalOrder" value="#{treatmentController.selected.chronologicalOrder}" title="CreateTreatmentTitle_chronologicalOrder}" />
-                        <p:outputLabel value="CreateTreatmentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{treatmentController.selected.id}" title="CreateTreatmentTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{treatmentController.create}" value="Save}" update="display,:TreatmentListForm:datalist,:growl" oncomplete="handleSubmit(args,'TreatmentCreateDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="TreatmentCreateDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="TreatmentCreateDlg" widgetVar="TreatmentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="330" showHeader="false">
+
+            <h:form id="TreatmentCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Treatment :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Operation :" for="operation" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="operation" value="#{treatmentController.selected.operation}" >
+                                                <f:selectItems value="#{operationController.itemsAvailableSelectOne}"
+                                                               var="operationItem"
+                                                               itemValue="#{operationItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Machine :  " for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{treatmentController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Block :" for="block" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="block" value="#{treatmentController.selected.block}" >
+                                                <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                                               var="blockItem"
+                                                               itemLabel="#{blockItem.nom}"
+                                                               itemValue="#{blockItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="time :" for="temps" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="temps" value="#{treatmentController.selected.temps}" title="time" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Unit Of Time" for="unitOfTime" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="unitOfTime" value="#{treatmentController.selected.unitOfTime}" >
+                                                <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
+                                                               var="unitOfTimeItem"
+                                                               itemValue="#{unitOfTimeItem}"
+                                                               itemLabel="#{unitOfTimeItem.unite}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Chronological Order :" for="chronologicalOrder" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="chronologicalOrder" value="#{treatmentController.selected.chronologicalOrder}" title="Chronological Order" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{treatmentController.create()}" onclick="handleSubmit(args, 'TreatmentCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'TreatmentCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

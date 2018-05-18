@@ -26,8 +26,6 @@ public class CCL implements Serializable {
     private String nom;
     @ManyToOne
     private SubPanel subPanel;
-    @ManyToOne
-    private SequenceLevel sequenceLevel;
     private String surface;
     
 
@@ -38,13 +36,12 @@ public class CCL implements Serializable {
         return subPanel;
     }
 
-    public CCL(String nom, SubPanel subPanel, SequenceLevel sequenceLevel, String surface) {
+    public CCL(String nom, SubPanel subPanel, String surface) {
         this.nom = nom;
         this.subPanel = subPanel;
-        this.sequenceLevel = sequenceLevel;
         this.surface = surface;
     }
-    
+
     
 
     public CCL() {
@@ -53,17 +50,6 @@ public class CCL implements Serializable {
 
     public void setSubPanel(SubPanel subPanel) {
         this.subPanel = subPanel;
-    }
-
-    public SequenceLevel getSequenceLevel() {
-        if(sequenceLevel==null){
-           sequenceLevel = new SequenceLevel();
-        }
-        return sequenceLevel;
-    }
-
-    public void setSequenceLevel(SequenceLevel sequenceLevel) {
-        this.sequenceLevel = sequenceLevel;
     }
 
     public Long getId() {
@@ -114,8 +100,10 @@ public class CCL implements Serializable {
 
     @Override
     public String toString() {
-        return "CCL{" + "id=" + id + ", nom=" + nom + ", subPanel=" + subPanel + ", sequenceLevel=" + sequenceLevel + ", surface=" + surface + '}';
+        return "CCL{" + "id=" + id + ", nom=" + nom + ", subPanel=" + subPanel.getNom() + ", surface=" + surface + '}';
     }
+
+    
 
     
 }

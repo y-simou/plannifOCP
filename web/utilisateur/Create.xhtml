@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UtilisateurCreateDlg" widgetVar="UtilisateurCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+
+            <h:form id="UtilisateurCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Utilisateur :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Last Name :  " for="Last" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="Last" required="true" value="#{utilisateurController.selected.nom}" title="Last Name" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="First Name :" for="First" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="First" required="true" value="#{utilisateurController.selected.prenom}" title="First Name" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{utilisateurController.type}" onLabel="User" offLabel="Admin" style="background-color: #0cd68c; color: #000;">
+                                                <p:ajax listener="#{utilisateurController.changeType()}"/>
+                                            </p:selectBooleanButton>
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:outputLabel value="Site :" for="site" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="site" value="#{utilisateurController.selected.site}" >
+                                                <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                                               var="site"
+                                                               itemValue="#{site}" itemLabel="#{site.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row> 
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Login :" for="Login" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="Login" required="true" value="#{utilisateurController.selected.login}" title="Login" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Mail :" for="Mail" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="Mail" required="true" value="#{utilisateurController.selected.mail}" title="Mail" />
+                                        </p:column>
+                                    </p:row> 
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Password :" for="Password" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:password id="Password" required="true" value="#{utilisateurController.selected.password}" title="Password" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Reset Password :" for="Reset" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:password id="Reset" required="true" value="#{utilisateurController.password}" title="Password" />
+                                        </p:column>
+                                    </p:row> 
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" actionListener="#{utilisateurController.create}" class="myBtn" onclick="handleSubmit(args, 'UtilisateurCreateDialog');" />
+                        <p:commandLink oncomplete="PF('UtilisateurCreateDialog').hide();">
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:composition>
+</html>

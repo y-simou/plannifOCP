@@ -7,7 +7,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="270" showHeader="false">
+        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="300" showHeader="false">
             <h:form id="ParcelViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -44,6 +44,16 @@
                                 <div class="col-md-5">
                                     <h:outputText value="Y"/>
                                     <h:outputText value=" #{parcelController.selected.y}" title="Y"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputText value="Surface :"/>
+                                    <h:outputText value=" #{parcelController.selected.surface}" title="Surface"/>
+                                </div> 
+                                <div class="col-md-6">
+                                    <h:outputText value="Epaisseur :"/>
+                                    <h:outputText value=" #{parcelController.selected.epaisseur}" title="Epaisseur"/>
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@ public class PanelController implements Serializable {
     }
 
     public String redirect() {
-        return "/panel//List?faces-redirect=true";
+        return "/panel/List?faces-redirect=true";
     }
 
     public Panel getSelected() {

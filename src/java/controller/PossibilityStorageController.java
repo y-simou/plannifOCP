@@ -27,10 +27,10 @@ public class PossibilityStorageController implements Serializable {
     public PossibilityStorageController() {
     }
 
-    public String redirect(){
+    public String redirect() {
         return "/possibilityStorage/List?faces-redirect=true";
     }
-    
+
     public PossibilityStorage getSelected() {
         if (selected == null) {
             selected = new PossibilityStorage();
@@ -60,14 +60,18 @@ public class PossibilityStorageController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(PossibilityStorage possibilityStorage) {
+        ejbFacade.remove(possibilityStorage);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class PossibilityStorageController implements Serializable {
         }
         return items;
     }
-
 
     public PossibilityStorage getPossibilityStorage(java.lang.Long id) {
         return getFacade().find(id);

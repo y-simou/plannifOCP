@@ -57,7 +57,6 @@ img { max-width: 100%; }
 
 ul.navbar-nav {
     font-size: 16px;
-    color: #fff;
 }
 
 .navbar-inverse ul.navbar-nav li { padding-top: 8px; padding-bottom: 8px; }
@@ -185,9 +184,44 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .high{
-    height: 40px;
+    height: 30px;
 }
 
 .margin{
     margin: 4px;
+}
+
+.myBtn{
+    width:100px;
+    height: 30px;
+    text-align: center;
+    padding: 4px 0;
+    color: black !important;
+    border-radius: 10%;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: #00897b !important;
+}
+.myBtn:hover{
+    background-color: #00897b !important;
+    border-radius: 10%;
+    border-color: #00897b !important;
+}
+
+.tableCrud{
+    width: 95%;
+    background-color: #4db6ac;
+}
+
+th {
+  color: black !important;
+  background-color: #00695c !important;
+  border-color: #148F77 !important;
+}
+td{
+    color: black    ;
+    border-color: #148F77 !important;
+}
+.editBtn{
+    
 }

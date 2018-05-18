@@ -26,13 +26,13 @@ public class SubPanelController implements Serializable {
 
     public SubPanelController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/subPanel/List?faces-redirect=true";
     }
 
     public SubPanel getSelected() {
-        if (selected == null ) {
+        if (selected == null) {
             selected = new SubPanel();
         }
         return selected;
@@ -60,14 +60,18 @@ public class SubPanelController implements Serializable {
 
     public void create() {
         ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
         ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void delete() {
-        ejbFacade.remove(selected);
+    public void delete(SubPanel subPanel) {
+        ejbFacade.remove(subPanel);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -78,7 +82,6 @@ public class SubPanelController implements Serializable {
         }
         return items;
     }
-
 
     public SubPanel getSubPanel(java.lang.Long id) {
         return getFacade().find(id);

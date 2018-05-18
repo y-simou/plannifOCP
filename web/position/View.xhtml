@@ -41,13 +41,6 @@
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h:outputText value="Date Position :"/>
-                                    <h:outputText value="  #{positionController.selected.datePosition}" title="Date Position">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </div>
-                                <hr></hr>
-                                <div class="col-md-12">
                                     <p:commandLink oncomplete="handleSubmit(args,'PositionViewDialog');"> 
                                         <h:graphicImage value="../resources/images/retour.png" alt="retour" />
                                     </p:commandLink>

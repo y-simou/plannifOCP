@@ -6,58 +6,75 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListPossibilityStorageTitle}"></h:outputText>
+            <h:outputText value=" Possibility Storage"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="PossibilityStorageListForm">
-                <p:panel header="ListPossibilityStorageTitle}">
-                    <p:dataTable id="datalist" value="#{possibilityStorageController.items}" var="item"
-                                 selectionMode="single" selection="#{possibilityStorageController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <ui:include src="/sidebar.xhtml"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPossibilityStorageTitle_stock}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.stock}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPossibilityStorageTitle_level}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.level}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListPossibilityStorageTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{possibilityStorageController.prepareCreate}" update=":PossibilityStorageCreateForm" oncomplete="PF('PossibilityStorageCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":PossibilityStorageViewForm" oncomplete="PF('PossibilityStorageViewDialog').show()" disabled="#{empty possibilityStorageController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":PossibilityStorageEditForm" oncomplete="PF('PossibilityStorageEditDialog').show()" disabled="#{empty possibilityStorageController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{possibilityStorageController.delete()}" update=":growl,datalist" disabled="#{empty possibilityStorageController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Possibility Storage : </h1>
+                    <hr></hr>
+                    <h:form id="PossibilityStorageListForm">
+                        <div class="container">
+                             <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PossibilityStorageCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
+                            <p:dataTable value="#{possibilityStorageController.items}" var="item" 
+                                       rowKey="#{item.id}"
+                                         rows="10"
+                                         class="tableCrud"
+                                         style="text-align: center;" rowStyleClass="high" 
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ListPossibilityStorageTitle_stock}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.stock.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ListPossibilityStorageTitle_level}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.level.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Possibility"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.possibility ? 'possible' : 'impossible'}"/>
+                                </p:column>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                                <p:column> 
+                                    <p:commandLink actionListener="#{possibilityStorageController.delete(item)}" update=":PossibilityStorageListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{possibilityStorageController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":PossibilityStorageEditForm" oncomplete="PF('PossibilityStorageEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{possibilityStorageController.setSelected(item)}" styleClass="margin" update=":PossibilityStorageViewForm" oncomplete="PF('PossibilityStorageViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <br></br><hr></hr>
+
+
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
+
         </ui:define>
     </ui:composition>
 

@@ -6,64 +6,79 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListStockTitle}"></h:outputText>
+            <h:outputText value="StockT"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="StockListForm">
-                <p:panel header="ListStockTitle}">
-                    <p:dataTable id="datalist" value="#{stockController.items}" var="item"
-                                 selectionMode="single" selection="#{stockController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <ui:include src="/sidebar.xhtml"/>
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table Stock : </h1>
+                    <hr></hr>
+                    <h:form id="StockListForm">
+                        <div class="container">
+                             <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('StockCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
+                            <p:dataTable value="#{stockController.items}" var="item" 
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         class="tableCrud"
+                                         style="text-align: center;" rowStyleClass="high" 
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Capacity"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.capacity}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="initial Quantity"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.initialQte}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Site"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.site.nom}"/>
+                                </p:column>
+                                <p:column> 
+                                    <p:commandLink actionListener="#{stockController.delete(item)}" update=":StockListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{stockController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":StockEditForm" oncomplete="PF('StockEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{stockController.setSelected(item)}" styleClass="margin" update=":StockViewForm" oncomplete="PF('StockViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <br></br><hr></hr>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListStockTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListStockTitle_capacity}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.capacity}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListStockTitle_initialQte}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.initialQte}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListStockTitle_nom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nom}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{stockController.prepareCreate}" update=":StockCreateForm" oncomplete="PF('StockCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":StockViewForm" oncomplete="PF('StockViewDialog').show()" disabled="#{empty stockController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":StockEditForm" oncomplete="PF('StockEditDialog').show()" disabled="#{empty stockController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{stockController.delete()}" update=":growl,datalist" disabled="#{empty stockController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
+
         </ui:define>
     </ui:composition>
 

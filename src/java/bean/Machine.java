@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,6 +28,8 @@ public class Machine implements Serializable {
     private String designation;
     private String type;
     private int rendement;
+    @ManyToOne
+    private Site site;
 
     public Machine() {
     }
@@ -41,6 +44,15 @@ public class Machine implements Serializable {
         this.type = type;
         this.rendement = rendement;
     }
+
+    public Machine(String nom, String designation, String type, int rendement, Site site) {
+        this.nom = nom;
+        this.designation = designation;
+        this.type = type;
+        this.rendement = rendement;
+        this.site = site;
+    }
+    
 
     public Long getId() {
         return id;
@@ -83,6 +95,14 @@ public class Machine implements Serializable {
         this.nom = nom;
     }
 
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -108,11 +128,9 @@ public class Machine implements Serializable {
         return true;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Machine{" + "id=" + id + ", nom=" + nom + ", designation=" + designation + ", type=" + type + ", rendement=" + rendement + '}';
+        return "Machine{" + "id=" + id + ", nom=" + nom + ", designation=" + designation + ", type=" + type + ", rendement=" + rendement + ", site=" + site + '}';
     }
 
     

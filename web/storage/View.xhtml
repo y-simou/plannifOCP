@@ -8,26 +8,52 @@
 
     <ui:composition>
 
-        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewStorageTitle}">
+        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
             <h:form id="StorageViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{storageController.selected != null}">
-                        <h:outputText value="ViewStorageLabel_stock}"/>
-                        <h:outputText value="#{storageController.selected.stock}" title="ViewStorageTitle_stock}"/>
-                        <h:outputText value="ViewStorageLabel_machine}"/>
-                        <h:outputText value="#{storageController.selected.machine}" title="ViewStorageTitle_machine}"/>
-                        <h:outputText value="ViewStorageLabel_block}"/>
-                        <h:outputText value="#{storageController.selected.block}" title="ViewStorageTitle_block}"/>
-                        <h:outputText value="ViewStorageLabel_dateTransport}"/>
-                        <h:outputText value="#{storageController.selected.dateTransport}" title="ViewStorageTitle_dateTransport}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="ViewStorageLabel_quantity}"/>
-                        <h:outputText value="#{storageController.selected.quantity}" title="ViewStorageTitle_quantity}"/>
-                        <h:outputText value="ViewStorageLabel_id}"/>
-                        <h:outputText value="#{storageController.selected.id}" title="ViewStorageTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="StorageViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{storageController.selected.id}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value="Stock :"/>
+                                    <h:outputText value=" #{storageController.selected.stock.nom}" title="Stock"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputText value="Quantity :"/>
+                                    <h:outputText value=" #{storageController.selected.quantity} Tn" title="Quantity"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputLabel value="machine :"/>
+                                    <h:outputText value=" #{storageController.selected.machine.nom}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value="Block : "/>
+                                    <h:outputText value=" #{storageController.selected.block.nom}" title="Block"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputText value="Date Transport :"/>
+                                    <h:outputText value="#{storageController.selected.dateTransport}" title="Date Transport">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'StorageViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

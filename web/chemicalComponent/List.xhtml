@@ -18,39 +18,36 @@
             <!--   Big container   -->
 
             <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
-                <nav class="sidebar bg-dark">
-                    <p style="text-align: center;">
-                        <a href="../index.xhtml">
-                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
-                        </a>
-                    </p>
-                </nav>
+                <ui:include src="/sidebar.xhtml"/>
 
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
                         Table Chemical Component : </h1>
                     <hr></hr>
-                    <h:form id="ChemicalComponentListForm"><br></br>
+                    <h:form id="ChemicalComponentListForm">
                         <div class="container">
+                            <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ChemicalComponentCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
                             <p:dataTable value="#{chemicalComponentController.items}" var="item" 
-                                         paginator="true"
-                                         rowKey="#{item.id}"
+                                      rowKey="#{item.id}"
                                          rows="10"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         style="text-align: center;" rowStyleClass="high"
+                                         class="tableCrud"
+                                         style="text-align: center;" rowStyleClass="high" 
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="id"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.id}"/>
-                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Name"/>
                                     </f:facet>
                                     <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="site"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.site.nom}"/>
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{chemicalComponentController.delete(item)}" update=":ChemicalComponentListForm" styleClass="margin"> 

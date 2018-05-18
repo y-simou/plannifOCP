@@ -19,7 +19,6 @@
     <class>bean.Position</class>
     <class>bean.PossibilityStorage</class>
     <class>bean.SequenceLevel</class>
-    <class>bean.Statut</class>
     <class>bean.StatutBlock</class>
     <class>bean.Stock</class>
     <class>bean.Storage</class>
@@ -27,6 +26,17 @@
     <class>bean.Treatment</class>
     <class>bean.Trench</class>
     <class>bean.UnitOfTime</class>
+    <class>bean.String</class>
+    <class>bean.AvailabilityRh</class>
+    <class>bean.StatutParcel</class>
+    <class>bean.Axe</class>
+    <class>bean.PositionMachine</class>
+    <class>bean.Poste</class>
+    <class>bean.RH</class>
+    <class>bean.Site</class>
+    <class>bean.Utilisateur</class>
+    <class>bean.Ville</class>
+    <class>bean.ExitPanel</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

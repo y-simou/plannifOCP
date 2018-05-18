@@ -3,21 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
-        <p:dialog id="UnitOfTimeViewDlg" widgetVar="UnitOfTimeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewUnitOfTimeTitle}">
+        <p:dialog id="UnitOfTimeViewDlg" widgetVar="UnitOfTimeViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
             <h:form id="UnitOfTimeViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{unitOfTimeController.selected != null}">
-                        <h:outputText value="ViewUnitOfTimeLabel_unite}"/>
-                        <h:outputText value="#{unitOfTimeController.selected.unite}" title="ViewUnitOfTimeTitle_unite}"/>
-                        <h:outputText value="ViewUnitOfTimeLabel_id}"/>
-                        <h:outputText value="#{unitOfTimeController.selected.id}" title="ViewUnitOfTimeTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="UnitOfTimeViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{unitOfTimeController.selected.id}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Unit :"/>
+                                    <h:outputText value=" #{unitOfTimeController.selected.unite}" title="Unit"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                        </div>
+                        <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'UnitOfTimeViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

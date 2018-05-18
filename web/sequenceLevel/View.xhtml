@@ -8,14 +8,16 @@
 
     <ui:composition>
 
-        <p:dialog id="SequenceLevelViewDlg" widgetVar="SequenceLevelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewSequenceLevelTitle}">
+        <p:dialog id="SequenceLevelViewDlg" widgetVar="SequenceLevelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" showHeader="false">
             <h:form id="SequenceLevelViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{sequenceLevelController.selected != null}">
-                        <h:outputText value="ViewSequenceLevelLabel_id}"/>
-                        <h:outputText value="#{sequenceLevelController.selected.id}" title="ViewSequenceLevelTitle_id}"/>
+                        <h:outputText value="Number :"/>
+                        <h:outputText value=" #{sequenceLevelController.selected.id}" title="number"/>
                     </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="SequenceLevelViewDialog.hide()"/>
+                     <p:commandLink oncomplete="handleSubmit(args,'SequenceLevelEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

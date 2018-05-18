@@ -22,29 +22,23 @@
                                     <h:outputText value=" #{movementController.selected.id}" />
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="Machine : "/>
-                                    <h:outputText value=" #{movementController.selected.machine.nom}" title="Machine"/>
+                                    <h:outputText value="Duration :"/>
+                                    <h:outputText value=" #{movementController.selected.duree} #{movementController.selected.unitOfTime.unite}" title="Duration"/>
                                 </div>
                             </div>
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <h:outputText value="From : "/>
-                                    <h:outputText value=" #{movementController.selected.depart.nom}" title="From"/>
+                                    <h:outputText value=" #{movementController.selected.depart.position.nom}" title="From"/>
                                 </div>
                                 <div class="col-md-6">
                                     <h:outputText value="To : "/>
-                                    <h:outputText value=" #{movementController.selected.arrive.nom}" title="To :"/>
+                                    <h:outputText value=" #{movementController.selected.arrive.position.nom}" title="To :"/>
                                 </div>
                             </div>
                             <hr></hr>
                             <div class="row">
-
-                                <div class="col-md-12">
-                                    <h:outputText value="Duration :"/>
-                                    <h:outputText value=" #{movementController.selected.duree}" title="Duration"/>
-                                </div>
-                                <hr></hr>
                                 <div class="col-md-12" align="center">
                                     <p:commandLink oncomplete="handleSubmit(args,'MovementViewDialog');"> 
                                         <h:graphicImage value="../resources/images/retour.png" alt="retour" />

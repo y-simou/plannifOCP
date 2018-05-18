@@ -3,11 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
 
-        <p:dialog id="ChemicalComponentCreateDlg" widgetVar="ChemicalComponentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="350" height="250" showHeader="false">
+        <p:dialog id="ChemicalComponentCreateDlg" widgetVar="ChemicalComponentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="350" height="300" showHeader="false">
 
             <h:form id="ChemicalComponentCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -22,7 +23,12 @@
 
                                     <p:outputLabel value="Name :  " for="nom" />
                                     <p:inputText id="nom" value="#{chemicalComponentController.selected.nom}" title="Name" />
-
+                                    <p:outputLabel value="Site :  " for="site" />
+                                    <p:selectOneMenu id="site" value="#{chemicalComponentController.selected.site}" >
+                                        <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                                       var="site"
+                                                       itemValue="#{site}" itemLabel="#{site.nom}"/>
+                                    </p:selectOneMenu>
                                 </p:panelGrid>
                             </div>
                         </div>

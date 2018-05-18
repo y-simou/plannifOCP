@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
  *
  * @author Yassine.SIMOU
  */
+
 @Entity
 public class Movement implements Serializable {
 
@@ -24,12 +25,12 @@ public class Movement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Machine machine;
+    private PositionMachine depart;
     @ManyToOne
-    private Position depart;
-    @ManyToOne
-    private Position arrive;
+    private PositionMachine arrive;
     private Long duree;
+    @ManyToOne
+    private UnitOfTime unitOfTime;
 
     public Movement() {
     }
@@ -38,43 +39,26 @@ public class Movement implements Serializable {
         this.id = id;
     }
 
-    public Movement(Machine machine, Position depart, Position arrive, Long duree) {
-        this.machine = machine;
+    public Movement(PositionMachine depart, PositionMachine arrive, Long duree, UnitOfTime unitOfTime) {
         this.depart = depart;
         this.arrive = arrive;
         this.duree = duree;
+        this.unitOfTime = unitOfTime;
     }
 
-    public Machine getMachine() {
-        if(machine==null){
-            machine=new Machine();
-        }
-        return machine;
-    }
-
-    public void setMachine(Machine machine) {
-        this.machine = machine;
-    }
-
-    public Position getDepart() {
-        if(depart==null){
-            depart = new Position();
-        }
+    public PositionMachine getDepart() {
         return depart;
     }
 
-    public void setDepart(Position depart) {
+    public void setDepart(PositionMachine depart) {
         this.depart = depart;
     }
 
-    public Position getArrive() {
-        if(arrive==null){
-            arrive = new Position();
-        }
+    public PositionMachine getArrive() {
         return arrive;
     }
 
-    public void setArrive(Position arrive) {
+    public void setArrive(PositionMachine arrive) {
         this.arrive = arrive;
     }
 
@@ -94,6 +78,14 @@ public class Movement implements Serializable {
         this.id = id;
     }
 
+    public UnitOfTime getUnitOfTime() {
+        return unitOfTime;
+    }
+
+    public void setUnitOfTime(UnitOfTime unitOfTime) {
+        this.unitOfTime = unitOfTime;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -116,7 +108,7 @@ public class Movement implements Serializable {
 
     @Override
     public String toString() {
-        return "Movemennt{" + "id=" + id + ", machine=" + getMachine().getNom() + ", depart=" + getDepart().getNom() + ", arrive=" + getArrive().getNom() + ", duree=" + duree + '}';
+        return "Movement{" + "id=" + id + ", depart=" + depart + ", arrive=" + arrive + ", duree=" + duree + '}';
     }
 
     

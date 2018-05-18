@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UtilisateurViewDlg" widgetVar="UtilisateurViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUtilisateurTitle}">
+            <h:form id="UtilisateurViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{utilisateurController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_id}"/>
+                        <h:outputText value="#{utilisateurController.selected.id}" title="#{bundle.ViewUtilisateurTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_nom}"/>
+                        <h:outputText value="#{utilisateurController.selected.nom}" title="#{bundle.ViewUtilisateurTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_prenom}"/>
+                        <h:outputText value="#{utilisateurController.selected.prenom}" title="#{bundle.ViewUtilisateurTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_login}"/>
+                        <h:outputText value="#{utilisateurController.selected.login}" title="#{bundle.ViewUtilisateurTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_mail}"/>
+                        <h:outputText value="#{utilisateurController.selected.mail}" title="#{bundle.ViewUtilisateurTitle_mail}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_password}"/>
+                        <h:outputText value="#{utilisateurController.selected.password}" title="#{bundle.ViewUtilisateurTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_type}"/>
+                        <h:outputText value="#{utilisateurController.selected.type}" title="#{bundle.ViewUtilisateurTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_site}"/>
+                        <h:outputText value="#{utilisateurController.selected.site}" title="#{bundle.ViewUtilisateurTitle_site}"/>
+                        <h:outputText value="#{bundle.ViewUtilisateurLabel_token}"/>
+                        <h:outputText value="#{utilisateurController.selected.token}" title="#{bundle.ViewUtilisateurTitle_token}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UtilisateurViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

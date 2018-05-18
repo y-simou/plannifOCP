@@ -16,34 +16,25 @@
         <ui:define name="body">
 
             <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
-                <nav class="sidebar bg-dark">
-                    <p style="text-align: center;">
-                        <a href="../index.xhtml">
-                            <img src="../resources/images/ocp.jpg" style="border-radius: 50%;margin-top: 20px;" width="150" class="img-rounded" />
-                        </a>
-                    </p>
-                </nav>
+                <ui:include src="/sidebar.xhtml"/>
 
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
                         Table Position : </h1>
                     <hr></hr>
-                    <h:form id="PositionListForm"><br></br>
+                    <h:form id="PositionListForm">
                         <div class="container">
+                             <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PositionCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
                             <p:dataTable value="#{positionController.items}" var="item" 
-                                         paginator="true"
-                                         rowKey="#{item.id}"
+                                       rowKey="#{item.id}"
                                          rows="10"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         style="text-align: center;" rowStyleClass="high"
+                                         class="tableCrud"
+                                         style="text-align: center;" rowStyleClass="high" 
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="id"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.id}"/>
-                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Name"/>
@@ -62,15 +53,6 @@
                                     </f:facet>
                                     <h:outputText value="#{item.y}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Date Position"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.datePosition}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-
                                 <p:column> 
                                     <p:commandLink actionListener="#{positionController.delete(item)}" update=":PositionListForm" styleClass="margin"> 
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
@@ -81,7 +63,6 @@
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
-                            <p:commandButton  icon="ui-icon-pencil" value="Create Position"  oncomplete="PF('PositionCreateDialog').show()" />
                         </div>
                         <br></br><hr></hr>
 

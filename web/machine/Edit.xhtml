@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-          <p:dialog id="MachineEditDlg" widgetVar="MachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="340" showHeader="false">
+        <p:dialog id="MachineEditDlg" widgetVar="MachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="340" showHeader="false">
 
             <h:form id="MachineEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -49,6 +49,19 @@
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="rendement" value="#{machineController.selected.rendement}" title="Rendement" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Site :  " for="site" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="site" value="#{chemicalComponentController.selected.site}" >
+                                                <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
+                                                               var="site"
+                                                               itemValue="#{site}" itemLabel="#{site.nom}"/>
+                                            </p:selectOneMenu>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

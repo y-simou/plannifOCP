@@ -8,24 +8,46 @@
 
     <ui:composition>
 
-        <p:dialog id="StatutBlockViewDlg" widgetVar="StatutBlockViewDialog" modal="true" resizable="false" appendTo="@(body)" header="ViewStatutBlockTitle}">
+        <p:dialog id="StatutBlockViewDlg" widgetVar="StatutBlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
             <h:form id="StatutBlockViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{statutBlockController.selected != null}">
-                        <h:outputText value="ViewStatutBlockLabel_block}"/>
-                        <h:outputText value="#{statutBlockController.selected.block}" title="ViewStatutBlockTitle_block}"/>
-                        <h:outputText value="ViewStatutBlockLabel_statutInitial}"/>
-                        <h:outputText value="#{statutBlockController.selected.statutInitial}" title="ViewStatutBlockTitle_statutInitial}"/>
-                        <h:outputText value="ViewStatutBlockLabel_statutFinal}"/>
-                        <h:outputText value="#{statutBlockController.selected.statutFinal}" title="ViewStatutBlockTitle_statutFinal}"/>
-                        <h:outputText value="ViewStatutBlockLabel_dateChangement}"/>
-                        <h:outputText value="#{statutBlockController.selected.dateChangement}" title="ViewStatutBlockTitle_dateChangement}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="ViewStatutBlockLabel_id}"/>
-                        <h:outputText value="#{statutBlockController.selected.id}" title="ViewStatutBlockTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="Close}" onclick="StatutBlockViewDialog.hide()"/>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{statutBlockController.selected.id}" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value="Block :"/>
+                                    <h:outputText value=" #{statutBlockController.selected.block.nom}" title="Block"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <h:outputText value="Date :"/>
+                                    <h:outputText value="#{statutBlockController.selected.dateChangement}" title="Date">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h:outputText value="Statut Initial :"/>
+                                    <h:outputText value=" #{statutBlockController.selected.statutInitial}" title="Initial"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputText value="Statut Final :"/>
+                                    <h:outputText value=" #{statutBlockController.selected.statutFinal}" title="Final"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'StatutBlockViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

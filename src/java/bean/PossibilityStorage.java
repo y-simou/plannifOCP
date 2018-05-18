@@ -60,7 +60,7 @@ public class PossibilityStorage implements Serializable {
         this.level = level;
     }
 
-    public boolean isPossibility() {
+    public boolean getPossibility() {
         return possibility;
     }
 

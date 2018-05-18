@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PositionMachineCreateDlg" widgetVar="PositionMachineCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+
+            <h:form id="PositionMachineCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Position Machine :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Machine :" for="machine" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="machine" value="#{positionMachineController.selected.machine}" >
+                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
+                                                               var="machineItem"
+                                                               itemLabel="#{machineItem.nom}"
+                                                               itemValue="#{machineItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Date :" for="datePosition" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionMachineController.selected.datePosition}" title="Date"  showOn="button"/>
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Position :" for="position" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="position" value="#{positionMachineController.selected.position}" >
+                                                <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                                               var="positionItem"
+                                                               itemLabel="#{positionItem.nom}-X: #{positionItem.x} -Y: #{positionItem.y}"
+                                                               itemValue="#{positionItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:commandButton  value="New Position" oncomplete="PF('PositionCreateDialog').show()" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="Save" actionListener="#{positionMachineController.create}" onclick="handleSubmit(args, 'PositionMachineCreateDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'PositionMachineCreateDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        
+             <p:dialog id="RHViewDlg" widgetVar="RHViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+            <h:form id="RHViewForm">
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h:outputLabel value="id :" />
+                                    <h:outputText value=" #{rHController.selected.id}" />
+                                    <hr></hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <h:outputText value="poste :"/>
+                                    <h:outputText value=" #{rHController.selected.poste.nom} " title="Machine"/>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr></hr>
+                                    <h:outputText value="Site :"/>
+                                    <h:outputText value=" #{rHController.selected.site.nom} " title="Machine"/>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <p:commandLink oncomplete="handleSubmit(args,'RHViewDialog');"> 
+                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                                    </p:commandLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

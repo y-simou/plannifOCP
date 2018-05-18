@@ -92,7 +92,7 @@ public class PositionController implements Serializable {
     }
 
     public List<Position> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAllDesc();
     }
 
     @FacesConverter(forClass = Position.class)

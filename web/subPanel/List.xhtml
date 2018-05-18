@@ -6,64 +6,74 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templateCrud.xhtml">
 
 
         <ui:define name="title">
-            <h:outputText value="ListSubPanelTitle}"></h:outputText>
+            <h:outputText value="Sub Panel"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="SubPanelListForm">
-                <p:panel header="ListSubPanelTitle}">
-                    <p:dataTable id="datalist" value="#{subPanelController.items}" var="item"
-                                 selectionMode="single" selection="#{subPanelController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <ui:include src="/sidebar.xhtml"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListSubPanelTitle_surface}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.surface}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListSubPanelTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListSubPanelTitle_sequenceLevel}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sequenceLevel}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="ListSubPanelTitle_nom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nom}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create}" actionListener="#{subPanelController.prepareCreate}" update=":SubPanelCreateForm" oncomplete="PF('SubPanelCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View}" update=":SubPanelViewForm" oncomplete="PF('SubPanelViewDialog').show()" disabled="#{empty subPanelController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit}" update=":SubPanelEditForm" oncomplete="PF('SubPanelEditDialog').show()" disabled="#{empty subPanelController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete}" actionListener="#{subPanelController.delete()}" update=":growl,datalist" disabled="#{empty subPanelController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Table SubPanel : </h1>
+                    <hr></hr>
+                    <h:form id="SubPanelListForm">
+                        <div class="container">
+                            <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('SubPanelCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
+                            <p:dataTable value="#{subPanelController.items}" var="item" 
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         class="tableCrud"
+                                         style="text-align: center;" rowStyleClass="high" 
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Surface"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.surface}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Sequence Level"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sequenceLevel.id}"/>
+                                </p:column>
+                                <p:column> 
+                                    <p:commandLink actionListener="#{subPanelController.delete(item)}" update=":SubPanelListForm" styleClass="margin"> 
+                                        <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
+                                    </p:commandLink>
+                                    <p:commandButton actionListener="#{subPanelController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":SubPanelEditForm" oncomplete="PF('SubPanelEditDialog').show()"  icon="ui-icon-pencil"/>
+                                    <p:commandLink actionListener="#{subPanelController.setSelected(item)}" styleClass="margin" update=":SubPanelViewForm" oncomplete="PF('SubPanelViewDialog').show()"  > 
+                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <br></br><hr></hr>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+
+                    </h:form>
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
+
         </ui:define>
     </ui:composition>
 

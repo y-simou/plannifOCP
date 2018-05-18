@@ -22,47 +22,48 @@
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
                                     <p:row>
 
-                                        <p:column>
-                                            <p:outputLabel value="Machine :" for="machine" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="machine" value="#{movementController.selected.machine}" >
-                                                <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
-                                                               var="machineItem"
-                                                               itemLabel="#{machineItem.nom}"
-                                                               itemValue="#{machineItem}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
+                                       
                                         <p:column>
                                             <p:outputLabel value="From" for="depart" />
 
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="depart" value="#{movementController.selected.depart}" >
-                                                <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                                <f:selectItems value="#{positionMachineController.itemsAvailableSelectOne}"
                                                                var="departItem"
-                                                               itemLabel="#{departItem.nom}"
+                                                               itemLabel="#{departItem.position.nom}"
                                                                itemValue="#{departItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
-                                    </p:row>
-                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="To" for="arrive" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="arrive" value="#{movementController.selected.arrive}" >
-                                                <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
+                                                <f:selectItems value="#{positionMachineController.itemsAvailableSelectOne}"
                                                                var="arriveItem"
-                                                               itemLabel="#{arriveItem.nom}"
+                                                               itemLabel="#{arriveItem.position.nom}}"
                                                                itemValue="#{arriveItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Duration" for="duree" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="duree" value="#{movementController.selected.duree}" title="Duration" />
+                                        </p:column>
+                                         <p:column>
+                                            <p:outputLabel value="Unit Of Time :" for="unit" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="unit" value="#{movementController.selected.unitOfTime}" >
+                                                <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
+                                                               var="unit"
+                                                               itemLabel="#{unit.nom}"
+                                                               itemValue="#{unit}"/>
+                                            </p:selectOneMenu>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

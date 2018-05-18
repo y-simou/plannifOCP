@@ -8,16 +8,40 @@
 
     <ui:composition>
 
-        <p:dialog id="SequenceLevelEditDlg" widgetVar="SequenceLevelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditSequenceLevelTitle}">
-            <h:form id="SequenceLevelEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{sequenceLevelController.selected != null}">
-                        <p:outputLabel value="EditSequenceLevelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{sequenceLevelController.selected.id}" title="EditSequenceLevelTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{sequenceLevelController.update}" value="Save}" update="display,:SequenceLevelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SequenceLevelEditDialog');"/>
-                    <p:commandButton value="Cancel}" onclick="SequenceLevelEditDialog.hide()"/>
-                </h:panelGroup>
+        <p:dialog id="SequenceLevelEditDlg" widgetVar="SequenceLevelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="230" showHeader="false">
+
+            <h:form id="SequenceLevelEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Sequence Level :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="num :" for="id" />
+                                        </p:column>
+                                        <p:column> 
+                                            <p:inputText id="id" value="#{sequenceLevelController.selected.id}" title="num" />
+                                        </p:column>
+                                            
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div class="f1-buttons" align="center">
+                        <p:commandButton  value="update" actionListener="#{sequenceLevelController.update()}" onclick="handleSubmit(args, 'SequenceLevelEditDialog');" />
+                    </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'SequenceLevelEditDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
+                </div>
             </h:form>
         </p:dialog>
 
