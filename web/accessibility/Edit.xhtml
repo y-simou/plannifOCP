@@ -65,10 +65,12 @@
                             </div>
                         </div>
                     </div>
-                    <br></br>
-                    <p:commandLink oncomplete="handleSubmit(args,'AccessibilityEditDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{accessibilityController.modifie()}" onclick="handleSubmit(args, 'AccessibilityEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'AccessibilityEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
                 </div>
             </h:form>
         </p:dialog>

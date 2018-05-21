@@ -25,14 +25,15 @@
                         Table Position Machine : </h1>
                     <hr></hr>
                     <h:form id="PositionMachineListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PositionMachineCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PositionMachineCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{positionMachineController.items}" var="item" 
-                                     rowKey="#{item.id}"
-                                         rows="10"
+                                         rowKey="#{item.id}"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

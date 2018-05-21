@@ -30,6 +30,23 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> {
         super(Utilisateur.class);
     }
     
+    public int login(Utilisateur user){
+        List<Utilisateur> users = getEntityManager().createQuery("SELECT u FROM Utilisateur u WHERE"
+                + " u.login='"+ user.getLogin() +"' OR u.mail='"+ user.getMail() +"'").getResultList();
+        if(users.isEmpty()){
+            return -1;
+        }else {
+            Utilisateur u = users.get(0);
+            if(!u.getPassword().equals(user.getPassword())){
+                return -2;
+            }else if (u.getType()==0) {
+                return 1;
+            }else {
+                return 2;
+            }
+        }
+    }
+    
     public int creerUser(Utilisateur utilisateur){
         if(findByLoginOrMail(utilisateur.getLogin(), utilisateur.getMail())==null){
             create(utilisateur);
@@ -47,4 +64,16 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> {
             return res.get(0);
         }
     }    
+    public Utilisateur findByLoginMail(String login){
+        List<Utilisateur> res = getEntityManager().createQuery("SELECT u FROM Utilisateur u where u.login='"+ login +"' OR u.mail='"+ login +"'").getResultList();
+        if(res.isEmpty()){
+            return null;
+        }else {
+            return res.get(0);
+        }
+    }    
+    
+    public void sentMail(String mail){
+        
+    }
 }

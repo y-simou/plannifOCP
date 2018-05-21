@@ -27,6 +27,7 @@
                         Table Accessibility : </h1>
                     <hr></hr>
                     <h:form id="AccessibilityListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('AccessibilityCreateDialog').show()" />
@@ -34,7 +35,7 @@
                              <hr></hr>
                             <p:dataTable value="#{accessibilityController.items}" var="item" 
                                         rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

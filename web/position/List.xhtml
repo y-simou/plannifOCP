@@ -24,14 +24,15 @@
                         Table Position : </h1>
                     <hr></hr>
                     <h:form id="PositionListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PositionCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PositionCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{positionController.items}" var="item" 
-                                       rowKey="#{item.id}"
-                                         rows="10"
+                                         rowKey="#{item.id}"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >
@@ -74,7 +75,7 @@
                 </div>
             </div>
 
-            
+
         </ui:define>
     </ui:composition>
 

@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="f1-buttons" align="right">
-                        <p:commandButton  value="Save" actionListener="#{stockController.update()}" onclick="handleSubmit(args, 'StockEditDialog');" />
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{stockController.update()}" onclick="handleSubmit(args, 'StockEditDialog');" />
                         <p:commandLink oncomplete="handleSubmit(args,'StockEditDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>

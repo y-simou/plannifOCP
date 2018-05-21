@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="AxeViewDlg" widgetVar="AxeViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
-            <h:form id="AxeViewForm">
+        <p:dialog id="VilleViewDlg" widgetVar="VilleViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+            <h:form id="VilleViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
                         <h4 align="center">More informations :</h4>
@@ -27,13 +27,13 @@
                                 </div>
                                 <div class="col-md-4">
 
-                                    <h:outputText value="Axe :"/>
-                                    <h:outputText value=" #{villeController.selected.axe.nom}" title="Axe"/>
+                                    <h:outputText value="Ville :"/>
+                                    <h:outputText value=" #{villeController.selected.axe.nom}" title="Ville"/>
                                 </div>
                             </div>
                         </div>
                         <hr></hr>
-                        <p:commandLink oncomplete="handleSubmit(args,'AxeViewDialog');"> 
+                        <p:commandLink oncomplete="handleSubmit(args,'VilleViewDialog');"> 
                             <h:graphicImage value="../resources/images/retour.png" alt="retour" />
                         </p:commandLink>
                     </div>

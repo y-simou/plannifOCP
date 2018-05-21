@@ -6,8 +6,8 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        
-            <p:dialog id="AxeCreateDlg" widgetVar="AxeCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="250" showHeader="false">
+
+        <p:dialog id="AxeCreateDlg" widgetVar="AxeCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="250" showHeader="false">
 
             <h:form id="AxeCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -25,20 +25,20 @@
                                             <p:outputLabel value="Name :" for="nom" />
                                         </p:column>
                                         <p:column>
-                                           <p:inputText id="nom" value="#{axeController.selected.nom}" title="Name" />
+                                            <p:inputText id="nom" value="#{axeController.selected.nom}" title="Name" />
                                         </p:column>
-                                        
+
                                     </p:row>
                                 </p:panelGrid>
                             </div>
                         </div>
                     </div>
-                    <div class="f1-buttons" align="center">
-                                                <p:commandButton  value="Save" actionListener="#{axeController.create}" onclick="handleSubmit(args, 'AxeCreateDialog');" />
-                                            </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'AxeCreateDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{axeController.create()}" onclick="handleSubmit(args, 'AxeCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'AxeCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
                 </div>
             </h:form>
         </p:dialog>

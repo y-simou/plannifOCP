@@ -23,12 +23,13 @@
                     <h1 align="center"> 
                         Table Treatment : </h1>
                     <hr></hr>
-                    <h:form id="TreatmentListForm"><br></br>
+                    <h:form id="TreatmentListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <p:dataTable value="#{treatmentController.items}" var="item" 
                                          paginator="true"
                                          rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          rowsPerPageTemplate="10,20,30,40,50"
                                          style="text-align: center;" rowStyleClass="high"
                                          >
@@ -72,7 +73,6 @@
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
-                            <p:commandButton  icon="ui-icon-pencil" value="Create Treatment"  oncomplete="PF('TreatmentCreateDialog').show()" />
                         </div>
                         <br></br><hr></hr>
 

@@ -23,6 +23,7 @@
                         Table Layer : </h1>
                     <hr></hr>
                     <h:form id="LayerListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('LayerCreateDialog').show()" />
@@ -30,7 +31,7 @@
                              <hr></hr>
                             <p:dataTable value="#{layerController.items}" var="item" 
                                       rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

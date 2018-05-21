@@ -54,12 +54,12 @@
                         </div>
                     </div>
                     <br></br>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Save" actionListener="#{cCLController.create}" onclick="handleSubmit(args, 'CCLCreateDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{cCLController.create()}" onclick="handleSubmit(args, 'CCLCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'CCLCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'CCLCreateDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>

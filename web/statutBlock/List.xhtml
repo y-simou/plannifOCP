@@ -23,6 +23,7 @@
                         Table Statut Block : </h1>
                     <hr></hr>
                     <h:form id="StatutBlockListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('BlockCreateDialog').show()" />
@@ -30,7 +31,7 @@
                              <hr></hr>
                             <p:dataTable value="#{statutBlockController.items}" var="item" 
                                        rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

@@ -54,21 +54,17 @@
                                                 <f:selectItem itemValue="#{false}" itemLabel="false"/>
                                             </p:selectOneMenu>
                                         </p:column>
-                                        <p:column></p:column>
-                                        <p:column>
-                                            <div class="f1-buttons" align="center">
-                                                <p:commandButton  value="Save" actionListener="#{accessibilityController.create}" onclick="handleSubmit(args, 'AccessibilityCreateDialog');" />
-                                            </div>
-                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </div>
                         </div>
                     </div>
-                    <br></br>
-                    <p:commandLink oncomplete="handleSubmit(args,'AccessibilityCreateDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{accessibilityController.create()}" onclick="handleSubmit(args, 'AccessibilityCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'AccessibilityCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
                 </div>
             </h:form>
         </p:dialog>

@@ -27,7 +27,7 @@
                         <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="EditSubPanelTitle_nom}" />
                     </p:panelGrid>
                     <div class="f1-buttons" align="right">
-                        <p:commandButton  value="Save" actionListener="#{subPanelController.update()}" onclick="handleSubmit(args, 'SubPanelEditDialog');" />
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{subPanelController.update()}" onclick="handleSubmit(args, 'SubPanelEditDialog');" />
                         <p:commandLink oncomplete="handleSubmit(args,'SubPanelEditDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>

@@ -24,6 +24,7 @@
                         Table Operation : </h1>
                     <hr></hr>
                     <h:form id="OperationListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('OperationCreateDialog').show()" />
@@ -31,7 +32,7 @@
                              <hr></hr>
                             <p:dataTable value="#{operationController.items}" var="item" 
                                        rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

@@ -23,6 +23,7 @@
                         Table Machine : </h1>
                     <hr></hr>
                     <h:form id="MachineListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('MachineCreateDialog').show()" />
@@ -30,7 +31,7 @@
                              <hr></hr>
                             <p:dataTable value="#{machineController.items}" var="item" 
                                         rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

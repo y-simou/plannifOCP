@@ -25,6 +25,7 @@
                         Table Utilisateur : </h1>
                     <hr></hr>
                     <h:form id="UtilisateurListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('UtilisateurCreateDialog').show()" />
@@ -32,7 +33,7 @@
                              <hr></hr>
                             <p:dataTable value="#{utilisateurController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

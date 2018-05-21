@@ -51,12 +51,12 @@
                         </div>
                     </div>
                     <br></br>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Save" actionListener="#{availabilityRhController.create}" onclick="handleSubmit(args, 'AvailabilityRhCreateDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{availabilityRhController.create()}" onclick="handleSubmit(args, 'AvailabilityRhCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'AvailabilityRhCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'AvailabilityRhCreateDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>LOGIN</title>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="../resources/font-awesome-4.6.3/css/font-awesome.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="../resources/css/util.css"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/main.css"/>
+        <!--===============================================================================================-->
+    </h:head>
+    <h:body>
+        <div class="limiter" style="background: url(../resources/images/banner-green.png) no-repeat center center fixed; 
+             -webkit-background-size: cover;
+             -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;">
+
+            <div class="container-login100">
+                <div class="wrap-login100">
+                    <div class="login100-form-title" style="background-image: url(resources/images/bg-banner-green.jpg);">
+                        <span class="login100-form-title-1">
+                            Reset Password
+                        </span>
+                    </div>
+
+                    <h:form class="login100-form validate-form">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <div class="wrap-input100 validate-input m-b-26" data-validate="Mail is required">
+                            <span class="label-input100">Your Mail</span>
+                            <h:inputText class="input100" title="UserName" value="#{utilisateurController.mail}"/>
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <h:commandButton class="login100-form-btn" value="Get Password" action="#{utilisateurController.sentPassword()}" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <!--===============================================================================================-->
+        <script src="../resources/js/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../resources/js/main.js"></script>
+
+
+    </h:body>
+
+
+
+</html>

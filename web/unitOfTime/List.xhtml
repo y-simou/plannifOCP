@@ -23,6 +23,7 @@
                         Table UnitOfTime : </h1>
                     <hr></hr>
                     <h:form id="UnitOfTimeListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('UnitOfTimeCreateDialog').show()" />
@@ -30,13 +31,13 @@
                              <hr></hr>
                             <p:dataTable value="#{unitOfTimeController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="ListUnitOfTimeTitle_unite}"/>
+                                        <h:outputText value="Unite"/>
                                     </f:facet>
                                     <h:outputText value="#{item.unite}"/>
                                 </p:column>

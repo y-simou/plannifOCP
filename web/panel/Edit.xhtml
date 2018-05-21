@@ -79,12 +79,12 @@
                         </div>
                     </div>
                     <hr></hr>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Update" actionListener="#{panelController.update()}" onclick="handleSubmit(args, 'PanelEditDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{parcelController.update()}" onclick="handleSubmit(args, 'ParcelEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'ParcelEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'PanelEditDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>

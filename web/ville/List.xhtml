@@ -24,14 +24,15 @@
                         Table Ville : </h1>
                     <hr></hr>
                     <h:form id="VilleListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('VilleCreateDialog').show()" />
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('VilleCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{villeController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         rows="10"
+
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high"
                                          >

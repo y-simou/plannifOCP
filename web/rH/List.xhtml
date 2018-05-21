@@ -25,6 +25,7 @@
                         Table RH : </h1>
                     <hr></hr>
                     <h:form id="RHListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('RHCreateDialog').show()" />
@@ -32,7 +33,7 @@
                              <hr></hr>
                             <p:dataTable value="#{rHController.items}" var="item" 
                                        rowKey="#{item.id}"
-                                         rows="10"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >

@@ -34,12 +34,12 @@
                         </div>
                     </div>
                     <br></br>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Save" actionListener="#{chemicalComponentController.create}" onclick="handleSubmit(args, 'ChemicalComponentCreateDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{chemicalComponentController.create()}" onclick="handleSubmit(args, 'ChemicalComponentCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'ChemicalComponentCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'ChemicalComponentCreateDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>

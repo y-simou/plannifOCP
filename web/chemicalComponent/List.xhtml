@@ -26,14 +26,15 @@
                         Table Chemical Component : </h1>
                     <hr></hr>
                     <h:form id="ChemicalComponentListForm">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ChemicalComponentCreateDialog').show()" />
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ChemicalComponentCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{chemicalComponentController.items}" var="item" 
-                                      rowKey="#{item.id}"
-                                         rows="10"
+                                         rowKey="#{item.id}"
+                                         
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >
@@ -59,7 +60,6 @@
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
-                            <p:commandButton  icon="ui-icon-pencil" value="Create Chemical Component"  oncomplete="PF('ChemicalComponentCreateDialog').show()" />
                         </div>
                         <br></br><hr></hr>
 

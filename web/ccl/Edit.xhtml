@@ -53,12 +53,12 @@
                         </div>
                     </div>
                     <br></br>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Modifie" actionListener="#{cCLController.update()}" onclick="handleSubmit(args, 'CCLEditDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{cCLController.update()}" onclick="handleSubmit(args, 'CCLEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'CCLEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'CCLEditDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>

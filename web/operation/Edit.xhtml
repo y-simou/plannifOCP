@@ -35,12 +35,12 @@
                         </div>
                     </div>
                     <hr></hr>
-                    <div class="f1-buttons" align="center">
-                        <p:commandButton  value="Update" actionListener="#{operationController.update()}" onclick="handleSubmit(args, 'OperationEditDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{operationController.update()}" onclick="handleSubmit(args, 'OperationEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'OperationEditDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
                     </div>
-                    <p:commandLink oncomplete="handleSubmit(args,'OperationEditDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
                 </div>
             </h:form>
         </p:dialog>
