@@ -38,7 +38,7 @@
                                         <p:column>
                                         </p:column>
                                         <p:column>
-                                            <p:selectBooleanButton id="type" class="myBtn" value="#{utilisateurController.type}" onLabel="User" offLabel="Admin" style="background-color: #0cd68c; color: #000;">
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{utilisateurController.type}" onLabel="User" offLabel="Admin" >
                                                 <p:ajax listener="#{utilisateurController.changeType()}"/>
                                             </p:selectBooleanButton>
                                         </p:column>
@@ -66,20 +66,6 @@
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="Mail" required="true" value="#{utilisateurController.selected.mail}" title="Mail" />
-                                        </p:column>
-                                    </p:row> 
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Password :" for="Password" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:password id="Password" required="true" value="#{utilisateurController.selected.password}" title="Password" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="Reset Password :" for="Reset" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:password id="Reset" required="true" value="#{utilisateurController.password}" title="Password" />
                                         </p:column>
                                     </p:row> 
                                 </p:panelGrid>

@@ -2,6 +2,7 @@ package controller;
 
 import bean.Utilisateur;
 import controller.util.CookieUtil;
+import controller.util.HashageUtil;
 import controller.util.SessionUtil;
 import service.UtilisateurFacade;
 
@@ -27,74 +28,91 @@ public class UtilisateurController implements Serializable {
     private service.UtilisateurFacade ejbFacade;
     private List<Utilisateur> items = null;
     private Utilisateur selected;
-    private String password;
     private String mail;
-    private boolean type = false;
+    private boolean type = true;
 
     public String redirect() {
         return "/utilisateur/List?faces-redirect=true";
     }
+
+    public String redirectIndex() {
+        return "/index?faces-redirect=true";
+    }
+
+    public String redirectLogin() {
+        return "/Login?faces-redirect=true";
+    }
+
     public String forgotPass() {
         return "/utilisateur/resetPass?faces-redirect=true";
     }
-    
-    public void sentPassword(){
-        if(ejbFacade.findByLoginMail(mail)==null){
+
+    public void sentPassword() {
+        if (ejbFacade.findByLoginMail(mail) == null) {
             showErrorMessage("Mail Uncorrect !!");
-        }else{
+        } else {
             ejbFacade.sentMail(mail);
             showMessage("Password changed, Please Check Your Mail.");
         }
+    }
+
+    public String logout() {
+        CookieUtil.remove("conected");
+        SessionUtil.remove("conected");
+        selected = null;
+        return "/Login?faces-redirect=true";
     }
 
     public String login() {
         int conected = ejbFacade.login(selected);
         if (conected == -1) {
             showErrorMessage("Login Or Email uncorrect !!");
+            selected = null;
         } else if (conected == -2) {
             showErrorMessage("Password uncorrect !!");
         } else if (conected == 1) {
             selected = ejbFacade.findByLoginMail(selected.getLogin());
             CookieUtil.setCookie("conected", selected.getId().toString(), 60 * 60 * 24);
             SessionUtil.setAttribute("conected", selected);
-            showMessage("Welcome "+ selected.getNom() + selected.getPrenom());
+            showMessage("Welcome " + selected.getNom() + selected.getPrenom());
             return "/index?faces-redirect=true";
         } else if (conected == 2) {
             selected = ejbFacade.findByLoginMail(selected.getLogin());
             CookieUtil.setCookie("conected", selected.getId().toString(), 60 * 60 * 24);
             SessionUtil.setAttribute("conected", selected);
-            showMessage("Welcome "+ selected.getNom() + selected.getPrenom());
+            showMessage("Welcome " + selected.getNom() + selected.getPrenom());
             return "/Login?faces-redirect=true";
         }
         return "/Login?faces-redirect=true";
     }
-    
+
     public void create() {
         RequestContext context = RequestContext.getCurrentInstance();
-        int verif = verifPassword(getSelected().getPassword(), password);
-        if (verif == 1) {
-            int creer = ejbFacade.creerUser(selected);
-            if (creer == -1) {
-                context.execute("PF('UtilisateurCreateDialog').show();");
-                showErrorMessage("Login Or Email allready Exist !!");
-
-            } else {
-                showMessage("Creation Successfully Complete.");
-                selected = null; // Remove selection
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
+        int creer = ejbFacade.creerUser(selected);
+        if (creer == -1) {
+            context.execute("PF('UtilisateurCreateDialog').show();");
+            showErrorMessage("Login Or Email allready Exist !!");
 
         } else {
-            context.execute("PF('UtilisateurCreateDialog').show();");
-            showErrorMessage("Confirmation of Passwords Failed !!");
-
+            showMessage("Creation Successfully Complete.");
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
         }
+        context.execute("PF('UtilisateurCreateDialog').show();");
+        showErrorMessage("Confirmation of Passwords Failed !!");
+
     }
 
     public void update() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        selected.setMail(selected.getMail().toUpperCase());
+        selected.setPassword(HashageUtil.sha256(selected.getPassword()));
         ejbFacade.edit(selected);
+        showMessage("Update Successfully Complete.");
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
+        context.execute("PF('UtilisateurCreateDialog').show();");
+        showErrorMessage("Confirmation of Passwords Failed !!");
     }
 
     public void delete(Utilisateur utilisateur) {
@@ -103,22 +121,14 @@ public class UtilisateurController implements Serializable {
         items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public int verifPassword(String pass1, String pass2) {
-        if (!pass1.equals(pass2)) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
-
     public void showMessage(String msg) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful",  msg) );
+        context.addMessage(null, new FacesMessage("Successful", msg));
     }
 
     public void showErrorMessage(String msg) {
-       FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "WARNING !", msg) );
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "WARNING !", msg));
     }
 
     public void changeType() {
@@ -135,14 +145,14 @@ public class UtilisateurController implements Serializable {
 
     public Utilisateur getSelected() {
         if (selected == null) {
-            if(SessionUtil.getAttribute("conected")==null){
-                if(CookieUtil.getCookieValue("conected")==null){
+            if (SessionUtil.getAttribute("conected") == null) {
+                if (CookieUtil.getCookieValue("conected") == null || "".equals(CookieUtil.getCookieValue("conected"))) {
                     selected = new Utilisateur();
-                }else{
+                } else {
                     selected = ejbFacade.find(new Long(CookieUtil.getCookieValue("conected")));
                     SessionUtil.setAttribute("conected", selected);
                 }
-            }else{
+            } else {
                 selected = (Utilisateur) SessionUtil.getAttribute("conected");
             }
         }
@@ -153,14 +163,6 @@ public class UtilisateurController implements Serializable {
         this.selected = selected;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getMail() {
         return mail;
     }
@@ -168,7 +170,7 @@ public class UtilisateurController implements Serializable {
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
+
     public boolean isType() {
         return type;
     }
@@ -210,6 +212,7 @@ public class UtilisateurController implements Serializable {
 
     public List<Utilisateur> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+
     }
 
     @FacesConverter(forClass = Utilisateur.class)

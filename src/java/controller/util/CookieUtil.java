@@ -20,15 +20,26 @@ public class CookieUtil {
      * Méthode utilitaire gérant la récupération de la valeur d'un CookieUtil
      * donné depuis la requête HTTP.
      */
-    public static String getCookieValue(String nom) {
+    public static Cookie getCookie(String nom) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie != null && nom.equals(cookie.getName())) {
-                    return cookie.getValue();
+                    System.out.println(cookie);
+                    System.out.println(cookie.getName());
+                    System.out.println(cookie.getValue());
+                    return cookie;
                 }
             }
+        }
+        return null;
+    }
+
+    public static String getCookieValue(String nom) {
+        Cookie cookie = getCookie(nom);
+        if (cookie != null) {
+            return cookie.getValue();
         }
         return null;
     }
@@ -37,7 +48,15 @@ public class CookieUtil {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         Cookie cookie = new Cookie(nom, valeur);
         cookie.setMaxAge(maxAge);
+        cookie.setPath("/plaanOCP/faces");
+        System.out.println("creating cookie");
         response.addCookie(cookie);
+    }
+
+    public static void remove(String nom) {
+        System.out.println("remove");
+        setCookie("conected", "", 0);
+
     }
 
 }

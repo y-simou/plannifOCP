@@ -56,7 +56,7 @@
                 <nav class="navbar navbar-expand navbar-dark bg-info">
                     <a class="sidebar-toggle text-light mr-3"><i class="fa fa-bars"></i></a>
                     <a href="../index.xhtml">
-                        <img src="../resources/images/ocpum6p.png" style="border-radius: 0%;" height="50px" width="130px"/>
+                        <img src="../resources/images/um6p.png" style="border-radius: 0%;" height="65px" width="125px"/>
                     </a>
                     <div class="navbar-collapse collapse" style="height: 50px">
 
@@ -72,12 +72,19 @@
                                     <p:commandLink  class="nav-link" action="#{panelController.redirect()}">
                                         Panel
                                     </p:commandLink>
+
+                                    <p:commandLink  class="nav-link" action="#{exitPanelController.redirect()}">
+                                        Exit Panel
+                                    </p:commandLink>
+
                                     <p:commandLink  class="nav-link" action="#{trenchController.redirect()}">
                                         Trench
                                     </p:commandLink>
+
                                     <p:commandLink  class="nav-link" action="#{parcelController.redirect()}">
                                         Parcel
                                     </p:commandLink>
+
                                     <p:commandLink  class="nav-link" action="#{subPanelController.redirect()}">
                                         Sub Panel
                                     </p:commandLink>
@@ -93,6 +100,44 @@
                                     <p:commandLink  class="nav-link" action="#{layerController.redirect()}">
                                         Layer
                                     </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{sequenceLevelController.redirect()}">
+                                        Sequence-Level  
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{compositionLevelSequenceController.redirect()}">
+                                        Composition-Level-Sequence  
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{utilisateurController.redirect()}">
+                                        User
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{rHController.redirect()}">
+                                        Rh
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{posteController.redirect()}">
+                                        Poste
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{siteController.redirect()}">
+                                        Site 
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{villeController.redirect()}">
+                                        Ville 
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{axeController.redirect()}">
+                                        Axe 
+                                    </p:commandLink>
+
+                                    <p:commandLink   class="nav-link" action="#{positionController.redirect()}">
+                                        Position 
+                                    </p:commandLink>
+
+
                                 </div>
                             </li>
 
@@ -109,12 +154,6 @@
                                     <p:commandLink   class="nav-link" action="#{chemicalComponentLayerController.redirect()}">
                                         Chemical Component - Layer  
                                     </p:commandLink>
-                                    <p:commandLink   class="nav-link" action="#{sequenceLevelController.redirect()}">
-                                        Sequence-Level  
-                                    </p:commandLink>
-                                    <p:commandLink   class="nav-link" action="#{compositionLevelSequenceController.redirect()}">
-                                        Composition-Level-Sequence  
-                                    </p:commandLink>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -127,9 +166,6 @@
                                     </p:commandLink>
                                     <p:commandLink   class="nav-link" action="#{machineController.redirect()}" >
                                         Machine
-                                    </p:commandLink>
-                                    <p:commandLink   class="nav-link" action="#{positionController.redirect()}" >
-                                        Position
                                     </p:commandLink>
                                     <p:commandLink   class="nav-link" action="#{movementController.redirect()}" >
                                         Movement
@@ -149,6 +185,18 @@
                                     <p:commandLink   class="nav-link" action="#{statutBlockController.redirect()}" >
                                         Statut-Block
                                     </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{unitOfTimeController.redirect()}" >
+                                        Unit Of Time  
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{positionMachineController.redirect()}" >
+                                        Position Machine
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{availabilityMachineController.redirect()}" >
+                                        Availability Machine
+                                    </p:commandLink>
+                                    <p:commandLink   class="nav-link" action="#{availabilityRhController.redirect()}" >
+                                        Availability RH
+                                    </p:commandLink>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -165,16 +213,14 @@
                                     <p:commandLink   class="nav-link" action="#{storageController.redirect()}" >
                                         Storage 
                                     </p:commandLink>
-                                    <p:commandLink   class="nav-link" action="#{unitOfTimeController.redirect()}" >
-                                        Unit Of Time  
-                                    </p:commandLink>
-                                    <p:commandLink   class="nav-link" action="#{availabilityMachineController.redirect()}" >
-                                        Availability Machine
-                                    </p:commandLink>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
+                    <p:commandLink action="#{utilisateurController.logout()}" styleClass="margin" > 
+                        <h:graphicImage value="../resources/images/logout.png" height="35px" alt="Logout" />
+                    </p:commandLink>
                 </nav>
             </h:form>
 

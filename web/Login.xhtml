@@ -2,16 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <title>LOGIN</title>
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="resources/font-awesome-4.6.3/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="resources/bootstrap-4.0.0/css/bootstrap.min.css"/>
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="resources/css/util.css"/>
         <link rel="stylesheet" type="text/css" href="resources/css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="resources/css/crudcss.css"/>
         <!--===============================================================================================-->
+        <c:set target="#{flash}" property="keepMessages" value="true" />
     </h:head>
     <h:body>
         <div class="limiter" style="background: url(resources/images/banner-green.png) no-repeat center center fixed; 
@@ -22,14 +26,21 @@
 
             <div class="container-login100">
                 <div class="wrap-login100">
-                    <div class="login100-form-title" style="background-image: url(resources/images/bg-banner-green.jpg);">
-                        <span class="login100-form-title-1">
-                            Sign In
-                        </span>
-                    </div>
+                        <div class="container login100-form-title" style="background-image: url(resources/images/bg-banner-green.jpg);">
+                            <div class="row">
+                                <div class="col-md-4" ><img src="resources/images/ocp.png" class="img-rounded" style="height: 120px;width: 120px;margin-top: 20px;" /></div>
+                                <div class="col-md-4 login100-form-title-1">
+                                    <span >
+                                        LogIn
+                                    </span>
+                                </div>
+                                <div class="col-md-4"><img src="resources/images/um6p.png" style="height: 150px;width: 180px;margin-top: 6px;"/></div>
+
+                            </div>
+                        </div>
 
                     <h:form class="login100-form validate-form">
-                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        
                         <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                             <span class="label-input100">Username Or Mail</span>
                             <h:inputText class="input100" title="UserName" value="#{utilisateurController.selected.login}"/>
@@ -44,7 +55,6 @@
 
                         <div class="flex-sb-m w-full p-b-30">
                             <div class="contact100-form-checkbox">
-                                <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"/>
                                 <label class="label-checkbox100">
                                     Sign In
                                 </label>
@@ -58,6 +68,7 @@
                         <div class="container-login100-form-btn">
                             <h:commandButton class="login100-form-btn" value="Login" action="#{utilisateurController.login()}" />
                         </div>
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                     </h:form>
                 </div>
             </div>
