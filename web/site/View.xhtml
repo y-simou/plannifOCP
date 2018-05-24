@@ -18,12 +18,12 @@
                         <div class="container" align="center">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{siteController.selected.id}" />
-                                </div>
-                                <div class="col-md-6">
                                      <h:outputText value="Name :"/>
                                     <h:outputText value=" #{siteController.selected.nom}" title="Name"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Axe :" />
+                                    <h:outputText value=" #{siteController.selected.axe.nom}" />
                                 </div>
                             </div>
                         </div>

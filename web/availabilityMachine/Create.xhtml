@@ -32,14 +32,9 @@
                                                                var="machineItem"
                                                                itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
                                             </p:selectOneMenu>
-                                        </p:column>  <p:column>
-                                            <p:outputLabel value="Available ?" for="available" />
-                                        </p:column>
+                                        </p:column> 
                                         <p:column>
-                                            <p:selectOneMenu id="available" value="#{availabilityMachineController.selected.available}" style="width: 100px">
-                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
-                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
-                                            </p:selectOneMenu>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{availabilityMachineController.selected.available}" onLabel="Available" offLabel="Not Available" />
                                         </p:column>
 
 

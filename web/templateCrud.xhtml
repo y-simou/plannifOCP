@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <f:view contentType="text/html" locale="fr">
         <h:head>
             <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -19,6 +20,7 @@
 
             <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
             <h:outputScript library="js" name="workerProfileJs.js"/>
+            <c:set target="#{flash}" property="keepMessages" value="true" />
 
         </h:head>
 
@@ -31,19 +33,19 @@
 
                     <div class="row" style="padding: 0px; margin: 0px" >
                         <div class="col-md-3">
-                            <h6><i class="fa fa-map-marker"/>Lot 660, Hay Moulay Rachid Ben Guerir, 43150</h6>
+                            <i class="fa fa-map-marker"/><h6>Lot 660, Hay Moulay Rachid Ben Guerir, 43150</h6>
                         </div>
-                        <div class="col-md-2">
-                            <h6><i class="fa fa-clock-o"/>Mon – Sat: 9:00am–18:00pm</h6>
+                        <div class="col-md-3">
+                            <i class="fa fa-clock-o"/><h6>Mon – Sat: 9:00am–18:00pm</h6>
                         </div>
 
                         <div class="col-md-3">
-                            <h6><i class="fa fa-envelope"/>yassine.simou@emines.um6p.ma</h6>
+                            <i class="fa fa-envelope"/><h6>yassine.simou@emines.um6p.ma</h6>
                         </div>
                         <div class="col-md-2">
-                            <h6><i class="fa fa-phone"/>+212 525 072 855 </h6>
+                            <i class="fa fa-phone"/><h6>+212 525 072 855 </h6>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
 
                             <div class="aboveNavSocial">
                                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -53,12 +55,12 @@
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand navbar-dark bg-info">
+                <nav class="navbar navbar-expand navbar-dark bg-info" style="height: 62px">
                     <a class="sidebar-toggle text-light mr-3"><i class="fa fa-bars"></i></a>
                     <a href="../index.xhtml">
-                        <img src="../resources/images/um6p.png" style="border-radius: 0%;" height="65px" width="125px"/>
+                        <img src="../resources/images/um6p.png" style="border-radius: 0%;" height="58px" width="120px"/>
                     </a>
-                    <div class="navbar-collapse collapse" style="height: 50px">
+                    <div class="navbar-collapse collapse" >
 
                         <ul class="navbar-nav ml-auto">
 

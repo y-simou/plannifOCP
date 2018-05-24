@@ -14,8 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
-            
-               <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
                 <ui:include src="/sidebar.xhtml"/>
 
                 <div class="content p-4">
@@ -26,13 +26,13 @@
                     <h:form id="SiteListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('SiteCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('SiteCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{siteController.items}" var="item" 
-                                      rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+
                                          class="tableCrud"
                                          style="text-align: center;" rowStyleClass="high" 
                                          >
@@ -41,6 +41,12 @@
                                         <h:outputText value="Name"/>
                                     </f:facet>
                                     <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Axe"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.axe.nom}"/>
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{siteController.delete(item)}" update=":SiteListForm" styleClass="margin"> 

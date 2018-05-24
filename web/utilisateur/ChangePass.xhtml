@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        
+          <p:dialog id="UtilisateurChangePassDlg" widgetVar="UtilisateurChangePassDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+            <h:form id="UtilisateurChangePassForm">
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">Change Password :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Old password : </h5>
+                                    <h:inputSecret class="form-control" value="#{utilisateurController.ancienPassword}"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row"  >
+                                <div class="col-md-6">
+                                    <h5>New password :</h5>
+                                    <h:inputSecret class="form-control" value="#{utilisateurController.nvPassword}"/></div>
+                                <div class="col-md-6">
+                                    <h5>Confirm password :</h5>
+                                    <h:inputSecret class="form-control" value="#{utilisateurController.nvPassword1}"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-md-3"/>
+                                <div class="col-md-6" align="center">
+                                    <div class="f1-buttons" align="center">
+                                        <p:commandButton class="myBtn" value="Change" actionListener="#{utilisateurController.changeMdp()}" onclick="handleSubmit(args,'UtilisateurChangePassDialog');" ></p:commandButton>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"/>
+                                <br></br>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'UtilisateurChangePassDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

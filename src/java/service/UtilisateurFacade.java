@@ -41,14 +41,10 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> {
     int len = 7;
 
     public int login(Utilisateur user) {
-        List<Utilisateur> users = getEntityManager().createQuery("SELECT u FROM Utilisateur u WHERE"
-                + " u.login='" + user.getLogin() + "' OR u.mail='" + user.getLogin()+ "'").getResultList();
-        System.out.println("SELECT u FROM Utilisateur u WHERE u.login='" + user.getLogin() + "' OR u.mail='" + user.getLogin().toUpperCase()+ "'");
-        if (users.isEmpty()) {
+         Utilisateur u = findByLoginMail(user.getLogin());
+        if (u==null) {
             return -1;
         } else {
-            Utilisateur u = users.get(0);
-            System.out.println(u.getMail());
             if (!u.getPassword().equals(HashageUtil.sha256(user.getPassword()))) {
                 return -2;
             } else if (u.getType() == 0) {
@@ -60,11 +56,17 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> {
     }
 
     public int creerUser(Utilisateur utilisateur) {
-        if (findByLoginOrMail(utilisateur.getLogin(), utilisateur.getMail().toUpperCase()) == null) {
-            utilisateur.setPassword(HashageUtil.sha256(utilisateur.getPassword()));
-            utilisateur.setMail(utilisateur.getMail().toUpperCase());
+        String mail = utilisateur.getMail().toUpperCase();
+        if (findByLoginOrMail(utilisateur.getLogin(), mail) == null) {
+            utilisateur.setMail(mail);
             create(utilisateur);
-            sentMail(utilisateur.getMail());
+            utilisateur = findByLoginMail(mail);
+            if (utilisateur != null) {
+                String pass = generatePassword(len, mail);
+                utilisateur.setPassword(HashageUtil.sha256(pass));
+                sentMail(mail, pageHtmlString.signHtmlPage(utilisateur.getNom() + " " + utilisateur.getPrenom(), pass,utilisateur.getLogin()));
+                edit(utilisateur);
+            }
             return 1;
         } else {
             return -1;
@@ -98,34 +100,40 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> {
         return result;
     }
 
-    public void sentMail(String mail) {
-        Utilisateur utilisateur = (Utilisateur) getEntityManager().createQuery("SELECT u FROM Utilisateur u WHERE u.mail='" + mail + "'").getSingleResult();
+    public void resetMail(String mail) {
+        Utilisateur utilisateur = findByLoginMail(mail);
         if (utilisateur != null) {
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, password);
-                }
-            });
-            try {
-                String pass = generatePassword(len, mail);
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(mail));
-                message.setSubject("OCP");
-                utilisateur.setPassword(HashageUtil.sha256(pass));
-                message.setContent(pageHtmlString.sendHtmlEmail(utilisateur.getNom() + " " + utilisateur.getPrenom(), pass), "text/html");
-                Transport.send(message);
-                System.out.println("Done");
-            } catch (MessagingException e) {
-            }
+            String pass = generatePassword(len, mail);
+            utilisateur.setPassword(HashageUtil.sha256(pass));
+            sentMail(mail, pageHtmlString.sendHtmlEmail(utilisateur.getNom() + " " + utilisateur.getPrenom(), pass));
             edit(utilisateur);
+        }
+
+    }
+
+    public void sentMail(String mail, String page) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+//        office.365.com
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(mail));
+            message.setSubject("OCP");
+            message.setContent(page, "text/html");
+            Transport.send(message);
+            System.out.println("Done");
+        } catch (MessagingException e) {
         }
     }
 

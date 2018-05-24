@@ -30,6 +30,9 @@ public class UtilisateurController implements Serializable {
     private Utilisateur selected;
     private String mail;
     private boolean type = true;
+    private String ancienPassword;
+    private String nvPassword;
+    private String nvPassword1;
 
     public String redirect() {
         return "/utilisateur/List?faces-redirect=true";
@@ -44,15 +47,34 @@ public class UtilisateurController implements Serializable {
     }
 
     public String forgotPass() {
-        return "/utilisateur/resetPass?faces-redirect=true";
+        return "/utilisateur/ResetPass?faces-redirect=true";
     }
 
     public void sentPassword() {
-        if (ejbFacade.findByLoginMail(mail) == null) {
+        if (ejbFacade.findByLoginMail(mail.toUpperCase()) == null) {
             showErrorMessage("Mail Uncorrect !!");
+            mail = null;
         } else {
-            ejbFacade.sentMail(mail);
+            ejbFacade.resetMail(mail);
             showMessage("Password changed, Please Check Your Mail.");
+        }
+    }
+
+    public void changeMdp() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        System.out.println("hi");
+        if (HashageUtil.sha256(ancienPassword).equals(selected.getPassword())) {
+            if (nvPassword.equals(nvPassword1) && nvPassword != null) {
+                selected.setPassword(HashageUtil.sha256(nvPassword));
+                ejbFacade.edit(selected);
+                showMessage("Password Changed.");
+            } else {
+                context.execute("PF('UtilisateurChangePassDialog').show();");
+                showErrorMessage("Confirmation of Passwords Failed !!");
+            }
+        } else {
+            context.execute("PF('UtilisateurChangePassDialog').show();");
+            showErrorMessage("Password uncorrect !!");
         }
     }
 
@@ -98,9 +120,6 @@ public class UtilisateurController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
-        context.execute("PF('UtilisateurCreateDialog').show();");
-        showErrorMessage("Confirmation of Passwords Failed !!");
-
     }
 
     public void update() {
@@ -111,8 +130,8 @@ public class UtilisateurController implements Serializable {
         showMessage("Update Successfully Complete.");
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
-        context.execute("PF('UtilisateurCreateDialog').show();");
-        showErrorMessage("Confirmation of Passwords Failed !!");
+//        context.execute("PF('UtilisateurCreateDialog').show();");
+//        showErrorMessage("Confirmation of Passwords Failed !!");
     }
 
     public void delete(Utilisateur utilisateur) {
@@ -179,6 +198,30 @@ public class UtilisateurController implements Serializable {
         this.type = type;
     }
 
+    public String getAncienPassword() {
+        return ancienPassword;
+    }
+
+    public void setAncienPassword(String ancienPassword) {
+        this.ancienPassword = ancienPassword;
+    }
+
+    public String getNvPassword() {
+        return nvPassword;
+    }
+
+    public void setNvPassword(String nvPassword) {
+        this.nvPassword = nvPassword;
+    }
+
+    public String getNvPassword1() {
+        return nvPassword1;
+    }
+
+    public void setNvPassword1(String nvPassword1) {
+        this.nvPassword1 = nvPassword1;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 

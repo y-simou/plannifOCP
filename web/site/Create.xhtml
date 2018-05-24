@@ -7,8 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        
-            <p:dialog id="SiteCreateDlg" widgetVar="SiteCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="250" showHeader="false">
+
+        <p:dialog id="SiteCreateDlg" widgetVar="SiteCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
 
             <h:form id="SiteCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -28,12 +28,24 @@
                                             <p:inputText id="nom" value="#{siteController.selected.nom}" title="Name" />
                                         </p:column>
                                     </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Axe : " for="axe" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="axe" value="#{siteController.selected.axe}" >
+                                                <f:selectItems value="#{axeController.itemsAvailableSelectOne}"
+                                                               var="axe"
+                                                               itemValue="#{axe}" itemLabel="#{axe.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
                                 </p:panelGrid>
                             </div>
                         </div>
                     </div>
-                   <div class="f1-buttons" align="right">
-                       <p:commandButton  value="Save" class="myBtn" actionListener="#{siteController.create()}" onclick="handleSubmit(args, 'SiteCreateDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{siteController.create()}" onclick="handleSubmit(args, 'SiteCreateDialog');" />
                         <p:commandLink oncomplete="handleSubmit(args,'SiteCreateDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>

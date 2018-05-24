@@ -107,3 +107,11 @@
     width: 150px;
     height: 150px;
 }
+
+.aboveNav h6 {
+    font-size: 13px;
+    display: inline;
+    margin-left: 10px ;
+    color: #689801;
+    font-weight: lighter;
+}

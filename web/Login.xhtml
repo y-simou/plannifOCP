@@ -42,7 +42,7 @@
                     <h:form class="login100-form validate-form">
                         
                         <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-                            <span class="label-input100">Username Or Mail</span>
+                            <span class="label-input100">Username Or e-mail</span>
                             <h:inputText class="input100" title="UserName" value="#{utilisateurController.selected.login}"/>
                             <span class="focus-input100"></span>
                         </div>
@@ -52,22 +52,18 @@
                             <h:inputSecret class="input100" value="#{utilisateurController.selected.password}"/>
                             <span class="focus-input100"></span>
                         </div>
-
-                        <div class="flex-sb-m w-full p-b-30">
-                            <div class="contact100-form-checkbox">
-                                <label class="label-checkbox100">
-                                    Sign In
-                                </label>
-                            </div>
-
-                            <div>
+                        
+                        <div class="container-login100-form-btn">
+                            <h:commandButton class="login100-form-btn" value="Login" action="#{utilisateurController.login()}" />
+                        </div>
+                        
+                        <div class="flex-sb-m w-full p-b-30" >
+                            <div >
                                 <h:commandLink class="txt1" value="Forgot Password?" action="#{utilisateurController.forgotPass()}" />
                             </div>
                         </div>
 
-                        <div class="container-login100-form-btn">
-                            <h:commandButton class="login100-form-btn" value="Login" action="#{utilisateurController.login()}" />
-                        </div>
+                        
                         <p:growl id="growl" showDetail="true" sticky="true" />
                     </h:form>
                 </div>

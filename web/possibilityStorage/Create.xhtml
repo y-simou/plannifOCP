@@ -46,6 +46,9 @@
                                                                itemValue="#{levelItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
+                                         <p:column>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{possibilityStorageController.selected.possibility}" onLabel="Possible" offLabel="impossible" />
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </div>

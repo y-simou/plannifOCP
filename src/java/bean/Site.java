@@ -24,13 +24,19 @@ public class Site implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    
+    @ManyToOne
+    private Axe axe;
 
     public Site() {
     }
 
     public Site(String nom) {
         this.nom = nom;
+    }
+
+    public Site(String nom, Axe axe) {
+        this.nom = nom;
+        this.axe = axe;
     }
 
     public Long getId() {
@@ -48,7 +54,18 @@ public class Site implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
+
+    public Axe getAxe() {
+        if (axe == null) {
+            axe = new Axe();
+        }
+        return axe;
+    }
+
+    public void setAxe(Axe axe) {
+        this.axe = axe;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -71,7 +88,7 @@ public class Site implements Serializable {
 
     @Override
     public String toString() {
-        return "Site{" + "id=" + id + ", nom=" + nom + '}';
+        return "Site{" + "id=" + id + ", nom=" + nom + ", axe=" + axe + '}';
     }
-    
+
 }

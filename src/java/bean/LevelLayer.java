@@ -24,6 +24,7 @@ public class LevelLayer implements Serializable {
     private Long id;
     private int num;
     private String nom;
+    private Parcel parcel;
 
     public LevelLayer() {
     }
@@ -31,6 +32,12 @@ public class LevelLayer implements Serializable {
     public LevelLayer(int num, String nom) {
         this.num = num;
         this.nom = nom;
+    }
+
+    public LevelLayer(int num, String nom, Parcel parcel) {
+        this.num = num;
+        this.nom = nom;
+        this.parcel = parcel;
     }
 
     public Long getId() {
@@ -56,7 +63,17 @@ public class LevelLayer implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
+
+    public Parcel getParcel() {
+        if (parcel == null) {
+            parcel = new Parcel();
+        }
+        return parcel;
+    }
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
 
     @Override
     public int hashCode() {
@@ -80,7 +97,7 @@ public class LevelLayer implements Serializable {
 
     @Override
     public String toString() {
-        return "LevelLayer{" + "id=" + id + ", num=" + num + ", nom=" + nom + '}';
+        return "LevelLayer{" + "id=" + id + ", num=" + num + ", nom=" + nom + ", parcel=" + parcel + '}';
     }
 
 }

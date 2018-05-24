@@ -47,13 +47,7 @@
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Existe ?" for="access" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="access" value="#{compositionLevelSequenceController.selected.existe}" style="width: 100px">
-                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
-                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
-                                            </p:selectOneMenu>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{compositionLevelSequenceController.selected.existe}" onLabel="Exist" offLabel="Don't Exist" />
                                         </p:column>
                                     </p:row>
                                     <hr></hr>

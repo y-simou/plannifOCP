@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templateCrud.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Utilisateur"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <ui:include src="/sidebar.xhtml"/>
+
+                <div class="content p-4">
+                    <hr></hr>
+                    <h1 align="center"> 
+                        Profile : </h1>
+                    <br></br>
+                    <h:form id="ProfileForm">
+                        <!--                        <div class="container">
+                                                    <h3>Personal Informations </h3>
+                                                    <hr></hr>
+                                                    <div class="row">
+                                                        <div class="col-md-4" align="right">
+                                                            <h5>Nom : </h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputText class="form-control" value="#{utilisateurController.selected.nom}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"  >
+                                                        <div class="col-md-4" align="right">
+                                                            <h5>Prenom :</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.prenom}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"  >
+                                                        <div class="col-md-4" align="right">
+                                                            <h5>E-Mail :</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.mail}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"  >
+                                                        <div class="col-md-4" align="right">
+                                                            <h5>Login :</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.login}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"  >
+                                                        <div class="col-md-4" align="right"> 
+                                                            <h5>Site :</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.site.nom}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row"  >
+                                                        <div class="col-md-4">
+                                                            <h5>Prenom :</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.prenom}"/>
+                                                        </div>
+                                                    </div>
+                                                    <br></br>
+                                                </div>-->
+                        <div class="col-md-12">
+
+
+                            <div class="panel panel-info" >
+                                <div class="panel-heading">
+                                    
+                                </div>
+                                <div class="panel-body">
+                                    <hr></hr>
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3 " align="center"> 
+                                            
+                                            <h3>#{utilisateurController.selected.nom.toUpperCase()} #{utilisateurController.selected.prenom}</h3>
+                                            <hr></hr> <br></br>
+                                            <br></br>
+                                            <br></br>
+                                                                                    </div>
+
+                                        <div class=" col-md-9 col-lg-9 " > 
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <table class="table table-user-information">
+                                                <tbody>
+                                                    
+                                                    <tr>    
+                                                        <td align="right">LOGIN :</td>
+                                                        <td>#{utilisateurController.selected.login}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">E-MAIL :</td>
+                                                        <td>#{utilisateurController.selected.mail}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">SITE :</td>
+                                                        <td>#{utilisateurController.selected.site.nom}</td>
+                                                    </tr>
+                                                    <tr><td></td><td></td></tr>
+                                                </tbody>
+                                            </table>
+                                            <div align="left">
+                                                <p:commandLink class="btn btn-primary" onclick="PF('UtilisateurChangePassDialog').show()" >Change Password</p:commandLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                    </h:form>
+                </div>
+ <ui:include src="ChangePass.xhtml"/>
+                <hr></hr>
+
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

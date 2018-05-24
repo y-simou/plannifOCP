@@ -273,7 +273,7 @@ body{
 
 
 .navbar-nav > li > a {
-    color: #00539b;
+    color: #fff;
     font-size: 15px;
     margin-top: 5px;
 }
@@ -312,7 +312,7 @@ body{
 }
 
 .aboveNav i {
-    color: #00539b;
+    color: #148F77;
 }
 
 .aboveNavSocial a{

@@ -46,19 +46,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Accessible ?" for="access" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="access" value="#{accessibilityController.selected.accessibile}" style="width: 100px">
-                                                <f:selectItem itemValue="#{true}" itemLabel="true"/>
-                                                <f:selectItem itemValue="#{false}" itemLabel="false"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                        <p:column></p:column>
-                                        <p:column>
-                                            <div class="f1-buttons" align="center">
-                                                <p:commandButton  value="Modifie" actionListener="#{accessibilityController.modifie()}" onclick="handleSubmit(args, 'AccessibilityCreateDialog');" />
-                                            </div>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{accessibilityController.selected.accessibile}" onLabel="Accessible" offLabel="Not Accessible" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

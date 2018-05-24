@@ -158,6 +158,13 @@ iframe {
   color: #999999;
 }
 
+.txt1 {
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #808080;
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
 

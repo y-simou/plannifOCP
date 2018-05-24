@@ -28,10 +28,9 @@ public class Utilisateur implements Serializable {
     private String login;
     private String mail;
     private String password;
-    private int type; //0 : user - 1 : admin
+    private int type; //0 : user AND 1 : admin
     @ManyToOne
     private Site site;
-    private String token;
 
     public Utilisateur() {
     }
@@ -54,7 +53,6 @@ public class Utilisateur implements Serializable {
         this.password = password;
         this.type = type;
         this.site = site;
-        this.token = token;
     }
 
     public Long getId() {
@@ -121,14 +119,6 @@ public class Utilisateur implements Serializable {
         this.site = site;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -151,7 +141,7 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", login=" + login + ", mail=" + mail + ", password=" + password + ", type=" + type + ", site=" + site + ", token=" + token + '}';
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", login=" + login + ", mail=" + mail + ", password=" + password + ", type=" + type + ", site=" + site + '}';
     }
 
 }

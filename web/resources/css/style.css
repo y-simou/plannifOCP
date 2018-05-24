@@ -222,6 +222,9 @@ td{
     color: black    ;
     border-color: #148F77 !important;
 }
-.editBtn{
-    
+.aboveNav i {
+    color: #148F77;
+}
+hr{
+    background-color: #148F77;
 }
