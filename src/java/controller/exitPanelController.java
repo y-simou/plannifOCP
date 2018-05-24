@@ -1,7 +1,7 @@
 package controller;
 
 import bean.ExitPanel;
-import service.ExitPanelFacade;
+import service.exitPanelFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.faces.convert.FacesConverter;
 public class exitPanelController implements Serializable {
 
     @EJB
-    private service.ExitPanelFacade ejbFacade;
+    private exitPanelFacade ejbFacade;
     private List<ExitPanel> items = null;
     private ExitPanel selected;
 
@@ -66,7 +66,7 @@ public class exitPanelController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private ExitPanelFacade getFacade() {
+    private exitPanelFacade getFacade() {
         return ejbFacade;
     }
 
