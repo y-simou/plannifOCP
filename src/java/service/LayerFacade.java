@@ -6,6 +6,7 @@
 package service;
 
 import bean.Layer;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +33,17 @@ public class LayerFacade extends AbstractFacade<Layer> {
      public void delete(Long layer){
         getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.id'"+ layer +"'").executeUpdate();
         remove(find(layer));
+    }
+     
+     public Layer findByNomAndLevel(String nom,Long level){
+        List<Layer> ps = getEntityManager().createQuery("SELECT p FROM Layer p where p.nom='"+ nom +"' AND p.level.id='"+ level +"'").getResultList();
+        if(ps.isEmpty()){
+            return null;
+        }else{
+            return ps.get(0);
+        }
+        
+        
     }
     
 }

@@ -6,6 +6,7 @@
 package service;
 
 import bean.Trench;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,17 @@ public class TrenchFacade extends AbstractFacade<Trench> {
 
     public TrenchFacade() {
         super(Trench.class);
+    }
+    
+    public Trench findByNomAndPanel(String nom,Long panel){
+        List<Trench> ts = getEntityManager().createQuery("SELECT t FROM Trench t where t.nom='"+ nom +"' AND t.panel.id='"+ panel +"'").getResultList();
+        if(ts.isEmpty()){
+            return null;
+        }else{
+            return ts.get(0);
+        }
+        
+        
     }
     
 }

@@ -21,4 +21,9 @@
     <welcome-file-list>
         <welcome-file>faces/Login.xhtml</welcome-file>
     </welcome-file-list>
+    <ejb-local-ref>
+        <ejb-ref-name>trenchFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>#TrenchFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

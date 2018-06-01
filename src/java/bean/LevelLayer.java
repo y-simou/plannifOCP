@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -24,6 +25,7 @@ public class LevelLayer implements Serializable {
     private Long id;
     private int num;
     private String nom;
+    @ManyToOne
     private Parcel parcel;
 
     public LevelLayer() {
@@ -34,6 +36,17 @@ public class LevelLayer implements Serializable {
         this.nom = nom;
     }
 
+    public LevelLayer(int num, Parcel parcel) {
+        this.num = num;
+        this.parcel = parcel;
+    }
+
+    public LevelLayer(Long id, int num, Parcel parcel) {
+        this.id = id;
+        this.num = num;
+        this.parcel = parcel;
+    }
+    
     public LevelLayer(int num, String nom, Parcel parcel) {
         this.num = num;
         this.nom = nom;

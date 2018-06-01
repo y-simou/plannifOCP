@@ -6,6 +6,7 @@
 package service;
 
 import bean.Parcel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +36,17 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
         getEntityManager().createQuery("DELETE FROM Storage st where st.block.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Block b where b.parcel.trench.panel.id='"+ parcel.getId() +"'").executeUpdate();
         remove(parcel);
+    }
+    
+    public Parcel findByNomAndTrench(String nom,Long trench){
+        List<Parcel> ps = getEntityManager().createQuery("SELECT p FROM Parcel p where p.nom='"+ nom +"' AND p.trench.id='"+ trench +"'").getResultList();
+        if(ps.isEmpty()){
+            return null;
+        }else{
+            return ps.get(0);
+        }
+        
+        
     }
     
 }

@@ -6,6 +6,7 @@
 package service;
 
 import bean.Panel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +39,17 @@ public class PanelFacade extends AbstractFacade<Panel> {
         getEntityManager().createQuery("DELETE FROM Trench t where t.panel.id='"+ panel.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.panel.id='"+ panel.getId() +"'").executeUpdate();
         remove(panel);
+    }
+    
+    public Panel findByNom(String nom){
+        List<Panel> ps = getEntityManager().createQuery("SELECT p FROM Panel p where p.nom='"+ nom +"'").getResultList();
+        if(ps.isEmpty()){
+            return null;
+        }else{
+            return ps.get(0);
+        }
+        
+        
     }
     
 }

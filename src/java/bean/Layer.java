@@ -36,6 +36,12 @@ public class Layer implements Serializable {
         this.level = level;
     }
 
+    public Layer(Long id, String nom, LevelLayer level) {
+        this.id = id;
+        this.nom = nom;
+        this.level = level;
+    }
+    
     public Long getId() {
         return id;
     }

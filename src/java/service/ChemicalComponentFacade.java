@@ -6,6 +6,7 @@
 package service;
 
 import bean.ChemicalComponent;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,15 @@ public class ChemicalComponentFacade extends AbstractFacade<ChemicalComponent> {
 
     public ChemicalComponentFacade() {
         super(ChemicalComponent.class);
+    }
+    
+    public ChemicalComponent findByNom(String nom){
+        List<ChemicalComponent> ccs = getEntityManager().createQuery("SELECT c FROM ChemicalComponent c where c.nom='"+ nom +"'").getResultList();
+        if (ccs.isEmpty()) {
+            return null;
+        }else{
+            return ccs.get(0);
+        }
     }
     
 }
