@@ -47,7 +47,7 @@ public class UtilisateurController implements Serializable {
     }
 
     public String forgotPass() {
-        return "/utilisateur/ResetPass?faces-redirect=true";
+        return "/utilisateur/GetPass?faces-redirect=true";
     }
 
     public void sentPassword() {
