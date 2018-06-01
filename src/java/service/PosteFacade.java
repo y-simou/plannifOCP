@@ -29,4 +29,8 @@ public class PosteFacade extends AbstractFacade<Poste> {
         super(Poste.class);
     }
     
+    public void delete(Long p){
+        getEntityManager().createQuery("DELETE FROM RH rh where rh.poste.id='"+ p +"'").executeUpdate();
+        remove(find(p));
+    }
 }

@@ -71,7 +71,7 @@ public class StockController implements Serializable {
     }
 
     public void delete(Stock stock) {
-        ejbFacade.remove(stock);
+        ejbFacade.delete(stock.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

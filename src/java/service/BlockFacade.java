@@ -29,4 +29,10 @@ public class BlockFacade extends AbstractFacade<Block> {
         super(Block.class);
     }
     
+     public void delete(Long block){
+        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.id='"+ block +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.id='"+ block +"'").executeUpdate();
+        remove(find(block));
+    }
+    
 }

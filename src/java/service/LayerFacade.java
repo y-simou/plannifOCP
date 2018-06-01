@@ -29,4 +29,9 @@ public class LayerFacade extends AbstractFacade<Layer> {
         super(Layer.class);
     }
     
+     public void delete(Long layer){
+        getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.id'"+ layer +"'").executeUpdate();
+        remove(find(layer));
+    }
+    
 }

@@ -29,4 +29,7 @@ public class StockFacade extends AbstractFacade<Stock> {
         super(Stock.class);
     }
     
+    public void delete(Long stock){
+        getEntityManager().createQuery("DELETE FROM Storage s where s.stock.id='"+ stock +"'").executeUpdate();
+    }
 }

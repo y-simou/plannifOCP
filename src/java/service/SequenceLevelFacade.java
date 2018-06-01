@@ -29,4 +29,9 @@ public class SequenceLevelFacade extends AbstractFacade<SequenceLevel> {
         super(SequenceLevel.class);
     }
     
+     public void delete(Long sn){
+        getEntityManager().createQuery("DELETE FROM CompositionLevelSequence cls where cls.sequenceLevel.id'"+ sn +"'").executeUpdate();
+        remove(find(sn));
+    }
+    
 }

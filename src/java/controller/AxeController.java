@@ -41,7 +41,7 @@ public class AxeController implements Serializable {
     }
 
     public void delete(Axe axe) {
-        ejbFacade.remove(axe);
+        ejbFacade.delete(axe.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

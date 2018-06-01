@@ -36,6 +36,7 @@ public class PanelFacade extends AbstractFacade<Panel> {
         getEntityManager().createQuery("DELETE FROM Block b where b.parcel.trench.panel.id='"+ panel.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Parcel p where p.trench.panel.id='"+ panel.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Trench t where t.panel.id='"+ panel.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.panel.id='"+ panel.getId() +"'").executeUpdate();
         remove(panel);
     }
     

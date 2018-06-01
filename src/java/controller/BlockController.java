@@ -71,7 +71,7 @@ public class BlockController implements Serializable {
     }
 
     public void delete(Block block) {
-        ejbFacade.remove(block);
+        ejbFacade.delete(block.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

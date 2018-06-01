@@ -71,7 +71,7 @@ public class SequenceLevelController implements Serializable {
     }
 
     public void delete(SequenceLevel sequenceLevel) {
-        ejbFacade.remove(sequenceLevel);
+        ejbFacade.delete(sequenceLevel.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

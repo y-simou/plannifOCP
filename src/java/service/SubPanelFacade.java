@@ -29,4 +29,9 @@ public class SubPanelFacade extends AbstractFacade<SubPanel> {
         super(SubPanel.class);
     }
     
+     public void delete(Long spanel){
+        getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.id'"+ spanel +"'").executeUpdate();
+        remove(find(spanel));
+    }
+    
 }

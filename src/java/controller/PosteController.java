@@ -41,7 +41,7 @@ public class PosteController implements Serializable {
     }
 
     public void delete(Poste poste) {
-        ejbFacade.remove(poste);
+        ejbFacade.delete(poste.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

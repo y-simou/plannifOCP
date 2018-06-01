@@ -30,7 +30,7 @@ public class MachineFacade extends AbstractFacade<Machine> {
     }
     
     public void delete(Machine machine){
-        getEntityManager().createQuery("DELETE From Movement m where m.machine.id='"+ machine.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE From Movement m where m.arrive.machine.id='"+ machine.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE From Storage s where s.machine.id='"+ machine.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE From Treatment t where t.machine.id='"+ machine.getId() +"'").executeUpdate();
         getEntityManager().createQuery("DELETE From AvailabilityMachine av where av.machine.id='"+ machine.getId() +"'").executeUpdate();

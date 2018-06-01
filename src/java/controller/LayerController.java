@@ -71,7 +71,7 @@ public class LayerController implements Serializable {
     }
 
     public void delete(Layer layer) {
-        ejbFacade.remove(layer);
+        ejbFacade.delete(layer.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
