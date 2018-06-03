@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                    <h:form class="login100-form validate-form">
+                    <h:form class="login100-form validate-form" enctype="multipart/form-data">
                         
                         <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                             <span class="label-input100">Username Or e-mail</span>
@@ -60,6 +60,12 @@
                         <div class="flex-sb-m w-full p-b-30" >
                             <div >
                                 <h:commandLink class="txt1" value="Forgot Password?" action="#{utilisateurController.forgotPass()}" />
+                            </div>
+                        </div>
+                        <div class="flex-sb-m w-full p-b-30" >
+                            <div >
+                                <p:fileUpload value="#{xlController.file}" mode="simple"/>
+                                <h:commandLink class="txt1" value="excel" action="#{xlController.database()}" />
                             </div>
                         </div>
 
