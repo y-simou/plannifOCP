@@ -23,84 +23,28 @@
                         Profile : </h1>
                     <br></br>
                     <h:form id="ProfileForm">
-                        <!--                        <div class="container">
-                                                    <h3>Personal Informations </h3>
-                                                    <hr></hr>
-                                                    <div class="row">
-                                                        <div class="col-md-4" align="right">
-                                                            <h5>Nom : </h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputText class="form-control" value="#{utilisateurController.selected.nom}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"  >
-                                                        <div class="col-md-4" align="right">
-                                                            <h5>Prenom :</h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.prenom}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"  >
-                                                        <div class="col-md-4" align="right">
-                                                            <h5>E-Mail :</h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.mail}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"  >
-                                                        <div class="col-md-4" align="right">
-                                                            <h5>Login :</h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.login}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"  >
-                                                        <div class="col-md-4" align="right"> 
-                                                            <h5>Site :</h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.site.nom}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"  >
-                                                        <div class="col-md-4">
-                                                            <h5>Prenom :</h5>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h:inputSecret class="form-control" value="#{utilisateurController.selected.prenom}"/>
-                                                        </div>
-                                                    </div>
-                                                    <br></br>
-                                                </div>-->
                         <div class="col-md-12">
-
-
                             <div class="panel panel-info" >
                                 <div class="panel-heading">
-                                    
+
                                 </div>
                                 <div class="panel-body">
                                     <hr></hr>
                                     <div class="row">
                                         <div class="col-md-3 col-lg-3 " align="center"> 
-                                            
-                                            <h3>#{utilisateurController.selected.nom.toUpperCase()} #{utilisateurController.selected.prenom}</h3>
-                                            <hr></hr> <br></br>
+                                            <h2>#{utilisateurController.selected.nom.toUpperCase()} #{utilisateurController.selected.prenom}</h2>
+                                            <hr></hr> 
                                             <br></br>
                                             <br></br>
-                                                                                    </div>
+                                            <br></br>
+                                        </div>
 
                                         <div class=" col-md-9 col-lg-9 " > 
                                             <br></br>
                                             <br></br>
-                                            <br></br>
                                             <table class="table table-user-information">
                                                 <tbody>
-                                                    
+
                                                     <tr>    
                                                         <td align="right">LOGIN :</td>
                                                         <td>#{utilisateurController.selected.login}</td>
@@ -128,7 +72,7 @@
                         <p:growl id="growl" showDetail="true" sticky="true" />
                     </h:form>
                 </div>
- <ui:include src="ChangePass.xhtml"/>
+                <ui:include src="ChangePass.xhtml"/>
                 <hr></hr>
 
             </div>

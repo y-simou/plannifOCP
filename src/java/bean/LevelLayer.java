@@ -36,6 +36,11 @@ public class LevelLayer implements Serializable {
         this.nom = nom;
     }
 
+    public LevelLayer(Long id, Parcel parcel) {
+        this.id = id;
+        this.parcel = parcel;
+    }
+    
     public LevelLayer(int num, Parcel parcel) {
         this.num = num;
         this.parcel = parcel;

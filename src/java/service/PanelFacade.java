@@ -42,7 +42,7 @@ public class PanelFacade extends AbstractFacade<Panel> {
     }
     
     public Panel findByNom(String nom){
-        List<Panel> ps = getEntityManager().createQuery("SELECT p FROM Panel p where p.nom='"+ nom +"'").getResultList();
+        List<Panel> ps = getEntityManager().createQuery("SELECT p FROM Panel p where p.nom=\""+ nom +"\"").getResultList();
         if(ps.isEmpty()){
             return null;
         }else{

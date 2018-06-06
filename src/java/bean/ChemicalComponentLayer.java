@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class ChemicalComponentLayer implements Serializable {
     private Layer layer;
     @ManyToOne
     private ChemicalComponent chemicalComponent;
-    private Long teneur;
+    private BigDecimal teneur;
 
     public ChemicalComponentLayer() {
     }
@@ -36,13 +37,13 @@ public class ChemicalComponentLayer implements Serializable {
         this.id = id;
     }
 
-    public ChemicalComponentLayer(Layer layer, ChemicalComponent chemicalComponent, Long teneur) {
+    public ChemicalComponentLayer(Layer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
         this.teneur = teneur;
     }
 
-    public ChemicalComponentLayer(Long id, Layer layer, ChemicalComponent chemicalComponent, Long teneur) {
+    public ChemicalComponentLayer(Long id, Layer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
         this.id = id;
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
@@ -71,11 +72,11 @@ public class ChemicalComponentLayer implements Serializable {
         this.chemicalComponent = chemicalComponent;
     }
 
-    public Long getTeneur() {
+    public BigDecimal getTeneur() {
         return teneur;
     }
 
-    public void setTeneur(Long teneur) {
+    public void setTeneur(BigDecimal teneur) {
         this.teneur = teneur;
     }
     

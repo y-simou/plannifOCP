@@ -98,7 +98,7 @@ public class Layer implements Serializable {
 
     @Override
     public String toString() {
-        return "Couche{" + "id=" + id + ", id=" + nom + ", level=" + getLevel().getNum() + '}';
+        return "Couche{" + "id=" + id + ", nom=" + nom + ", level=" + level + '}';
     }
 
 }

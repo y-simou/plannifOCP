@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class AvailabilityMachine implements Serializable {
     private Machine machine;
     @ManyToOne
     private UnitOfTime unitOfTime;
-    private Long temps;
+    private BigDecimal temps;
     private boolean available;
 
     public Long getId() {
@@ -47,7 +48,7 @@ public class AvailabilityMachine implements Serializable {
         this.available = available;
     }
 
-    public AvailabilityMachine(Machine machine, UnitOfTime unitOfTime, Long temps, boolean available) {
+    public AvailabilityMachine(Machine machine, UnitOfTime unitOfTime, BigDecimal temps, boolean available) {
         this.machine = machine;
         this.unitOfTime = unitOfTime;
         this.temps = temps;
@@ -70,11 +71,11 @@ public class AvailabilityMachine implements Serializable {
         this.unitOfTime = unitOfTime;
     }
 
-    public Long getTemps() {
+    public BigDecimal getTemps() {
         return temps;
     }
 
-    public void setTemps(Long temps) {
+    public void setTemps(BigDecimal temps) {
         this.temps = temps;
     }
 

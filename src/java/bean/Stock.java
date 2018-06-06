@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,8 @@ public class Stock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private Long capacity;
-    private Long initialQte;
+    private BigDecimal capacity;
+    private BigDecimal initialQte;
     @ManyToOne
     private Site site;
 
@@ -37,13 +38,13 @@ public class Stock implements Serializable {
         this.nom = nom;
     }
 
-    public Stock(String nom, Long capacity, Long initialQte) {
+    public Stock(String nom, BigDecimal capacity, BigDecimal initialQte) {
         this.nom = nom;
         this.capacity = capacity;
         this.initialQte = initialQte;
     }
 
-    public Stock(String nom, Long capacity, Long initialQte, Site site) {
+    public Stock(String nom, BigDecimal capacity, BigDecimal initialQte, Site site) {
         this.nom = nom;
         this.capacity = capacity;
         this.initialQte = initialQte;
@@ -59,19 +60,19 @@ public class Stock implements Serializable {
     }
 
     
-    public Long getCapacity() {
+    public BigDecimal getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Long capacity) {
+    public void setCapacity(BigDecimal capacity) {
         this.capacity = capacity;
     }
 
-    public Long getInitialQte() {
+    public BigDecimal getInitialQte() {
         return initialQte;
     }
 
-    public void setInitialQte(Long initialQte) {
+    public void setInitialQte(BigDecimal initialQte) {
         this.initialQte = initialQte;
     }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneeViewDlg" widgetVar="AnneeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Annee">
+            <h:form id="AnneeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anneeController.selected != null}">
+                        <h:outputText value="id"/>
+                        <h:outputText value="#{anneeController.selected.id}" />
+                        <h:outputText value="year"/>
+                        <h:outputText value="#{anneeController.selected.annee}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Close" onclick="AnneeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

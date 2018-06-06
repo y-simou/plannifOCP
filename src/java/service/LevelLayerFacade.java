@@ -43,6 +43,9 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
         remove(levelLayer);
     }
     
+    
+    
+    
     public LevelLayer findByNomAndParcel(int num,Long level){
         List<LevelLayer> ps = getEntityManager().createQuery("SELECT l FROM LevelLayer l where l.num='"+ num +"' AND l.parcel.id='"+ level +"'").getResultList();
         if(ps.isEmpty()){

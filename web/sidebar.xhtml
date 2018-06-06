@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
         <nav class="sidebar bg-success">
             <p style="text-align: center;">
-                <a href="../index.xhtml">
+                <a href="../utilisateur/Profile.xhtml">
                     <img src="../resources/images/ocp.png" style=" margin-top: 20px;
                          width: 150px;
-                         height: 150px;" />
+                         height: 170px;" />
                 </a>
             </p>
             <div align="center">
+                <hr></hr>
                 <h3 style="color: white;font-family: 'Arial', sans-serif;"> #{utilisateurController.selected.nom.toUpperCase()} #{utilisateurController.selected.prenom.toUpperCase()} </h3>
             </div>
+            <div align="center">
+                <hr></hr>
+                <a href="../utilisateur/Profile.xhtml">
+                    <h2 style="color: white"><span class="fa fa-user"> </span> Profile</h2>
+                </a>
+            </div>
+            <hr></hr>
         </nav>
     </ui:composition>
 </html>

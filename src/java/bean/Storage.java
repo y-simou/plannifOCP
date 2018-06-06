@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,12 +34,12 @@ public class Storage implements Serializable {
     private Block block;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateTransport;
-    private Long quantity;
+    private BigDecimal quantity;
 
     public Storage() {
     }
 
-    public Storage(Stock stock, Machine machine, Block block, Date dateTransport, Long quantity) {
+    public Storage(Stock stock, Machine machine, Block block, Date dateTransport, BigDecimal quantity) {
         this.stock = stock;
         this.machine = machine;
         this.block = block;
@@ -87,11 +88,11 @@ public class Storage implements Serializable {
         this.dateTransport = dateTransport;
     }
 
-    public Long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 

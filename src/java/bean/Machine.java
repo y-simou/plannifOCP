@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Machine implements Serializable {
     private String nom;
     private String designation;
     private String type;
-    private int rendement;
+    private BigDecimal rendement;
     @ManyToOne
     private Site site;
 
@@ -38,14 +39,14 @@ public class Machine implements Serializable {
         this.nom = id;
     }
 
-    public Machine(String id, String designation, String type, int rendement) {
+    public Machine(String id, String designation, String type, BigDecimal rendement) {
         this.nom = id;
         this.designation = designation;
         this.type = type;
         this.rendement = rendement;
     }
 
-    public Machine(String nom, String designation, String type, int rendement, Site site) {
+    public Machine(String nom, String designation, String type, BigDecimal rendement, Site site) {
         this.nom = nom;
         this.designation = designation;
         this.type = type;
@@ -78,11 +79,11 @@ public class Machine implements Serializable {
         this.type = type;
     }
 
-    public int getRendement() {
+    public BigDecimal getRendement() {
         return rendement;
     }
 
-    public void setRendement(int rendement) {
+    public void setRendement(BigDecimal rendement) {
         this.rendement = rendement;
     }
 

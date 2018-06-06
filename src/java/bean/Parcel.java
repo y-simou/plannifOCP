@@ -45,7 +45,13 @@ public class Parcel implements Serializable {
         this.nom = nom;
         this.trench = trench;
     }
-    
+
+    public Parcel(Long id, String nom, Trench trench, SubPanel subPanel) {
+        this.id = id;
+        this.nom = nom;
+        this.trench = trench;
+        this.subPanel = subPanel;
+    }
     
 
     public Parcel(String nom, Long x, Long y, Trench trench, SubPanel subPanel) {

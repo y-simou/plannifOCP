@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PossibilityStorageCreateDlg" widgetVar="PossibilityStorageCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="230" showHeader="false">
+        <p:dialog id="PossibilityStorageCreateDlg" widgetVar="PossibilityStorageCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="65%" height="230" showHeader="false">
 
             <h:form id="PossibilityStorageCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -24,7 +24,7 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Stock :" for="stock" />
+                                            <p:outputLabel value="Stock " for="stock" />
 
                                         </p:column>
                                         <p:column> 
@@ -36,7 +36,7 @@
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Level :" for="level" />
+                                            <p:outputLabel value="Level " for="level" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="level" value="#{possibilityStorageController.selected.level}" >

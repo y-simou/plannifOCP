@@ -145,7 +145,7 @@
 
 
 
-                        <li class="nav-item dropdown" style="width: 90px;">
+                        <li class="nav-item dropdown" style="width: 80px;">
                             <a class="dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Chimie
                             </a>
@@ -158,7 +158,7 @@
                                 </p:commandLink>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" style="width: 120px;">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Exploitation
                             </a>
@@ -190,6 +190,9 @@
                                 <p:commandLink   class="nav-link" action="#{unitOfTimeController.redirect()}" >
                                     Unit Of Time  
                                 </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{anneeController.redirect()}" >
+                                    Year  
+                                </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{positionMachineController.redirect()}" >
                                     Position Machine
                                 </p:commandLink>
@@ -201,7 +204,7 @@
                                 </p:commandLink>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" style="width: 70px;">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Stock
                             </a>
@@ -217,9 +220,26 @@
                                 </p:commandLink>
                             </div>
                         </li>
+
+                        <li class="nav-item dropdown" style="width: 80px;">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Utilities
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right"  >
+                                <p:commandLink   class="nav-link" action="/excel/Import.xhtml?faces-redirect=true" >
+                                    Data Import 
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="/excel/Input.xhtml?faces-redirect=true" >
+                                    Generate Data
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="/excel/Input.xhtml?faces-redirect=true" >
+                                    Export Data 
+                                </p:commandLink>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <p:commandLink action="#{utilisateurController.logout()}" styleClass="margin" > 
+                <p:commandLink action="#{utilisateurController.logout()}" > 
                     <h:graphicImage value="../resources/images/logout.png" height="35px" alt="Logout" />
                 </p:commandLink>
             </nav>
@@ -292,6 +312,9 @@
 
 
 
+        <br />
+        <h:link outcome="/annee/List" value="Show All Annee Items"/>
     </h:body>
+
 </html>
 

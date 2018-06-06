@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Movement implements Serializable {
     private PositionMachine depart;
     @ManyToOne
     private PositionMachine arrive;
-    private Long duree;
+    private BigDecimal duree;
     @ManyToOne
     private UnitOfTime unitOfTime;
 
@@ -39,7 +40,7 @@ public class Movement implements Serializable {
         this.id = id;
     }
 
-    public Movement(PositionMachine depart, PositionMachine arrive, Long duree, UnitOfTime unitOfTime) {
+    public Movement(PositionMachine depart, PositionMachine arrive, BigDecimal duree, UnitOfTime unitOfTime) {
         this.depart = depart;
         this.arrive = arrive;
         this.duree = duree;
@@ -62,11 +63,11 @@ public class Movement implements Serializable {
         this.arrive = arrive;
     }
 
-    public Long getDuree() {
+    public BigDecimal getDuree() {
         return duree;
     }
 
-    public void setDuree(Long duree) {
+    public void setDuree(BigDecimal duree) {
         this.duree = duree;
     }
 

@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -29,26 +30,26 @@ public class StatutParcel implements Serializable {
     @ManyToOne
     private Parcel parcel;
     private String nom;
-    private Long treatment;
+    private BigDecimal treatment;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateTreatment;
 
     public StatutParcel() {
     }
 
-    public StatutParcel(String nom, Long treatment) {
+    public StatutParcel(String nom, BigDecimal treatment) {
         this.nom = nom;
         this.treatment = treatment;
     }
 
-    public StatutParcel(Parcel parcel, String nom, Long treatment) {
+    public StatutParcel(Parcel parcel, String nom, BigDecimal treatment) {
         this.parcel = parcel;
         this.nom = nom;
         this.treatment = treatment;
         this.dateTreatment=new Date();
     }
 
-    public StatutParcel(Parcel parcel, String nom, Long treatment, Date dateTreatment) {
+    public StatutParcel(Parcel parcel, String nom, BigDecimal treatment, Date dateTreatment) {
         this.parcel = parcel;
         this.nom = nom;
         this.treatment = treatment;
@@ -67,11 +68,11 @@ public class StatutParcel implements Serializable {
         this.nom = nom;
     }
 
-    public Long getTreatment() {
+    public BigDecimal getTreatment() {
         return treatment;
     }
 
-    public void setTreatment(Long treatment) {
+    public void setTreatment(BigDecimal treatment) {
         this.treatment = treatment;
     }
 

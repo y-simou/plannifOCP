@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class Treatment implements Serializable {
     private Operation operation;
     @ManyToOne
     private Block block;
-    private Long temps;
+    private BigDecimal temps;
     @ManyToOne
     private UnitOfTime unitOfTime;
     private Long chronologicalOrder;
@@ -37,7 +38,7 @@ public class Treatment implements Serializable {
     public Treatment() {
     }
 
-    public Treatment(Machine machine, Operation operation, Block block, Long temps, Long chronologicalOrder) {
+    public Treatment(Machine machine, Operation operation, Block block, BigDecimal temps, Long chronologicalOrder) {
         this.machine = machine;
         this.operation = operation;
         this.block = block;
@@ -45,7 +46,7 @@ public class Treatment implements Serializable {
         this.chronologicalOrder = chronologicalOrder;
     }
 
-    public Treatment(Machine machine, Operation operation, Block block, Long temps, UnitOfTime unitOfTime, Long chronologicalOrder) {
+    public Treatment(Machine machine, Operation operation, Block block, BigDecimal temps, UnitOfTime unitOfTime, Long chronologicalOrder) {
         this.machine = machine;
         this.operation = operation;
         this.block = block;
@@ -78,11 +79,11 @@ public class Treatment implements Serializable {
         this.block = block;
     }
 
-    public Long getTemps() {
+    public BigDecimal getTemps() {
         return temps;
     }
 
-    public void setTemps(Long temps) {
+    public void setTemps(BigDecimal temps) {
         this.temps = temps;
     }
 

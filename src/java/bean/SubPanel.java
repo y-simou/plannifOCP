@@ -34,6 +34,10 @@ public class SubPanel implements Serializable {
     public SubPanel() {
     }
 
+    public SubPanel(Long id) {
+        this.id = id;
+    }
+    
     public SubPanel(String nom) {
         this.nom = nom;
     }
