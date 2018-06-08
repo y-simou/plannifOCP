@@ -6,6 +6,7 @@
 package service;
 
 import bean.Layer;
+import bean.LevelLayer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,21 +30,30 @@ public class LayerFacade extends AbstractFacade<Layer> {
     public LayerFacade() {
         super(Layer.class);
     }
-    
-     public void delete(Long layer){
-        getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.id'"+ layer +"'").executeUpdate();
+
+    public void delete(Long layer) {
+        getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.id'" + layer + "'").executeUpdate();
         remove(find(layer));
     }
-     
-     public Layer findByNomAndLevel(String nom,Long level){
-        List<Layer> ps = getEntityManager().createQuery("SELECT p FROM Layer p where p.nom='"+ nom +"' AND p.level.id='"+ level +"'").getResultList();
-        if(ps.isEmpty()){
+
+    public Layer findByNomAndLevel(String nom, Long level) {
+        List<Layer> ps = getEntityManager().createQuery("SELECT p FROM Layer p where p.nom='" + nom + "' AND p.level.id='" + level + "'").getResultList();
+        if (ps.isEmpty()) {
             return null;
-        }else{
+        } else {
             return ps.get(0);
         }
-        
-        
+
     }
-    
+
+    public Layer createNull(String nom, LevelLayer level) {
+        Layer layer = findByNomAndLevel(nom, level.getId());
+        if (layer == null) {
+            layer = new Layer(generateId("Layer", "id"), nom, level);
+            create(layer);
+            Readxl.layerConteur++;
+        }
+        return layer;
+    }
+
 }

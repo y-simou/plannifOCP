@@ -20,14 +20,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:outputLabel value="name  " for="nom" />
                                     <p:inputText id="nom" value="#{trenchController.selected.nom}" title="Name" />
-                                    <p:outputLabel value="Surface :" for="surface" />
+                                    <p:outputLabel value="Surface " for="surface" />
                                     <p:inputText id="surface" value="#{trenchController.selected.surface}" title="Surface" />
 
-                                    <p:outputLabel value="Reserves :" for="reserves" />
+                                    <p:outputLabel value="Reserves " for="reserves" />
                                     <p:inputText id="reserves" value="#{trenchController.selected.reserves}" title="Reserves" />
-                                    <p:outputLabel value="Panel :" for="panel" />
+                                    <p:outputLabel value="Panel " for="panel" />
                                     <p:selectOneMenu id="panel" value="#{trenchController.selected.panel}" >
                                         <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
                                                        var="panelItem"
@@ -35,14 +35,14 @@
                                                        itemValue="#{panelItem}"/>
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel value="X :" for="x" />
+                                    <p:outputLabel value="X " for="x" />
                                     <p:inputText id="x" value="#{trenchController.selected.x}" title="X" />
-                                    <p:outputLabel value="Y :" for="y" />
+                                    <p:outputLabel value="Y " for="y" />
                                     <p:inputText id="y" value="#{trenchController.selected.y}" title="Y" />
 
-                                    <p:outputLabel value="Start of Operation :" for="datePDebutExploitation" />
+                                    <p:outputLabel value="Start of Operation " for="datePDebutExploitation" />
                                     <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePDebutExploitation}" title="Start of Operation"  showOn="button"/>
-                                    <p:outputLabel value="End of Operation :" for="datePFinExploitation" />
+                                    <p:outputLabel value="End of Operation " for="datePFinExploitation" />
                                     <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePFinExploitation}" title="End of Operation"  showOn="button"/>
 
                                 </p:panelGrid>

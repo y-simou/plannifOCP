@@ -19,8 +19,6 @@ import jxl.read.biff.BiffException;
 import org.primefaces.model.UploadedFile;
 import service.Readxl;
 
-import org.primefaces.event.FileUploadEvent;
-
 /**
  *
  * @author Yassine.SIMOU
@@ -42,23 +40,25 @@ public class XlController implements Serializable {
     int layerCtr = 0;
 
     public void handleFileUpload() {
-        showMessage("Succesful "+ file.getFileName() + " is uploaded.");
+        showMessage("Succesful " + file.getFileName() + " is uploaded.");
     }
 
+
     public void database() {
-        Long rows = 0L;
         try {
-            rows = facade.read(file.getInputstream(),getAnnee().getAnnee());
+            Long rows = facade.read(file.getInputstream(), getAnnee().getAnnee());
+            if (rows == null) {
+                showErrorMessage("the File is Big,\n max is 3500 Rows");
+            } else {
+                String msg = rows + " Rows Executed.";
+                showMessage(msg);
+                msg = Readxl.panelConteur + " Panels Added. " + Readxl.trenchConteur + " Trenchs Added. \n" + Readxl.parcelConteur + " Parcels Added. " + Readxl.layerConteur + " Layers, \n" + Readxl.layerConteur * 5 + " Chemical Component Layer Added.";
+                showMessage(msg);
+            }
         } catch (IOException | BiffException ex) {
             Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        panelCtr = Readxl.panelConteur;
-        parcelCtr = Readxl.parcelConteur;
-        trenchCtr = Readxl.trenchConteur;
-        layerCtr = Readxl.layerConteur;
-        String msg = rows + " Rows Executed.\n";
-        msg += panelCtr + " Panels Added. " + trenchCtr + " Trenchs Added. " + parcelCtr + " Parcels Added. " + layerCtr + " Layers, " + layerCtr*5 + " Chemical Component Layer Added.";
-        showMessage(msg);
+
     }
 
     public void showMessage(String msg) {
@@ -88,7 +88,7 @@ public class XlController implements Serializable {
     public void setAnnee(Annee annee) {
         this.annee = annee;
     }
-    
+
     public UploadedFile getFile() {
         return file;
     }

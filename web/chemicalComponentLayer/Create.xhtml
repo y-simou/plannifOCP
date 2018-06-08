@@ -30,7 +30,7 @@
                                             <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.layer}" >
                                                 <f:selectItems value="#{layerController.itemsAvailableSelectOne}"
                                                                var="layerItem"
-                                                               itemValue="#{layerItem}"
+                                                               itemValue="#{layerItem},#{layerItem.level.nom}"
                                                                itemLabel="#{layerItem.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>

@@ -8,31 +8,49 @@
 
     <ui:composition>
 
-        <p:dialog id="SubPanelEditDlg" widgetVar="SubPanelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EditSubPanelTitle}">
-            <h:form id="SubPanelEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{subPanelController.selected != null}">
-                        <p:outputLabel value="EditSubPanelLabel_surface}" for="surface" />
-                        <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="EditSubPanelTitle_surface}" />
-                        <p:outputLabel value="EditSubPanelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{subPanelController.selected.id}" title="EditSubPanelTitle_id}" />
-                        <p:outputLabel value="EditSubPanelLabel_sequenceLevel}" for="sequenceLevel" />
-                        <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
-                            <f:selectItem itemLabel="SelectOneMessage}"/>
-                            <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                           var="sequenceLevelItem"
-                                           itemValue="#{sequenceLevelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="EditSubPanelLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="EditSubPanelTitle_nom}" />
-                    </p:panelGrid>
+        <p:dialog id="SubPanelEditDlg" widgetVar="SubPanelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+
+            <h:form id="SubPanelEditForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Edit Sub Panel :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid columns="2" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name  " for="nom" />
+                                    <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="Name" />
+                                    <p:outputLabel value="Panel " for="panel" />
+                                    <p:selectOneMenu id="panel" value="#{subPanelController.selected.panel}" >
+                                        <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                       var="panelItem"
+                                                       itemLabel="#{panelItem.nom}"
+                                                       itemValue="#{panelItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Sequence Level" for="sequenceLevel" />
+                                    <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
+                                        <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
+                                                       var="sequenceLevelItem"
+                                                       itemLabel="#{sequenceLevelItem.id}"
+                                                       itemValue="#{sequenceLevelItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Surface" for="surface" />
+                                    <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="Surface" />
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                        <hr></hr>
+                    </div>
+                    <br></br>
                     <div class="f1-buttons" align="right">
                         <p:commandButton  value="Save" class="myBtn" actionListener="#{subPanelController.update()}" onclick="handleSubmit(args, 'SubPanelEditDialog');" />
                         <p:commandLink oncomplete="handleSubmit(args,'SubPanelEditDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>
                     </div>
-                </h:panelGroup>
+                </div>
             </h:form>
         </p:dialog>
 

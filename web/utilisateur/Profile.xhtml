@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templateCrud.xhtml">
@@ -32,6 +31,7 @@
                                     <hr></hr>
                                     <div class="row">
                                         <div class="col-md-3 col-lg-3 " align="center"> 
+                                            <h:graphicImage value="../resources/images/profile.png" height="150px" alt="" />
                                             <h2>#{utilisateurController.selected.nom.toUpperCase()} #{utilisateurController.selected.prenom}</h2>
                                             <hr></hr> 
                                             <br></br>

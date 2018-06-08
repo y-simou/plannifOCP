@@ -8,29 +8,28 @@
 
     <ui:composition>
 
-         <p:dialog id="SubPanelEditDlg" widgetVar="SubPanelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+         <p:dialog id="LayerEditDlg" widgetVar="LayerEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
 
-            <h:form id="SubPanelEditForm" style="margin-top: 10px;margin-bottom: 10px">
+            <h:form id="LayerEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Edit Sub Panel :</h4>
+                    <h4 align="center">Edit Layer :</h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
                         <div class="row">
                             <div class="col-md-12">
-                                <p:panelGrid columns="2" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:outputLabel value="name : " for="nom" />
-                                    <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="Name" />
-                                    <p:outputLabel value="Surface" for="surface" />
-                                    <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="Surface" />
-                                    <p:outputLabel value="Sequence Level" for="sequenceLevel" />
-                                    <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
-                                        <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                                       var="sequenceLevelItem"
-                                                       itemLabel="#{sequenceLevelItem.id}"
-                                                       itemValue="#{sequenceLevelItem}"/>
+                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:outputLabel value="name  " for="nom" />
+                                    <p:inputText id="nom" value="#{layerController.selected.nom}" title="Name" />
+
+                                    <p:outputLabel value="Level   " for="levelLayer" />
+                                    <p:selectOneMenu id="levelLayer" value="#{layerController.selected.level}" >
+                                        <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
+                                                       var="levelLayerItem"
+                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.toString}"/>
                                     </p:selectOneMenu>
+
                                 </p:panelGrid>
                             </div>
                         </div>

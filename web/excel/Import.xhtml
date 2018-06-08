@@ -26,8 +26,8 @@
                     <h:form id="ImportDataForm" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-2 col-lg-2 col-sm-2"></div>
-                                <div class="col-md-10 col-lg-10 col-sm-10">
+                                <div class="col-md-3 col-lg-3 col-sm-3"></div>
+                                <div class="col-md-9 col-lg-9 col-sm-9">
                                     <div class="input-group mb-3" style="vertical-align: central">
                                         <div class="input-group-prepend">
                                             <h:commandLink class="btn btn-outline-secondary" action="#{xlController.database()}" style="background-color: grey" >Import</h:commandLink>
@@ -42,7 +42,7 @@
                                             </p:selectOneMenu>
                                         </div>
                                         <div class="custom-file">
-                                            <p:fileUpload value="#{xlController.file}" fileUploadListener="#{xlController.handleFileUpload()}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
+                                            <p:fileUpload value="#{xlController.file}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
                                             <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
                                         </div>
                                     </div>

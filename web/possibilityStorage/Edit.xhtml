@@ -40,7 +40,7 @@
                                             <p:selectOneMenu id="level" value="#{possibilityStorageController.selected.level}" >
                                                 <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
                                                                var="levelItem"
-                                                               itemLabel="#{levelItem.nom}"
+                                                               itemLabel="#{levelItem.toString()}"
                                                                itemValue="#{levelItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>

@@ -37,6 +37,10 @@ public class UtilisateurController implements Serializable {
     public String redirect() {
         return "/utilisateur/List?faces-redirect=true";
     }
+    
+    public String redirectProfile() {
+        return "/utilisateur/Profile?faces-redirect=true";
+    }
 
     public String redirectIndex() {
         return "/index?faces-redirect=true";
@@ -165,13 +169,17 @@ public class UtilisateurController implements Serializable {
     public Utilisateur getSelected() {
         if (selected == null) {
             if (SessionUtil.getAttribute("conected") == null) {
-                if (CookieUtil.getCookieValue("conected") == null || "".equals(CookieUtil.getCookieValue("conected"))) {
+                System.out.println("session is null");
+                if (CookieUtil.getCookieValue("conected") == null || CookieUtil.getCookieValue("conected").equals("")) {
+                    System.out.println("cookie is null");
                     selected = new Utilisateur();
                 } else {
+                    System.out.println(CookieUtil.getCookieValue("conected"));
                     selected = ejbFacade.find(new Long(CookieUtil.getCookieValue("conected")));
                     SessionUtil.setAttribute("conected", selected);
                 }
             } else {
+                System.out.println(SessionUtil.getAttribute("conected"));
                 selected = (Utilisateur) SessionUtil.getAttribute("conected");
             }
         }
@@ -221,7 +229,7 @@ public class UtilisateurController implements Serializable {
     public void setNvPassword1(String nvPassword1) {
         this.nvPassword1 = nvPassword1;
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 

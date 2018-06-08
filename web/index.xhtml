@@ -76,6 +76,10 @@
                                     Panel
                                 </p:commandLink>
 
+                                <p:commandLink  class="nav-link" action="#{subPanelController.redirect()}">
+                                    Sub Panel
+                                </p:commandLink>
+
                                 <p:commandLink  class="nav-link" action="#{exitPanelController.redirect()}">
                                     Exit Panel
                                 </p:commandLink>
@@ -88,20 +92,8 @@
                                     Parcel
                                 </p:commandLink>
 
-                                <p:commandLink  class="nav-link" action="#{subPanelController.redirect()}">
-                                    Sub Panel
-                                </p:commandLink>
-
-                                <p:commandLink  class="nav-link" action="#{cCLController.redirect()}">
-                                    CCL
-                                </p:commandLink>
-
                                 <p:commandLink  class="nav-link" action="#{levelLayerController.redirect()}">
                                     Level
-                                </p:commandLink>
-
-                                <p:commandLink  class="nav-link" action="#{layerController.redirect()}">
-                                    Layer
                                 </p:commandLink>
 
                                 <p:commandLink   class="nav-link" action="#{sequenceLevelController.redirect()}">
@@ -112,8 +104,24 @@
                                     Composition-Level-Sequence  
                                 </p:commandLink>
 
-                                <p:commandLink   class="nav-link" action="#{utilisateurController.redirect()}">
-                                    User
+                                <p:commandLink  class="nav-link" action="#{cCLController.redirect()}">
+                                    CCL
+                                </p:commandLink>
+
+                                <p:commandLink  class="nav-link" action="#{layerController.redirect()}">
+                                    Layer
+                                </p:commandLink>
+
+                                <p:commandLink   class="nav-link" action="#{axeController.redirect()}">
+                                    Axe 
+                                </p:commandLink>
+
+                                <p:commandLink   class="nav-link" action="#{villeController.redirect()}">
+                                    Ville 
+                                </p:commandLink>
+
+                                <p:commandLink   class="nav-link" action="#{siteController.redirect()}">
+                                    Site 
                                 </p:commandLink>
 
                                 <p:commandLink   class="nav-link" action="#{rHController.redirect()}">
@@ -124,20 +132,8 @@
                                     Poste
                                 </p:commandLink>
 
-                                <p:commandLink   class="nav-link" action="#{siteController.redirect()}">
-                                    Site 
-                                </p:commandLink>
-
-                                <p:commandLink   class="nav-link" action="#{villeController.redirect()}">
-                                    Ville 
-                                </p:commandLink>
-
-                                <p:commandLink   class="nav-link" action="#{axeController.redirect()}">
-                                    Axe 
-                                </p:commandLink>
-
-                                <p:commandLink   class="nav-link" action="#{positionController.redirect()}">
-                                    Position 
+                                <p:commandLink   class="nav-link" action="#{utilisateurController.redirect()}">
+                                    User
                                 </p:commandLink>
 
                             </div>
@@ -166,14 +162,29 @@
                                 <p:commandLink   class="nav-link" action="#{blockController.redirect()}" >
                                     Block
                                 </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{statutBlockController.redirect()}" >
+                                    Statut-Block
+                                </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{machineController.redirect()}" >
                                     Machine
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{positionController.redirect()}">
+                                    Position 
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{positionMachineController.redirect()}" >
+                                    Position Machine
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{movementController.redirect()}" >
                                     Movement
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{accessibilityController.redirect()}" >
-                                    Accessibility
+                                    Accessibility Machine Level
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{availabilityMachineController.redirect()}" >
+                                    Availability Machine
+                                </p:commandLink>
+                                <p:commandLink   class="nav-link" action="#{availabilityRhController.redirect()}" >
+                                    Availability RH
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{treatmentController.redirect()}" >
                                     Treatment
@@ -184,23 +195,11 @@
                                 <p:commandLink   class="nav-link" action="#{statutController.redirect()}" >
                                     Statut
                                 </p:commandLink>
-                                <p:commandLink   class="nav-link" action="#{statutBlockController.redirect()}" >
-                                    Statut-Block
-                                </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{unitOfTimeController.redirect()}" >
                                     Unit Of Time  
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{anneeController.redirect()}" >
                                     Year  
-                                </p:commandLink>
-                                <p:commandLink   class="nav-link" action="#{positionMachineController.redirect()}" >
-                                    Position Machine
-                                </p:commandLink>
-                                <p:commandLink   class="nav-link" action="#{availabilityMachineController.redirect()}" >
-                                    Availability Machine
-                                </p:commandLink>
-                                <p:commandLink   class="nav-link" action="#{availabilityRhController.redirect()}" >
-                                    Availability RH
                                 </p:commandLink>
                             </div>
                         </li>
@@ -213,7 +212,7 @@
                                     Stock 
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{possibilityStorageController.redirect()}" >
-                                    Possibility-Storage
+                                    Possibility-Stock-Level
                                 </p:commandLink>
                                 <p:commandLink   class="nav-link" action="#{storageController.redirect()}" >
                                     Storage 
@@ -239,8 +238,11 @@
                         </li>
                     </ul>
                 </div>
+                <p:commandLink action="#{utilisateurController.redirectProfile()}" > 
+                    <h:graphicImage value="resources/images/profile.png" height="35px" alt="Profile" style="margin-right: 8px;" />
+                </p:commandLink>
                 <p:commandLink action="#{utilisateurController.logout()}" > 
-                    <h:graphicImage value="../resources/images/logout.png" height="35px" alt="Logout" />
+                    <h:graphicImage value="resources/images/logout.png" height="35px" alt="Logout" />
                 </p:commandLink>
             </nav>
         </h:form>

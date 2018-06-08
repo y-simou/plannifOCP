@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="BlockEditDlg" widgetVar="BlockEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+        <p:dialog id="BlockEditDlg" widgetVar="BlockEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="330" showHeader="false">
 
             <h:form id="BlockEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -51,24 +51,13 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Parcel" for="parcel" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="parcel" value="#{blockController.selected.parcel}" >
-                                                <f:selectItems value="#{parcelController.itemsAvailableSelectOne}"
-                                                               var="parcelItem"
-                                                               itemValue="#{parcelItem}"
-                                                               itemLabel="#{parcelItem.nom}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                        <p:column>
                                             <p:outputLabel value="Level" for="level" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="level" value="#{blockController.selected.level}" >
                                                 <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
                                                                var="levelItem"
-                                                               itemLabel="#{levelItem.nom}"
+                                                               itemLabel="#{levelItem.toString()}"
                                                                itemValue="#{levelItem}"
                                                                />
                                             </p:selectOneMenu>

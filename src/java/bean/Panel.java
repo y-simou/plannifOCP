@@ -42,6 +42,10 @@ public class Panel implements Serializable {
         this.nom = nom;
     }
 
+    public Panel(Long id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
 
     public Panel(String nom, Long surface, Date datePDebutExploitation, Date datePFinExploitation, Long reserves, Long x, Long y) {
         this.nom = nom;

@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="AccessibilityCreateDlg" widgetVar="AccessibilityCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+        <p:dialog id="AccessibilityCreateDlg" widgetVar="AccessibilityCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="270" showHeader="false">
 
             <h:form id="AccessibilityCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -23,18 +23,20 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Level :  " for="levelLayer" />
+                                            <p:outputLabel value="Level   " for="levelLayer" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="levelLayer" value="#{accessibilityController.selected.levelLayer}" >
                                                 <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
                                                                var="levelLayerItem"
-                                                               itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                                               itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.toString()}"/>
                                             </p:selectOneMenu>
                                         </p:column>
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
 
-                                            <p:outputLabel value="Machine :  " for="machine" />
+                                            <p:outputLabel value="Machine   " for="machine" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="machine" value="#{accessibilityController.selected.machine}" >
@@ -46,7 +48,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                             <p:selectBooleanButton id="type" class="myBtn" value="#{accessibilityController.selected.accessibile}" onLabel="Accessible" offLabel="Not Accessible" />
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{accessibilityController.selected.accessibile}" onLabel="Accessible" offLabel="Inaccessible" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

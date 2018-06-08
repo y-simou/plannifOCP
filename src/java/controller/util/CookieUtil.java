@@ -5,6 +5,7 @@
  */
 package controller.util;
 
+import java.util.Arrays;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +20,19 @@ public class CookieUtil {
     /**
      * Méthode utilitaire gérant la récupération de la valeur d'un CookieUtil
      * donné depuis la requête HTTP.
+     * @param nom
+     * @return 
      */
     public static Cookie getCookie(String nom) {
+        System.out.println("dkhlt");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        System.out.println("khdit request");
+        System.out.println(request);
         Cookie[] cookies = request.getCookies();
+        System.out.println("list cookies");
+        System.out.println(Arrays.toString(cookies));
         if (cookies != null) {
+            System.out.println("list cookies makhawyach");
             for (Cookie cookie : cookies) {
                 if (cookie != null && nom.equals(cookie.getName())) {
                     System.out.println(cookie);
@@ -39,6 +48,7 @@ public class CookieUtil {
     public static String getCookieValue(String nom) {
         Cookie cookie = getCookie(nom);
         if (cookie != null) {
+            System.out.println("cookie :: "+cookie.getValue());
             return cookie.getValue();
         }
         return null;

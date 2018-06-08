@@ -115,7 +115,7 @@ public class LevelLayer implements Serializable {
 
     @Override
     public String toString() {
-        return "LevelLayer{" + "id=" + id + ", num=" + num + ", nom=" + nom + ", parcel=" + parcel + '}';
+        return "num= " + num + ", nom= " + nom + ", parcel= " + parcel.getNom() ;
     }
 
 }

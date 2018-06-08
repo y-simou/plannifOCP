@@ -28,19 +28,16 @@ public class Block implements Serializable {
     private Long volume;
     private int priority;
     @ManyToOne
-    private Parcel parcel;
-    @ManyToOne
     private LevelLayer level;
 
     public Block() {
     }
 
-    public Block(String nom, Long puissance, Long volume, int priority, Parcel parcel, LevelLayer level) {
+    public Block(String nom, Long puissance, Long volume, int priority, LevelLayer level) {
         this.nom = nom;
         this.puissance = puissance;
         this.volume = volume;
         this.priority = priority;
-        this.parcel = parcel;
         this.level = level;
     }
 
@@ -85,17 +82,6 @@ public class Block implements Serializable {
         this.priority = priority;
     }
 
-    public Parcel getParcel() {
-        if(parcel==null){
-            parcel = new Parcel();
-        }
-        return parcel;
-    }
-
-    public void setParcel(Parcel parcel) {
-        this.parcel = parcel;
-    }
-
     public LevelLayer getLevel() {
         if(level== null){
             level =new LevelLayer();
@@ -131,7 +117,7 @@ public class Block implements Serializable {
 
     @Override
     public String toString() {
-        return "Block{" + "id=" + id + ", nom=" + nom + ", puissance=" + puissance + ", volume=" + volume + ", priority=" + priority + ", parcel=" + getParcel().getNom() + ", level=" + getLevel().getNom() + '}';
+        return "Block{" + "id=" + id + ", nom=" + nom + ", puissance=" + puissance + ", volume=" + volume + ", priority=" + priority + ", level :" + getLevel().toString() + '}';
     }
 
 

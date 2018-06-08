@@ -2,16 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
         <nav class="sidebar bg-success">
+            <h:form id="navform">
             <p style="text-align: center;">
-                <a href="../utilisateur/Profile.xhtml">
+                <p:commandLink action="#{utilisateurController.redirectProfile()}" > 
                     <img src="../resources/images/ocp.png" style=" margin-top: 20px;
                          width: 150px;
                          height: 170px;" />
-                </a>
+                </p:commandLink>
             </p>
             <div align="center">
                 <hr></hr>
@@ -19,11 +21,12 @@
             </div>
             <div align="center">
                 <hr></hr>
-                <a href="../utilisateur/Profile.xhtml">
-                    <h2 style="color: white"><span class="fa fa-user"> </span> Profile</h2>
-                </a>
+                <p:commandLink action="#{utilisateurController.redirectProfile()}" > 
+                    <h2 style="color: white"> <h:graphicImage value="../resources/images/profile.png" height="32px" alt="" style="margin-right: 3px;" /> Profile</h2>
+                </p:commandLink>
             </div>
             <hr></hr>
+            </h:form>
         </nav>
     </ui:composition>
 </html>

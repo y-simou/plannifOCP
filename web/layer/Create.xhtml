@@ -20,14 +20,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:outputLabel value="name : " for="nom" />
+                                    <p:outputLabel value="name  " for="nom" />
                                     <p:inputText id="nom" value="#{layerController.selected.nom}" title="Name" />
 
-                                    <p:outputLabel value="Level :  " for="levelLayer" />
+                                    <p:outputLabel value="Level   " for="levelLayer" />
                                     <p:selectOneMenu id="levelLayer" value="#{layerController.selected.level}" >
                                         <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
                                                        var="levelLayerItem"
-                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.nom}"/>
+                                                       itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.toString}"/>
                                     </p:selectOneMenu>
 
                                 </p:panelGrid>

@@ -20,32 +20,35 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Chemical Component Layer : </h1>
+                        Chemical Component Layer : </h1>
                     <hr></hr>
                     <h:form id="ChemicalComponentLayerListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ChemicalComponentLayerCreateDialog').show()" />
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ChemicalComponentLayerCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{chemicalComponentLayerController.items}" var="item" 
-                                       rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Layer"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.layer}"/>
+                                <p:column filterBy="#{item.layer}" headerText="Layer" filterStyle="height: 20px" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.layer.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Chemical Component"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.chemicalComponent}"/>
+                                <p:column filterBy="#{item.chemicalComponent}"  filterStyle="" headerText="Chemical Component" filterMatchMode="exact">
+                                    <f:facet name="filter" >
+                                        <p:selectOneMenu onchange="PF('table').filter()" style="width : 80% !important">
+                                            <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItems value="#{chemicalComponentController.itemsAvailableSelectOne}" var="chemic"  itemValue="#{chemic}" itemLabel="#{chemic.nom}" />
+                                        </p:selectOneMenu>
+                                    </f:facet>  
+                                    <h:outputText value="#{item.chemicalComponent.nom}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
