@@ -71,7 +71,7 @@ public class SubPanelController implements Serializable {
     }
 
     public void delete(SubPanel subPanel) {
-        ejbFacade.remove(subPanel);
+        ejbFacade.delete(subPanel.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

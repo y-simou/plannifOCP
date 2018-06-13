@@ -25,7 +25,7 @@ public class AvailabilityRh implements Serializable {
     private Long id;
     @ManyToOne
     private RH rh;
-    private boolean Available;
+    private boolean available;
 
     public AvailabilityRh() {
     }
@@ -47,11 +47,11 @@ public class AvailabilityRh implements Serializable {
     }
 
     public boolean getAvailable() {
-        return Available;
+        return available;
     }
 
     public void setAvailable(boolean Available) {
-        this.Available = Available;
+        this.available = Available;
     }
     
     
@@ -78,7 +78,7 @@ public class AvailabilityRh implements Serializable {
 
     @Override
     public String toString() {
-        return "AvailabilityRh{" + "id=" + id + ", rh=" + rh + ", Available=" + Available + '}';
+        return "AvailabilityRh{" + "id=" + id + ", rh=" + rh + ", Available=" + available + '}';
     }
 
     

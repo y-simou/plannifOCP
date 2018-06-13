@@ -31,13 +31,17 @@ public class PanelFacade extends AbstractFacade<Panel> {
     }
 
     public void delete(Panel panel) {
-        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Storage st where st.block.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Block b where b.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Parcel p where p.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Storage st where st.block.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Block b where b.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM ChemicalComponentLayer ccl where ccl.layer.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Layer l where l.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM CompositionLevelSequence cls where cls.level.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM LevelLayer ll where ll.parcel.trench.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Parcel p where p.trench.panel.id='" + panel.getId() + "' OR p.subPanel.panel.id='" + panel.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Trench t where t.panel.id='" + panel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.panel.id='" + panel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM CCL c where c.subPanel.panel.id='" + panel.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM SubPanel sp where sp.panel.id='" + panel.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM ExitPanel ep where ep.panel.id='" + panel.getId() + "'").executeUpdate();
         remove(panel);

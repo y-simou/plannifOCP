@@ -79,7 +79,7 @@ public class CompositionLevelSequenceController implements Serializable {
 
     public List<CompositionLevelSequence> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

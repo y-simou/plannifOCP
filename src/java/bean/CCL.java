@@ -26,7 +26,7 @@ public class CCL implements Serializable {
     private String nom;
     @ManyToOne
     private SubPanel subPanel;
-    private String surface;
+    private Long surface;
     
 
     public SubPanel getSubPanel() {
@@ -36,7 +36,7 @@ public class CCL implements Serializable {
         return subPanel;
     }
 
-    public CCL(String nom, SubPanel subPanel, String surface) {
+    public CCL(String nom, SubPanel subPanel, Long surface) {
         this.nom = nom;
         this.subPanel = subPanel;
         this.surface = surface;
@@ -69,11 +69,11 @@ public class CCL implements Serializable {
     }
 
 
-    public String getSurface() {
+    public Long getSurface() {
         return surface;
     }
 
-    public void setSurface(String surface) {
+    public void setSurface(Long surface) {
         this.surface = surface;
     }
     
