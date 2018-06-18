@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PanelCreateDlg" widgetVar="PanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="350" showHeader="false">
+        <p:dialog id="PanelCreateDlg" widgetVar="PanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="40%" showHeader="false">
 
             <h:form id="PanelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -24,7 +24,7 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Name : " for="nom" />
+                                            <p:outputLabel value="Name  " for="nom" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="nom" value="#{panelController.selected.nom}" title="Name" />
@@ -32,13 +32,13 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Date Debut Exploitation :" for="datePDebutExploitation" />
+                                            <p:outputLabel value="Date Debut Exploitation " for="datePDebutExploitation" />
                                         </p:column>
                                         <p:column>
                                             <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{panelController.selected.datePDebutExploitation}" title="EditPanelTitle_datePDebutExploitation}"  showOn="button"/>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="X :" for="x" />
+                                            <p:outputLabel value="X " for="x" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="x" value="#{panelController.selected.x}" title="x" />
@@ -47,14 +47,14 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Reserves : " for="reserves" />
+                                            <p:outputLabel value="Reserves  " for="reserves" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="reserves" value="#{panelController.selected.reserves}" title="Reserves" />
                                         </p:column>
                                         <p:column>
 
-                                            <p:outputLabel value="Date Fin Exploitation :" for="datePFinExploitation" />
+                                            <p:outputLabel value="Date Fin Exploitation " for="datePFinExploitation" />
                                         </p:column>
                                         <p:column>
                                             <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{panelController.selected.datePFinExploitation}" title="EditPanelTitle_datePFinExploitation}"  showOn="button"/>
@@ -62,7 +62,7 @@
                                         
                                         <p:column>
 
-                                            <p:outputLabel value="Y :" for="y" />
+                                            <p:outputLabel value="Y " for="y" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="y" value="#{panelController.selected.y}" title="Y" />

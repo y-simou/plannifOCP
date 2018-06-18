@@ -26,6 +26,10 @@
                     <h:form id="TreatmentListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
+                            <div align="right">
+                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('TreatmentCreateDialog').show()" />
+                            </div>
+                             <hr></hr>
                             <p:dataTable value="#{treatmentController.items}" var="item" 
                                          rowKey="#{item.id}"
                                          
