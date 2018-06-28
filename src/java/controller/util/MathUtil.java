@@ -15,13 +15,12 @@ public class MathUtil {
 
     
     public static BigDecimal calculerMax(BigDecimal[] resultas) {
-        BigDecimal max = new BigDecimal(0);
-        max = resultas[0];
-            for (int i = 0; i < 12; i++) {
+        BigDecimal max = resultas[0];
+            for (int i = 1; i < resultas.length; i++) {
                 if (max.compareTo(resultas[i]) == -1) {
                     max = resultas[i];
-                    System.out.println("ha max :::" + max);
                 }
+                System.out.println("ha max ::" + max);
             }
         return max;
     }

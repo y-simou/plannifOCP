@@ -14,12 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Yassine.SIMOU
  */
 @Entity
+@XmlRootElement
 public class Trench implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -172,8 +174,7 @@ public class Trench implements Serializable {
 
     @Override
     public String toString() {
-        return "Tranchee{" + "id=" + id +",nom=" + nom + ", surface=" + surface + ", datePDebutExploitation=" + datePDebutExploitation + ""
-                + ", datePFinExploitation=" + datePFinExploitation + ", reserves=" + reserves + ", x=" + x + ", y=" + y + ", panneau=" + getPanel().getNom() + '}';
+        return "Tranche : " + nom + ", "+ id +" ,panel : " + getPanel().getNom();
     }
 
 }

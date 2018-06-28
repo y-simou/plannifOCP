@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="../resources/dhtmlxGantt/codebase/dhtmlxgantt.css"/>
+        <h:outputScript name="dhtmlxGantt/codebase/dhtmlxcommon.js"/>
+        <h:outputScript name="dhtmlxGantt/codebase/dhtmlxgantt.js"/>
+    </h:head>
+    <h:body>
+        
+        <script type="text/javascript" language="JavaScript"> /*<![CDATA[*/
+            function createChartControl(htmlDiv1) {
+                // Initialize Gantt data structures
+                //project 1
+
+                var project1 = new GanttProjectInfo(1, "Opérateur1", new Date(2010, 5, 11));
+                var parentTask1 = new GanttTaskInfo(1, "OT1", new Date(2010, 5, 11), 4, 50, "");
+
+                var parentTask2 = new GanttTaskInfo(2, "OT2", new Date(2010, 5, 11), 4, 80, "");
+                project1.addTask(parentTask1);
+                project1.addTask(parentTask2);
+                var project2 = new GanttProjectInfo(2, "Opérateur2", new Date(2010, 5, 11));
+                var parentTask11 = new GanttTaskInfo(4, "OT1", new Date(2010, 5, 11), 18, 50, "");
+
+                var parentTask22 = new GanttTaskInfo(5, "OT2", new Date(2010, 5, 14), 190, 80, "");
+                project2.addTask(parentTask11);
+                project2.addTask(parentTask22);
+
+                // Create Gantt control
+                var ganttChartControl = new GanttChart();
+                // Setup paths and behavior
+                ganttChartControl.setImagePath("../resources/dhtmlxGantt/codebase/imgs/");
+                ganttChartControl.setEditable(true);
+                ganttChartControl.showTreePanel(true);
+                ganttChartControl.showContextMenu(true);
+                ganttChartControl.showDescTask(true, 'd,s-f');
+                ganttChartControl.showDescProject(false, 'n,d');
+
+
+                // Load data structure
+                ganttChartControl.addProject(project1);
+                ganttChartControl.addProject(project2);
+
+                // Build control on the page
+                ganttChartControl.create(htmlDiv1);
+            };
+            /*]]>*/
+        </script>
+
+        <div style="width:1200px; height:620px; position:relative;" id="GanttDiv">
+            <script type='text/javascript'></script>
+        </div>
+
+    </h:body>
+</html>
+

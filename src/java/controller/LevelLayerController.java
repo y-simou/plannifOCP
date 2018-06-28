@@ -105,7 +105,7 @@ public class LevelLayerController implements Serializable {
             }
             LevelLayerController controller = (LevelLayerController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "levelLayerController");
-            return controller.getLevelLayer(getKey(value));
+            return controller.getLevelLayer(new Integer(value));
         }
 
         int getKey(String value) {

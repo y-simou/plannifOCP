@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    <ui:composition template="/templateCrud.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Display Results"></h:outputText>
+        </ui:define>
+
+
+        <ui:define name="body">
+            <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
+                <ui:include src="/sidebar.xhtml"/>
+                <div class="content p-4">
+
+                    <h:form id="ImportDataForm" enctype="multipart/form-data">
+                        
+                        <hr></hr>
+                        <h1 align="center"> 
+                            Display Results </h1>
+                        <hr></hr>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-3"></div>
+                                <div class="col-md-9 col-lg-9 col-sm-9">
+                                    <div class="input-group mb-3" style="vertical-align: central">
+                                        <div class="input-group-prepend">
+                                            <h:commandLink class="btn btn-outline-secondary" action="#{xlController.afficherChart()}" style="background-color: grey" >Display</h:commandLink>
+                                        </div>
+                                        <div class="custom-file">
+                                            <p:fileUpload value="#{xlController.fileGraphe}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
+                                            <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-12"> 
+                                <h:form id="linechartForm">
+                                    <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:65%;width: 90%;" styleClass="text-size15" />
+                                </h:form>
+                            </div>
+                        </div>
+                        <br></br>
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-12"> 
+                                <h:form id="barchartForm">
+                                    <p:growl id="growl" showDetail="true" />
+                                    <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:65%;width: 90%;" styleClass="text-size15" >
+                                        <p:ajax event="itemSelect" listener="#{xlController.itemSelect}" update="growl" />
+                                        <script type="text/javascript">
+                                            function customExtender() {
+                                                this.cfg.axes.yaxis = {
+                                                    showTicks: false,
+                                                    showTickMarks: false
+                                                };
+                                            }
+                                        </script>
+
+                                    </p:chart>
+                                </h:form>
+                            </div>
+                        </div>
+                        <!--                        <div Class="ui-grid-row" id="chart1">
+                                                    <p:chart type="bar" model="# {xlController.horizontalBarModel}" style="height:300px">
+                                                        <h:outputScript>
+                                                                function chartExtender() {
+                                                                this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+                                                                this.cfg.series = 
+                                                                       [
+                                                                {seriesColors: ["#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33"]}, 
+                                                                {seriesColors: ["#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c"]}
+                                                                {seriesColors: ["#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c"]}
+                                                                       ]
+                                                                }
+                                                                   plot1 = $.jqplot('chart1', [[50,100,50,50,75],[80,70,50,50,40]], {
+                                                               seriesDefaults:{
+                                                               renderer:$.jqplot.BarRenderer,
+                                                               rendererOptions: {
+                                                              // Set the varyBarColor option to true to use different colors for each bar.
+                                                               // The default series colors are used.
+                                                               varyBarColor: true
+                                                               }
+                                                               },
+                                                               highlighter: { show: false }
+                                                               });
+                                                        </h:outputScript>
+                                                    </p:chart>
+                                                </div>-->
+                    </h:form>
+                </div>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

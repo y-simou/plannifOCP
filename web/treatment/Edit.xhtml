@@ -31,7 +31,8 @@
                                             <p:selectOneMenu id="operation" value="#{treatmentController.selected.operation}" >
                                                 <f:selectItems value="#{operationController.itemsAvailableSelectOne}"
                                                                var="operationItem"
-                                                               itemValue="#{operationItem}"/>
+                                                               itemValue="#{operationItem}"
+                                                               itemLabel="#{operationItem.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
