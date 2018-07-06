@@ -6,6 +6,7 @@
 package controller.util;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  *
@@ -13,15 +14,15 @@ import java.math.BigDecimal;
  */
 public class MathUtil {
 
-    
-    public static BigDecimal calculerMax(BigDecimal[] resultas) {
-        BigDecimal max = resultas[0];
-            for (int i = 1; i < resultas.length; i++) {
-                if (max.compareTo(resultas[i]) == -1) {
-                    max = resultas[i];
-                }
-                System.out.println("ha max ::" + max);
+    public static BigDecimal calculerMax(List<BigDecimal> resultas) {
+        BigDecimal max = resultas.get(0);
+        for (int i = 0; i < resultas.size(); i++) {
+            if (max.compareTo(resultas.get(i)) == -1) {
+                max = resultas.get(i);
             }
+
+        }
+        System.out.println("ha max mn util ::" + max);
         return max;
     }
 

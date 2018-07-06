@@ -4,21 +4,23 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      >
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templateCrud.xhtml">
 
         <ui:define name="title">
             <h:outputText value="Display Results"></h:outputText>
         </ui:define>
 
-
         <ui:define name="body">
             <div class="d-flex image-container set-full-height" style="background-image: url('../resources/images/managerbg.png')">
-                <ui:include src="/sidebar.xhtml"/>
                 <div class="content p-4">
 
-                    <h:form id="ImportDataForm" enctype="multipart/form-data">
-                        
+                    <h:form id="DisplayDataForm" enctype="multipart/form-data">
+
+                        <p:growl id="growl" showSummary="true" showDetail="true"
+                                 autoUpdate="true" />
+
                         <hr></hr>
                         <h1 align="center"> 
                             Display Results </h1>
@@ -26,16 +28,19 @@
 
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-3 col-lg-3 col-sm-3"></div>
-                                <div class="col-md-9 col-lg-9 col-sm-9">
-                                    <div class="input-group mb-3" style="vertical-align: central">
-                                        <div class="input-group-prepend">
-                                            <h:commandLink class="btn btn-outline-secondary" action="#{xlController.afficherChart()}" style="background-color: grey" >Display</h:commandLink>
-                                        </div>
-                                        <div class="custom-file">
-                                            <p:fileUpload value="#{xlController.fileGraphe}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
-                                            <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
-                                        </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2">
+                                </div>
+                                <div class="input-group mb-3" style="vertical-align: central">
+                                    <div class="input-group-prepend">
+
+                                        <label >Date of simulation :</label>
+                                        <p:calendar id="datePosition" pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateDebut}" title="Date" effect="fold" />
+                                    </div>
+                                    <div class="custom-file">
+
+                                        <p:fileUpload value="#{xlController.fileGraphe}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
+                                        <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
+                                        <h:commandLink class="btn btn-outline-secondary" action="#{xlController.afficherChart()}" style="background-color: grey;border-radius: 0px;width: 50%;line-height: 20px;" >Display</h:commandLink>
                                     </div>
                                 </div>
                             </div>
@@ -43,59 +48,164 @@
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
                                 <h:form id="linechartForm">
-                                    <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:65%;width: 90%;" styleClass="text-size15" />
+                                    <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:100%;width: 100%;" styleClass="text-size15"/>
                                 </h:form>
                             </div>
                         </div>
                         <br></br>
+                        <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
                                 <h:form id="barchartForm">
-                                    <p:growl id="growl" showDetail="true" />
-                                    <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:65%;width: 90%;" styleClass="text-size15" >
-                                        <p:ajax event="itemSelect" listener="#{xlController.itemSelect}" update="growl" />
-                                        <script type="text/javascript">
-                                            function customExtender() {
-                                                this.cfg.axes.yaxis = {
-                                                    showTicks: false,
-                                                    showTickMarks: false
-                                                };
-                                            }
-                                        </script>
-
+                                    <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:100%;width: 100%;" styleClass="text-size15" >
                                     </p:chart>
                                 </h:form>
                             </div>
                         </div>
-                        <!--                        <div Class="ui-grid-row" id="chart1">
-                                                    <p:chart type="bar" model="# {xlController.horizontalBarModel}" style="height:300px">
-                                                        <h:outputScript>
-                                                                function chartExtender() {
-                                                                this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
-                                                                this.cfg.series = 
-                                                                       [
-                                                                {seriesColors: ["#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33", "#FFCC33"]}, 
-                                                                {seriesColors: ["#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c"]}
-                                                                {seriesColors: ["#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c", "#77933c"]}
-                                                                       ]
-                                                                }
-                                                                   plot1 = $.jqplot('chart1', [[50,100,50,50,75],[80,70,50,50,40]], {
-                                                               seriesDefaults:{
-                                                               renderer:$.jqplot.BarRenderer,
-                                                               rendererOptions: {
-                                                              // Set the varyBarColor option to true to use different colors for each bar.
-                                                               // The default series colors are used.
-                                                               varyBarColor: true
-                                                               }
-                                                               },
-                                                               highlighter: { show: false }
-                                                               });
-                                                        </h:outputScript>
-                                                    </p:chart>
-                                                </div>-->
+
+                        <script>
+                            function extLegend()
+                            {
+                                this.cfg.legend = {
+                                    show: true,
+                                    location: 'e',
+                                    placement: 'outsideGrid'
+                                };
+                            }
+                        </script>
+                        <br></br>
+                        <p:panelGrid id="filter" style="margin: 0 auto;width: 100%" rendered="#{xlController.machines.size() > 0}">
+                            <h:form id="filterForm">
+                                <p:row>
+                                    <p:column styleClass="text-font">
+                                        <p:outputLabel value="Machine "/>
+                                    </p:column>
+                                    <p:column styleClass="text-font">
+                                        <p:selectOneMenu id="machine" value="#{xlController.machineFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                            <f:selectItem value="#{null}" itemLabel="-- SELECT MACHINE --" />
+                                            <f:selectItems value="#{xlController.machines}"
+                                                           var="machineItem"
+                                                           itemValue="#{machineItem}" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column styleClass="text-font">
+                                        <p:outputLabel value="Operation "/>
+                                    </p:column>
+                                    <p:column styleClass="text-font">
+                                        <h:selectOneMenu id="operation" value="#{xlController.operationFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                            <f:selectItem value="#{null}" itemLabel="-- SELECT OPERATION --" />
+                                            <f:selectItem itemValue="Amenagement Foration 1" itemLabel="Amenagement Foration 1" />
+                                            <f:selectItem itemValue="#{'Amenagement Foration 2'}"/>
+                                            <f:selectItems value="#{xlController.operations}"/>
+                                        </h:selectOneMenu>
+                                    </p:column>
+                                    <p:column styleClass="text-font">
+                                        <h:commandLink class="btn btn-outline-secondary" value="Filter" style="background-color: grey;border-radius: 0px;width: 70%;line-height: 20px;" >
+                                            <p:ajax event="click" listener="#{xlController.filterGantt}" update=":DisplayDataForm:timeline" />
+                                        </h:commandLink>
+                                    </p:column>
+                                </p:row>
+                            </h:form>
+                        </p:panelGrid>
+
+                        <br></br>
+                        <div Class="ui-grid-row">
+                            <div Class="ui-grid-col-12"> 
+                                <p:timeline id="timeline" value="#{xlController.timeLineModel}" 
+                                            editable="false" eventMargin="8" eventMarginAxis="0" 
+                                            start="#{xlController.start}" 
+                                            end="#{xlController.end}" 
+                                            var="event"
+                                            showNavigation="true" zoomable="true" showButtonNew="false" 
+                                            axisOnTop="true" style="border-radius: 0px ! important;line-height: 20px;" stackEvents="false">
+                                    <p:ajax event="select" listener="#{xlController.onSelect}" />
+                                </p:timeline>
+                            </div>
+                        </div>
+                        <br></br>
+                        <br></br>
                     </h:form>
                 </div>
             </div>
+
+            <style type="text/css">
+                /* Custom styles for the Timeline */  
+                div.timeline-frame {  
+                    border-color: #5D99C3;  
+                    /*border-radius: 5px ;*/  
+                }  
+
+                div.timeline-axis {  
+                    border-color: #5D99C3;  
+                    background-color: #5D99C3;  
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5D99C3', endColorstr='#3A6DA0') alpha(opacity = 100);  
+                    background: -webkit-gradient(linear, left top, left bottom, from(#5D99C3), to(#3A6DA0));  
+                    background: -moz-linear-gradient(top,  #5D99C3,  #3A6DA0);  
+                    -khtml-opacity: 1;  
+                    -moz-opacity: 1;  
+                    opacity: 1;  
+                }  
+
+                div.timeline-groups-axis {  
+                    border-color: #5D99C3;  
+                }  
+
+                div.timeline-groups-axis-onleft {  
+                    border-style: none solid none none;  
+                }  
+
+                div.timeline-axis-text {  
+                    color: white;  
+                }  
+
+                div.timeline-event {  
+                    color: white !important;  
+                    border-radius: 5px !important;  
+                }  
+
+                div.timeline-event-content {  
+                    padding: 5px;  
+                    text-shadow: none;  
+                }  
+
+                div.amenagementforation , amenagementforation {  
+                    background: #873333 none !important;  /* red */  
+                    border-color: #7a2f2f !important;     /* red */  
+                }  
+
+                div.amenagementdecapage {  
+                    background: #148f77 none !important;  /* green */  
+                    border-color: #0c725e !important;     /* green */  
+                }  
+
+                div.chargement {  
+                    background: #eaa228 none !important;  /* orange */  
+                    border-color: #bc7d16 !important;     /* orange */  
+                }  
+                div.decapage {  
+                    background: #40125b none !important;  /* purple */  
+                    border-color: #27073a !important;     /* purple */  
+                }  
+
+                div.foration {  
+                    background: #4B5DE4 none !important;  /* blue */  
+                    border-color: #2b3db5 !important;     /* blue */  
+                }  
+
+                div.gerbage {  
+                    background: #6c757d none !important;  /* grey */  
+                    border-color: #4e5459 !important;     /* grey */  
+                }  
+                div.sautage {  
+                    background: #d6bd00 none !important;  /* golden */  
+                    border-color: #a58f01 !important;     /* golden */  
+                }  
+
+                div.timeline-event-selected {  
+                    background: #BECEFE none !important;  
+                    border-color: #97B0F8 !important;  
+                }  
+            </style>
 
         </ui:define>
     </ui:composition>

@@ -7,23 +7,33 @@ package controller;
 
 import bean.Annee;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import jxl.read.biff.BiffException;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.timeline.TimelineSelectEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.timeline.TimelineModel;
 import service.Readxl;
 
 /**
@@ -43,8 +53,16 @@ public class XlController implements Serializable {
     private Readxl ejbFacade;
     private Annee annee;
     private LineChartModel lineChartModel;
-    private HorizontalBarChartModel horizontalBarModel;
     public static BarChartModel barModel;
+    public static TimelineModel timeLineModel;
+    public static XSSFSheet sheet;
+    private Date start;
+    private Date end;
+    private String machineFilter;
+    private String operationFilter;
+    private Date dateDebut;
+    private List<String> machines;
+    private List<String> operations = new ArrayList();
 
     public void handleFileUpload() {
         showMessage("Succesful " + file.getFileName() + " is uploaded.");
@@ -67,45 +85,102 @@ public class XlController implements Serializable {
 
     }
 
-    public void afficherChart() {
-        createLineModels();
+    public void filterGantt() {
+        System.out.println("hi 1");
+        System.out.println("op :: " + getOperationFilter() + " ma :: " + getMachineFilter());
+        if (sheet == null) {
+            System.out.println("op ::  ma :: ");
+            showMessage("Please Choose an Excel File");
+        } else {
+            try {
+                ejbFacade.filterGantt(sheet, getOperationFilter(), getMachineFilter(), dateDebut);
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                context.update("timeline");
+            } catch (IOException ex) {
+                showErrorMessage("error of reading Graphe file");
+            }
+        }
     }
-    
 
-    private void createLineModels() {
-
-        try {
-            lineChartModel = ejbFacade.createLineChart(fileGraphe.getInputstream());
-        } catch (IOException ex) {
-            System.out.println("error of reading Graphe file");
+    public void afficherChart() throws IOException {
+        if (sheet == null) {
+            try {
+                InputStream excelFile = fileGraphe.getInputstream();
+                XSSFWorkbook wb = new XSSFWorkbook(excelFile);
+                sheet = wb.getSheetAt(0);
+            } catch (IOException ex) {
+                Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-        lineChartModel.setTitle("Cumulative Layer Feed Curve");
-        lineChartModel.setLegendPosition("ne");
-        lineChartModel.setShowPointLabels(true);
-        lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Période(Hours)"));
-        Axis yAxis = lineChartModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Volume m3");
-        yAxis.setMin(0);
-        yAxis.setMax(Readxl.max.multiply(new BigDecimal(1.1)));
-        System.out.println("max::"+Readxl.max);
-        Axis xAxis = lineChartModel.getAxis(AxisType.X);
-        xAxis.setMin(0);
-        
-        barModel.setTitle("Date de fin au plut tot du gerbage");
-        barModel.setLegendPosition("ne");
-        barModel.setShowPointLabels(true);
-        barModel.getAxes().put(AxisType.X, new CategoryAxis("Période(Hours)"));
-        yAxis = barModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Volume m3");
-        yAxis.setMin(0);
-        yAxis.setMax(Readxl.max1.multiply(new BigDecimal(1.1)));
-        System.out.println("max::"+Readxl.max1);
-        xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setMin(0);
-        barModel.setBarMargin(1);
+        createLineModels();
     }
-    
+
+    private void createLineModels() {
+        System.out.println("op :: " + operationFilter + " ma :: " + machineFilter);
+        if (fileGraphe == null) {
+            showMessage("Please Choose an Excel File");
+        } else {
+            try {
+                lineChartModel = ejbFacade.createLineChart(sheet, operationFilter, machineFilter, dateDebut);
+            } catch (IOException ex) {
+                showErrorMessage("error of reading Graphe file");
+            }
+
+            ///////////////////Line Chart/////////////////
+            lineChartModel.setTitle("Cumulative Layer Feed Curve");
+            lineChartModel.setLegendPosition("ne");
+            lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Période"));
+            Axis yAxis = lineChartModel.getAxis(AxisType.Y);
+            yAxis.setLabel("Volume m3");
+            yAxis.setMin(0);
+            yAxis.setMax(Readxl.max.multiply(new BigDecimal(1.1)));
+            System.out.println("max::" + Readxl.max);
+            Axis xAxis = lineChartModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-60);
+
+            ///////////////////Bar Chart/////////////////
+            barModel.setTitle("Date de fin au plut tot du gerbage");
+            barModel.setLegendPosition("ne");
+            barModel.getAxes().put(AxisType.X, new CategoryAxis("Période"));
+            yAxis = barModel.getAxis(AxisType.Y);
+            yAxis.setLabel("Volume m3");
+            yAxis.setMin(0);
+            yAxis.setMax(Readxl.max1.multiply(new BigDecimal(1.1)));
+            System.out.println("max::" + Readxl.max1);
+            xAxis = barModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-60);
+            barModel.setBarMargin(1);
+            lineChartModel.setExtender("extLegend");
+            barModel.setExtender("extLegend");
+
+            /////////////////// Time Line Chart (Gantt) ///////////////
+            // set initial start / end dates for the axis of the timeline  
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Date now = dateDebut;
+
+            cal.setTimeInMillis(now.getTime());
+            start = cal.getTime();
+
+            cal.add(Calendar.DAY_OF_MONTH, 7);
+            end = cal.getTime();
+        }
+    }
+
+    public void onSelect(TimelineSelectEvent e) {
+        System.out.println("onclick");
+        showMessage(e.getTimelineEvent().getData() + "");
+    }
+
+    public void initOperations() {
+        operations.add("Amenagement Foration");
+        operations.add("Amenagement Decapage");
+        operations.add("Chargement");
+        operations.add("Decapage");
+        operations.add("Foration");
+        operations.add("Gerbage");
+        operations.add("Sautage");
+    }
 
     public void showMessage(String msg) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -161,17 +236,6 @@ public class XlController implements Serializable {
     public void setLineCharModel(LineChartModel lineChartModel) {
         this.lineChartModel = lineChartModel;
     }
-    
-//    public HorizontalBarChartModel getHorizontalBarModel() {
-//        if (horizontalBarModel == null) {
-//           horizontalBarModel = ejbFacade.createHorizontalBarModel();
-//        }
-//        return horizontalBarModel;
-//    }
-//
-//    public void setHorizontalBarModel(HorizontalBarChartModel horizontalBarModel) {
-//        this.horizontalBarModel = horizontalBarModel;
-//    }
 
     public BarChartModel getBarModel() {
         if (barModel == null) {
@@ -183,4 +247,64 @@ public class XlController implements Serializable {
     public void setBarModel(BarChartModel barModel) {
         XlController.barModel = barModel;
     }
+
+    public TimelineModel getTimeLineModel() {
+        return timeLineModel;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public String getMachineFilter() {
+        return machineFilter;
+    }
+
+    public void setMachineFilter(String machineFilter) {
+        this.machineFilter = machineFilter;
+    }
+
+    public String getOperationFilter() {
+        return operationFilter;
+    }
+
+    public void setOperationFilter(String operationFilter) {
+        this.operationFilter = operationFilter;
+    }
+
+    public List<String> getMachines() {
+        if (machines == null) {
+            return Readxl.allMachines;
+        }
+        return machines;
+    }
+
+    public void setMachines(List<String> machines) {
+        this.machines = machines;
+    }
+
+    public List<String> getOperations() {
+        if (operations.isEmpty()) {
+            initOperations();
+            System.out.println("operations :: "+ operations.toString());
+        }
+        return operations;
+    }
+
+    public void setOperations(List<String> operations) {
+        this.operations = operations;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
 }
