@@ -33,7 +33,7 @@
                                 <div class="input-group mb-3" style="vertical-align: central">
                                     <div class="input-group-prepend">
 
-                                        <label >Date of simulation :</label>
+                                        <label >Date of simulation </label>
                                         <p:calendar id="datePosition" pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateDebut}" title="Date" effect="fold" />
                                     </div>
                                     <div class="custom-file">
@@ -47,19 +47,15 @@
                         </div>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
-                                <h:form id="linechartForm">
-                                    <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:100%;width: 100%;" styleClass="text-size15"/>
-                                </h:form>
+                                <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:100%;width: 100%;" styleClass="text-size15"/>
                             </div>
                         </div>
                         <br></br>
                         <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
-                                <h:form id="barchartForm">
-                                    <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:100%;width: 100%;" styleClass="text-size15" >
-                                    </p:chart>
-                                </h:form>
+                                <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:100%;width: 100%;" styleClass="text-size15" >
+                                </p:chart>
                             </div>
                         </div>
 
@@ -74,40 +70,40 @@
                             }
                         </script>
                         <br></br>
-                        <p:panelGrid id="filter" style="margin: 0 auto;width: 100%" rendered="#{xlController.machines.size() > 0}">
-                            <h:form id="filterForm">
-                                <p:row>
-                                    <p:column styleClass="text-font">
-                                        <p:outputLabel value="Machine "/>
-                                    </p:column>
-                                    <p:column styleClass="text-font">
-                                        <p:selectOneMenu id="machine" value="#{xlController.machineFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
-                                            <f:selectItem value="#{null}" itemLabel="-- SELECT MACHINE --" />
-                                            <f:selectItems value="#{xlController.machines}"
-                                                           var="machineItem"
-                                                           itemValue="#{machineItem}" />
-                                        </p:selectOneMenu>
-                                    </p:column>
-                                    <p:column styleClass="text-font">
-                                        <p:outputLabel value="Operation "/>
-                                    </p:column>
-                                    <p:column styleClass="text-font">
-                                        <h:selectOneMenu id="operation" value="#{xlController.operationFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
-                                            <f:selectItem value="#{null}" itemLabel="-- SELECT OPERATION --" />
-                                            <f:selectItem itemValue="Amenagement Foration 1" itemLabel="Amenagement Foration 1" />
-                                            <f:selectItem itemValue="#{'Amenagement Foration 2'}"/>
-                                            <f:selectItems value="#{xlController.operations}"/>
-                                        </h:selectOneMenu>
-                                    </p:column>
-                                    <p:column styleClass="text-font">
-                                        <h:commandLink class="btn btn-outline-secondary" value="Filter" style="background-color: grey;border-radius: 0px;width: 70%;line-height: 20px;" >
-                                            <p:ajax event="click" listener="#{xlController.filterGantt}" update=":DisplayDataForm:timeline" />
-                                        </h:commandLink>
-                                    </p:column>
-                                </p:row>
-                            </h:form>
+                        <p:panelGrid id="filter" style="margin: 0 auto;width: 100%" rendered="#{xlController.machines.size() > 0}" >
+                            <p:row>
+                                <p:column styleClass="text-font">
+                                    <p:outputLabel value="Machine "/>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <h:selectOneMenu id="machine" value="#{xlController.machineFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                        <f:selectItem value="#{null}" itemLabel="-- SELECT MACHINE --" />
+                                        <f:selectItems value="#{xlController.machines}"
+                                                       var="machineItem"
+                                                       itemValue="#{machineItem}" />
+                                    </h:selectOneMenu>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <p:outputLabel value="Operation "/>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <h:selectOneMenu id="operation" value="#{xlController.operationFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                        <f:selectItem value="#{null}" itemLabel="-- SELECT OPERATION --" />
+                                        <f:selectItem itemValue="#{'amenagementforation'}" itemLabel="Amenagement Foration"/>
+                                        <f:selectItem itemValue="#{'amenagementdecapage'}" itemLabel="Amenagement Decapage"/>
+                                        <f:selectItem itemValue="#{'foration'}" itemLabel="Foration"/>
+                                        <f:selectItem itemValue="#{'decapage'}" itemLabel="Decapage"/>
+                                        <f:selectItem itemValue="#{'chargement'}" itemLabel="Chargement"/>
+                                        <f:selectItem itemValue="#{'gerbage'}" itemLabel="Gerbage"/>
+                                        <f:selectItem itemValue="#{'sautage'}" itemLabel="Sautage"/>
+                                    </h:selectOneMenu>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <h:commandLink class="btn btn-outline-secondary" actionListener="#{xlController.filterGantt}" value="Filter" style="background-color: grey;border-radius: 0px;width: 70%;line-height: 20px;" >
+                                    </h:commandLink>
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>
-
                         <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 

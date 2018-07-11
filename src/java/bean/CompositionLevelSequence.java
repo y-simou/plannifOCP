@@ -110,7 +110,7 @@ public class CompositionLevelSequence implements Serializable {
 
     @Override
     public String toString() {
-        return "CompositionLevelSequence{" + "id=" + id + ", level=" + getLevel().getNum() + ", sequenceLevel=" + getSequenceLevel().getId() + ", existe=" + existe + '}';
+        return "CompositionLevelSequence{" + "id=" + id + ", level=" + getLevel().getNom() + ", sequenceLevel=" + getSequenceLevel().getId() + ", existe=" + existe + '}';
     }
 
     

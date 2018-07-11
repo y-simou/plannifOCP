@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.Panel;
 import bean.SubPanel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,6 +42,18 @@ public class SubPanelFacade extends AbstractFacade<SubPanel> {
         getEntityManager().createQuery("DELETE FROM LevelLayer ll where ll.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.id='" + spanel + "'").executeUpdate();
         remove(find(spanel));
+    }
+
+    public SubPanel createStructure(String nom, Panel panel) {
+        List<SubPanel> subPanels = getEntityManager().createQuery("SELECT s FROM SubPanel s where s.nom='" + nom + "' and s.panel.id='" + panel.getId() + "'").getResultList();
+        SubPanel subPanel;
+        if (subPanels.isEmpty()) {
+            subPanel = new SubPanel(generateId("SubPanel", "id"), nom, panel);
+            create(subPanel);
+        }else{
+            subPanel = subPanels.get(0);
+        }
+        return subPanel;
     }
 
 }

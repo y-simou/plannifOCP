@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.util.Iterator;
 
 import bean.ChemicalComponent;
-import bean.Layer;
 import bean.LevelLayer;
 import bean.Panel;
 import bean.Parcel;
@@ -23,10 +22,12 @@ import bean.Trench;
 import controller.XlController;
 import controller.util.DateUtil;
 import controller.util.MathUtil;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -37,6 +38,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -68,8 +73,6 @@ public class Readxl {
     @EJB
     private LevelLayerFacade levelLayerFacade;
     @EJB
-    private LayerFacade layerFacade;
-    @EJB
     private ChemicalComponentFacade chemicalComponentFacade;
     @EJB
     private ChemicalComponentLayerFacade chemicalComponentLayerFacade;
@@ -90,7 +93,7 @@ public class Readxl {
 
         // groups for time line (Gantt)
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        List<String> machines = new ArrayList(),times = new ArrayList(), operations = new ArrayList(); // "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage"
+        List<String> machines = new ArrayList(), times = new ArrayList(), operations = new ArrayList(); // "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage"
         Collections.addAll(operations, "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage");
         List<List<Integer>> debutOperations = new ArrayList<List<Integer>>();
         List<Integer> tableDebutOperations;
@@ -104,7 +107,7 @@ public class Readxl {
         Iterator<Row> rows = s.rowIterator();
         BigDecimal maxim;
         max = max1 = new BigDecimal(0);
-        XSSFRow row = (XSSFRow) rows.next();
+        XSSFRow row;
 
         //Size and Simulation Time list => times
         Long lignes = 0L;
@@ -252,90 +255,31 @@ public class Readxl {
         }
         allMachines = machines;
         XlController.barModel = barModel;
-        XlController.timeLineModel = timeLineModel;
+        XlController.timeLineModelCtrl = timeLineModel;
 
         return model;
     }
 
-    public void filterGantt(XSSFSheet sheet, String o, String m, Date dateSimulation) throws IOException {
+    public TimelineModel filterGantt(TimelineModel timelineModelCtrl, String o, String m, Date dateSimulation) throws IOException {
         TimelineModel timeLineModel = new TimelineModel();
 
-        // groups for time line (Gantt)
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        List<String> machines = new ArrayList();
-        List<String> operations = new ArrayList(); // "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage"
-        Collections.addAll(operations, "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage");
-        List<List<Integer>> debutOperations = new ArrayList<List<Integer>>();
-        List<Integer> tableDebutOperations;
         String machine, machineFilter = m, operationFilter = o, operation;
-        int indexOfMachine, hours, dateDebut;
-        double dbHours;
-        Date debut;
-
-        XSSFSheet s = sheet;
-        Iterator<Row> rows = s.rowIterator();
-        XSSFRow row = (XSSFRow) rows.next();
-
-        //Size and Simulation Time list => times
-        while (rows.hasNext()) {
-            row = (XSSFRow) rows.next();
-            if (row.getCell(0) != null) {
-                machine = row.getCell(7).toString();
-                operation = row.getCell(6).toString();
-                if (m == null) {
-                    machineFilter = machine;
-                }
-                if (o == null) {
-                    operationFilter = operation;
-                }
-                //time line Chart////////////
-                if (row.getCell(0) != null && row.getCell(5) != null && row.getCell(6) != null && row.getCell(7) != null && machine.equals(machineFilter) && operation.equals(operationFilter)) {
-                    dbHours = new Double(row.getCell(0).toString());
-                    hours = (int) dbHours;
-                    indexOfMachine = machines.indexOf(machine);
-                    if (indexOfMachine != -1) {
-                        dateDebut = debutOperations.get(indexOfMachine).get(operations.indexOf(operation));
-                        if (row.getCell(5).toString().equals("Fin") && !operation.equals("") && dateDebut != -1) {
-                            // create timeline model  
-                            //date debut
-
-                            cal.setTime(dateSimulation); // sets calendar time/date au debut de gantt
-                            cal.add(Calendar.HOUR_OF_DAY, dateDebut);// Date debut operation
-                            debut = cal.getTime();
-                            //date fin
-                            cal.setTime(dateSimulation); // sets calendar time/date
-                            cal.add(Calendar.HOUR_OF_DAY, hours); // adds hours
-                            cal.getTime(); // returns new date object .. in the future
-                            Date fin = cal.getTime();
-
-                            //legende of event
-                            String title = operation + "(" + (hours - dateDebut) + "H) " + " - P" + ((int) (double) new Double(row.getCell(1).toString())) + " T" + ((int) (double) new Double(row.getCell(2).toString())) + " C" + ((int) (double) new Double(row.getCell(3).toString()));
-
-                            // create an event with content, start / end dates, editable flag, group name and custom style class  
-                            TimelineEvent event = new TimelineEvent(title, debut, fin, false, machine, operation.toLowerCase().replaceAll(" ", ""));
-//                            System.out.println(":::::::::::::::::::::::::" + operation + "::::::::::::::::::::::::::::::::: " + machine);
-                            timeLineModel.add(event);
-                            //delete the start date
-                            debutOperations.get(indexOfMachine).set(operations.indexOf(operation), -1);
-                        } else if (row.getCell(5).toString().equals("Debut")) {
-                            debutOperations.get(indexOfMachine).set(operations.indexOf(operation), hours);
-                        }
-                    } else {
-                        indexOfMachine = machines.size();
-                        machines.add(indexOfMachine, machine);
-                        tableDebutOperations = new ArrayList();
-                        for (int i = 0; i < 7; i++) {
-                            tableDebutOperations.add(-1);
-                        }
-                        debutOperations.add(tableDebutOperations);
-                        if (row.getCell(5).toString().equals("Debut")) {
-                            debutOperations.get(indexOfMachine).set(operations.indexOf(operation), hours);
-                        }
-                    }
-                }
+        for (int i = 0; i < timelineModelCtrl.getEvents().size(); i++) {
+            TimelineEvent event = timelineModelCtrl.getEvent(i);
+            machine = event.getGroup();
+            operation = event.getStyleClass();
+            if (m == null) {
+                machineFilter = machine;
+            }
+            if (o == null) {
+                operationFilter = operation;
+            }
+            if (event.getGroup().equals(machineFilter) && event.getStyleClass().equals(operationFilter)) {
+                timeLineModel.add(event);
             }
         }
-        XlController.timeLineModel = timeLineModel;
+
+        return timeLineModel;
     }
 
     public Long read(InputStream inputStream, Long annee) throws IOException, BiffException {
@@ -345,18 +289,18 @@ public class Readxl {
         Trench trench;
         Parcel parcel;
         LevelLayer level;
-        Layer layer;
         String valeur, cellYear, year = "";
+        Double puissance, surface, volume, thc, taux;
         panelConteur = trenchConteur = parcelConteur = layerConteur = 0;
-        ChemicalComponent bpl = chemicalComponentFacade.findByNom("bp1");
+        ChemicalComponent bpl = chemicalComponentFacade.findByNom("bpl");
         ChemicalComponent co2 = chemicalComponentFacade.findByNom("co2");
         ChemicalComponent mgo = chemicalComponentFacade.findByNom("mgo");
         ChemicalComponent sio2 = chemicalComponentFacade.findByNom("sio2");
         ChemicalComponent cd = chemicalComponentFacade.findByNom("cd");
+        System.out.println(bpl + "" + co2 + "" + mgo + "" + sio2 + "" + cd);
 
         try {
-            InputStream excelFile = inputStream;
-            XSSFWorkbook wb = new XSSFWorkbook(excelFile);
+            XSSFWorkbook wb = new XSSFWorkbook(inputStream);
             XSSFSheet s = wb.getSheetAt(0);
             XSSFRow row;
             Long size = new Long(s.getLastRowNum());
@@ -364,14 +308,6 @@ public class Readxl {
                 return null;
             }
             Iterator<Row> rows = s.rowIterator();
-
-            row = (XSSFRow) rows.next();
-
-            //subpanel don't exist in the excel so i create a subpanel with id 1 ,i need subpanel to create parcel 
-            SubPanel subpanel = subpanelFacade.find(1L);
-            if (subpanel == null) {
-                subpanel = new SubPanel(subpanelFacade.generateId("SubPanel", "id"));
-            }
 
             if (annee != null) {
                 year = annee.toString();
@@ -391,78 +327,161 @@ public class Readxl {
                     System.out.println("haaa row   ::::::::  " + row.getRowNum());
 
                     //geting value of cell 0 and creating panel if not exist
-                    if (row.getCell(0) != null) {
+                    if (row.getCell(0) != null && row.getCell(1) != null && row.getCell(2) != null && row.getCell(7) != null) {
                         valeur = row.getCell(0).toString();
-                    } else {
-                        valeur = "";
-                    }
+                        panel = panelFacade.createNull(valeur);
 
-                    panel = panelFacade.createNull(valeur);
-
-                    //geting value of cell 1 and creating trench if not exist
-                    if (row.getCell(1) != null) {
+                        //geting value of cell 1 and creating trench if not exist
                         valeur = row.getCell(1).toString();
-                    } else {
-                        valeur = "";
-                    }
 
-                    trench = trenchFacade.createNull(valeur, panel);
+                        trench = trenchFacade.createNull(valeur, panel);
 
-                    //geting value of cell 2 and creating parcel if not exist
-                    if (row.getCell(2) != null) {
+                        //geting value of cell 2 and creating parcel if not exist
                         valeur = row.getCell(2).toString();
-                    } else {
-                        valeur = "";
-                    }
 
-                    parcel = parcelFacade.createNull(valeur, trench, subpanel);
+                        parcel = parcelFacade.createNull(valeur, trench);
 
-                    //level don't exist in the excel so i create a level depend on parcel id 
-                    level = levelLayerFacade.createNull(parcel);
+                        if (row.getCell(4) != null && !row.getCell(4).toString().equals("")) {
+                            puissance = new Double(row.getCell(4).toString().replaceAll(",", "."));
+                            System.out.println("puissance level ::" + puissance);
+                            //geting value of cell 3 and creating level if not exist
+                            if (row.getCell(3) != null) {
+                                valeur = row.getCell(3).toString();
+                            } else {
+                                valeur = "";
+                            }
+                            surface = new Double(row.getCell(5).toString().replaceAll(",", "."));
+                            volume = new Double(row.getCell(6).toString().replaceAll(",", "."));
+                            levelLayerFacade.createLevelNull(valeur, puissance, surface, volume, parcel);
+                        }
 
-                    //geting value of cell 7 and creating layer if not exist
-                    if (row.getCell(7) != null) {
+                        //geting value of cell 7 and creating layer if not exist
                         valeur = row.getCell(7).toString();
-                    } else {
-                        valeur = "";
-                    }
-                    layer = layerFacade.createNull(valeur, level);
+                        puissance = new Double(row.getCell(8).toString().replaceAll(",", "."));
+                        surface = new Double(row.getCell(9).toString().replaceAll(",", "."));
+                        volume = new Double(row.getCell(10).toString().replaceAll(",", "."));
+                        thc = new Double(row.getCell(11).toString().replaceAll(",", "."));
+                        taux = new Double(row.getCell(12).toString().replaceAll(",", "."));
+                        level = levelLayerFacade.createNull(valeur, parcel, puissance, surface, volume, thc, taux);
 
-                    //the cell != null and has only numbers
-                    if (row.getCell(13) != null && row.getCell(13).toString().matches("-?\\d+(\\.\\d+)?")) {
-                        if (!row.getCell(13).toString().equals("0.0")) {
-                            chemicalComponentLayerFacade.createComponantLayer(layer, bpl, new BigDecimal(new Double(row.getCell(13).toString())));
+                        //the cell != null and has only numbers
+                        if (row.getCell(13) != null && row.getCell(13).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            if (!row.getCell(13).toString().equals("0.0")) {
+                                chemicalComponentLayerFacade.createComponantLevel(level, bpl, new BigDecimal(new Double(row.getCell(13).toString().replaceAll(",", "."))));
+                            }
                         }
-                    }
 
-                    if (row.getCell(14) != null && row.getCell(14).toString().matches("-?\\d+(\\.\\d+)?")) {
-                        if (!row.getCell(14).toString().equals("0.0")) {
-                            chemicalComponentLayerFacade.createComponantLayer(layer, co2, new BigDecimal(new Double(row.getCell(14).toString().replaceAll(",", "."))));
+                        if (row.getCell(14) != null && row.getCell(14).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            if (!row.getCell(14).toString().equals("0.0")) {
+                                chemicalComponentLayerFacade.createComponantLevel(level, co2, new BigDecimal(new Double(row.getCell(14).toString().replaceAll(",", "."))));
+                            }
                         }
-                    }
 
-                    if (row.getCell(15) != null && row.getCell(15).toString().matches("-?\\d+(\\.\\d+)?")) {
-                        if (!row.getCell(15).toString().equals("0.0")) {
-                            chemicalComponentLayerFacade.createComponantLayer(layer, mgo, new BigDecimal(new Double(row.getCell(15).toString().replaceAll(",", "."))));
+                        if (row.getCell(15) != null && row.getCell(15).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            if (!row.getCell(15).toString().equals("0.0")) {
+                                chemicalComponentLayerFacade.createComponantLevel(level, mgo, new BigDecimal(new Double(row.getCell(15).toString().replaceAll(",", "."))));
+                            }
                         }
-                    }
 
-                    if (row.getCell(16) != null && row.getCell(16).toString().matches("-?\\d+(\\.\\d+)?")) {
-                        if (!row.getCell(16).toString().equals("0.0")) {
-                            chemicalComponentLayerFacade.createComponantLayer(layer, sio2, new BigDecimal(new Double(row.getCell(16).toString().replaceAll(",", "."))));
+                        if (row.getCell(16) != null && row.getCell(16).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            if (!row.getCell(16).toString().equals("0.0")) {
+                                chemicalComponentLayerFacade.createComponantLevel(level, sio2, new BigDecimal(new Double(row.getCell(16).toString().replaceAll(",", "."))));
+                            }
                         }
-                    }
 
-                    if (row.getCell(17) != null && row.getCell(17).toString().matches("-?\\d+(\\.\\d+)?")) {
-                        if (!row.getCell(17).toString().equals("0.0")) {
-                            chemicalComponentLayerFacade.createComponantLayer(layer, cd, new BigDecimal(new Double(row.getCell(17).toString().replaceAll(",", "."))));
+                        if (row.getCell(17) != null && row.getCell(17).toString().matches("-?\\d+(\\.\\d+)?")) {
+                            if (!row.getCell(17).toString().equals("0.0")) {
+                                chemicalComponentLayerFacade.createComponantLevel(level, cd, new BigDecimal(new Double(row.getCell(17).toString().replaceAll(",", "."))));
+                            }
                         }
                     }
                 }
             }
-
         } catch (IOException e) {
         }
         return rowsConteur;
+    }
+
+    public void generateData(List<Parcel> ps) {
+        List<Parcel> parcels = ps;
+        List<String> structure, s;
+        List<SubPanel> subPanels = new ArrayList();
+        List<List<String>> structures = new ArrayList<List<String>>();
+        int subPanelCntr = 0, exist = 0;
+        SubPanel subPanel;
+        Parcel parcel = new Parcel();
+        int max = 0;
+        for (int i = 0; i < parcels.size(); i++) {
+
+            parcel = parcels.get(i);
+            structure = levelLayerFacade.findByParcel(parcel.getId());
+            if (structure.size() > max) {
+                max = structure.size();
+            }
+            Object[] s1 = {structure};
+            for (int j = 0; j < structures.size(); j++) {
+                s = structures.get(j);
+                Object[] s2 = {s};
+                if (Arrays.equals(s1, s2)) {
+                    subPanelCntr = j;
+                    exist = 1;
+                    break;
+                }
+            }
+            if (exist == 1) {
+                subPanel = subPanels.get(subPanelCntr);
+                exist = 0;
+            } else {
+                subPanel = subpanelFacade.createStructure("subPanel " + (structures.size() + 1), parcel.getTrench().getPanel());
+                subPanels.add(subPanel);
+                structures.add(structure);
+            }
+            parcel.setSubPanel(subPanel);
+        }
+        System.out.println(structures);
+        if (structures.size() > 0) {
+            List<List<String>> structures2 = new ArrayList<List<String>>();
+            List<String> structs2 = new ArrayList();
+            for (int j = 0; j < structures.size(); j++) {
+                String get = "Structure " + (j + 1);
+                structs2.add(get);
+            }
+            structures2.add(structs2);
+            for (int i = 0; i < max; i++) {
+                structs2 = new ArrayList();
+                for (int j = 0; j < structures.size(); j++) {
+                    if (structures.get(j).size() < i + 1) {
+                        structures.get(j).add(i, "");
+                    }
+                    String get = structures.get(j).get(i);
+                    structs2.add(get);
+                }
+                structures2.add(structs2);
+            }
+            try {
+                String filename = "C:/Structures Panel " + parcel.getTrench().getPanel().getNom();
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                HSSFSheet sheet = workbook.createSheet("Application 1");
+                HSSFRow row;
+                for (int i = 0; i < structures2.size(); i++) {
+                    row = sheet.createRow((short) i);
+                    List<String> structs = structures2.get(i);
+                    for (int j = 0; j < structs.size(); j++) {
+                        String struct = structs.get(j);
+                        row.createCell(i).setCellValue(struct);
+                    }
+
+                }
+
+                FileOutputStream fileOut = new FileOutputStream(filename);
+                workbook.write(fileOut);
+                fileOut.close();
+//                workbook.close();
+                System.out.println("Your excel file has been generated!");
+
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
     }
 }

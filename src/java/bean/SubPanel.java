@@ -27,7 +27,6 @@ public class SubPanel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private String surface;
     @ManyToOne
     private SequenceLevel sequenceLevel;
     @ManyToOne
@@ -46,25 +45,21 @@ public class SubPanel implements Serializable {
 
     public SubPanel(String nom, String surface, SequenceLevel sequenceLevel) {
         this.nom = nom;
-        this.surface = surface;
         this.sequenceLevel = sequenceLevel;
     }
 
+    public SubPanel(Long id, String nom, Panel panel) {
+        this.id = id;
+        this.nom = nom;
+        this.panel = panel;
+    }
+    
     public SubPanel(String nom, String surface, SequenceLevel sequenceLevel, Panel panel) {
         this.nom = nom;
-        this.surface = surface;
         this.sequenceLevel = sequenceLevel;
         this.panel = panel;
     }
     
-    public String getSurface() {
-        return surface;
-    }
-
-    public void setSurface(String surface) {
-        this.surface = surface;
-    }
-
     public Long getId() {
         return id;
     }
@@ -126,14 +121,11 @@ public class SubPanel implements Serializable {
         return true;
     }
 
-   
-    
-
     @Override
     public String toString() {
-        return "SubPanel{" + "id=" + id + ", nom=" + nom + ", surface=" + surface + ", sequenceLevel=" + getSequenceLevel().getId() + ", panel=" + panel + '}';
+        return "SubPanel{" + "id=" + id + ", nom=" + nom + ", sequenceLevel=" + sequenceLevel + ", panel=" + panel + '}';
     }
 
-
+   
     
 }

@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,40 +26,48 @@ public class LevelLayer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int num;
+    private int sequenceNiveau;
     private String nom;
+    private BigDecimal puissance;
+    private BigDecimal surface;
+    private BigDecimal volume;
+    private BigDecimal thc;
+    private BigDecimal tauxrecup;
+    private boolean phosphate;
     @ManyToOne
     private Parcel parcel;
 
     public LevelLayer() {
     }
 
-    public LevelLayer(int num, String nom) {
-        this.num = num;
-        this.nom = nom;
-    }
-
-    public LevelLayer(Long id, Parcel parcel) {
-        this.id = id;
-        this.parcel = parcel;
-    }
-    
-    public LevelLayer(int num, Parcel parcel) {
-        this.num = num;
-        this.parcel = parcel;
-    }
-
-    public LevelLayer(Long id, int num, Parcel parcel) {
-        this.id = id;
-        this.num = num;
-        this.parcel = parcel;
-    }
-    
-    public LevelLayer(int num, String nom, Parcel parcel) {
-        this.num = num;
+    public LevelLayer(String nom, Parcel parcel) {
         this.nom = nom;
         this.parcel = parcel;
     }
+
+    public LevelLayer(int sequenceNiveau, String nom, BigDecimal puissance, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
+        this.sequenceNiveau = sequenceNiveau;
+        this.nom = nom;
+        this.puissance = puissance;
+        this.volume = volume;
+        this.thc = thc;
+        this.tauxrecup = tauxrecup;
+        this.phosphate = phosphate;
+        this.parcel = parcel;
+    }
+
+    public LevelLayer(int sequenceNiveau, String nom, BigDecimal puissance, BigDecimal surface, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
+        this.sequenceNiveau = sequenceNiveau;
+        this.nom = nom;
+        this.puissance = puissance;
+        this.surface = surface;
+        this.volume = volume;
+        this.thc = thc;
+        this.tauxrecup = tauxrecup;
+        this.phosphate = phosphate;
+        this.parcel = parcel;
+    }
+    
 
     public Long getId() {
         return id;
@@ -66,14 +75,6 @@ public class LevelLayer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
     }
 
     public String getNom() {
@@ -93,6 +94,62 @@ public class LevelLayer implements Serializable {
 
     public void setParcel(Parcel parcel) {
         this.parcel = parcel;
+    }
+
+    public int getSequenceNiveau() {
+        return sequenceNiveau;
+    }
+
+    public void setSequenceNiveau(int sequenceNiveau) {
+        this.sequenceNiveau = sequenceNiveau;
+    }
+
+    public BigDecimal getPuissance() {
+        return puissance;
+    }
+
+    public void setPuissance(BigDecimal puissance) {
+        this.puissance = puissance;
+    }
+
+    public BigDecimal getSurface() {
+        return surface;
+    }
+
+    public void setSurface(BigDecimal surface) {
+        this.surface = surface;
+    }
+
+    public BigDecimal getVolume() {
+        return volume;
+    }
+
+    public void setVolume(BigDecimal volume) {
+        this.volume = volume;
+    }
+
+    public BigDecimal getThc() {
+        return thc;
+    }
+
+    public void setThc(BigDecimal thc) {
+        this.thc = thc;
+    }
+
+    public BigDecimal getTauxrecup() {
+        return tauxrecup;
+    }
+
+    public void setTauxrecup(BigDecimal tauxrecup) {
+        this.tauxrecup = tauxrecup;
+    }
+
+    public boolean isPhosphate() {
+        return phosphate;
+    }
+
+    public void setPhosphate(boolean phosphate) {
+        this.phosphate = phosphate;
     }
 
     @Override
@@ -117,7 +174,9 @@ public class LevelLayer implements Serializable {
 
     @Override
     public String toString() {
-        return "num= " + num + ", nom= " + nom + ", parcel= " + parcel.getNom() ;
+        return "LevelLayer{" + "id=" + id + ", sequenceNiveau=" + sequenceNiveau + ", nom=" + nom + ", puissance=" + puissance + ", surface=" + surface + ", volume=" + volume + ", thc=" + thc + ", tauxrecup=" + tauxrecup + ", phosphate=" + phosphate + ", parcel=" + parcel + '}';
     }
+
+    
 
 }

@@ -50,19 +50,23 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
 
     }
 
-    public Parcel createNull(String nom, Trench trench, SubPanel subpanel) {
+    public Parcel createNull(String nom, Trench trench) {
 
         if (nom  != null && nom.length() > 0 && nom.charAt(nom.length() - 1) == '0' && nom.charAt(nom.length() - 2) == '.') {
             nom = nom.substring(0, nom.length() - 2);
         }
         Parcel parcel = findByNomAndTrench(nom, trench.getId());
         if (parcel == null) {
-            parcel = new Parcel(generateId("Parcel", "id"), nom, trench, subpanel);
+            parcel = new Parcel(generateId("Parcel", "id"), nom, trench);
             create(parcel);
             Readxl.parcelConteur++;
 
         }
         return parcel;
+    }
+    
+    public List<Parcel> findByPanel(Long panel){
+        return getEntityManager().createQuery("SELECT p From Parcel p where p.trench.panel.id='"+panel+"'").getResultList();
     }
 
 }

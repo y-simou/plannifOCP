@@ -31,7 +31,7 @@ public class ChemicalComponentFacade extends AbstractFacade<ChemicalComponent> {
     }
     
     public ChemicalComponent findByNom(String nom){
-        List<ChemicalComponent> ccs = getEntityManager().createQuery("SELECT c FROM ChemicalComponent c where c.nom='"+ nom +"'").getResultList();
+        List<ChemicalComponent> ccs = getEntityManager().createQuery("SELECT c FROM ChemicalComponent c where c.nom='"+ nom.toUpperCase() +"'").getResultList();
         if (ccs.isEmpty()) {
             return null;
         }else{

@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,8 @@ public class Parcel implements Serializable {
     private Long y;
     private Long surface;
     private Long epaisseur;
+    private String statut;
+    private BigDecimal treatment;
     @ManyToOne
     private Trench trench;
     @ManyToOne
@@ -41,6 +44,12 @@ public class Parcel implements Serializable {
 
     public Parcel(String nom) {
         this.nom = nom;
+    }
+
+    public Parcel(Long id, String nom, Trench trench) {
+        this.id = id;
+        this.nom = nom;
+        this.trench = trench;
     }
 
     public Parcel(String nom, Trench trench) {
@@ -70,6 +79,18 @@ public class Parcel implements Serializable {
         this.y = y;
         this.surface = surface;
         this.epaisseur = epaisseur;
+        this.trench = trench;
+        this.subPanel = subPanel;
+    }
+
+    public Parcel(String nom, Long x, Long y, Long surface, Long epaisseur, String statut, BigDecimal treatment, Trench trench, SubPanel subPanel) {
+        this.nom = nom;
+        this.x = x;
+        this.y = y;
+        this.surface = surface;
+        this.epaisseur = epaisseur;
+        this.statut = statut;
+        this.treatment = treatment;
         this.trench = trench;
         this.subPanel = subPanel;
     }
@@ -168,10 +189,10 @@ public class Parcel implements Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", surface=" + surface + ", epaisseur=" + epaisseur +", trench=" + getTrench().getNom() + ", subPanel=" + getSubPanel().getNom() + '}';
+        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", surface=" + surface + ", epaisseur=" + epaisseur + ", statut=" + statut + ", treatment=" + treatment + ", trench=" + trench + ", subPanel=" + subPanel + '}';
     }
-
+    
 }

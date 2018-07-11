@@ -7,7 +7,7 @@ package service;
 
 import bean.ChemicalComponent;
 import bean.ChemicalComponentLayer;
-import bean.Layer;
+import bean.LevelLayer;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -33,15 +33,8 @@ public class ChemicalComponentLayerFacade extends AbstractFacade<ChemicalCompone
         super(ChemicalComponentLayer.class);
     }
 
-    public void createComponantLayer(Layer layer, ChemicalComponent chemicalComponent,BigDecimal teneur) {
-      List<ChemicalComponentLayer> ccls =  getEntityManager().createQuery("SELECT ccl FROM ChemicalComponentLayer ccl where ccl.chemicalComponent.id='"+ chemicalComponent.getId() +"' And ccl.layer.id='"+ layer.getId() +"'").getResultList();
-        if (ccls.isEmpty()) {
-            create(new ChemicalComponentLayer(layer, chemicalComponent, teneur));
-        }else{
-            ChemicalComponentLayer ccl = ccls.get(0);
-            ccl.setTeneur(teneur);
-            edit(ccl);
-        }
+    public void createComponantLevel(LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+        create(new ChemicalComponentLayer(layer, chemicalComponent, teneur));
     }
 
 }

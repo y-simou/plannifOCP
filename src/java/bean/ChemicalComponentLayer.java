@@ -25,7 +25,7 @@ public class ChemicalComponentLayer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Layer layer;
+    private LevelLayer layer;
     @ManyToOne
     private ChemicalComponent chemicalComponent;
     private BigDecimal teneur;
@@ -37,27 +37,27 @@ public class ChemicalComponentLayer implements Serializable {
         this.id = id;
     }
 
-    public ChemicalComponentLayer(Layer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+    public ChemicalComponentLayer(LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
         this.teneur = teneur;
     }
 
-    public ChemicalComponentLayer(Long id, Layer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+    public ChemicalComponentLayer(Long id, LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
         this.id = id;
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
         this.teneur = teneur;
     }
 
-    public Layer getLayer() {
+    public LevelLayer getLevelLayer() {
         if(layer==null){
-            layer = new Layer();
+            layer = new LevelLayer();
         }
         return layer;
     }
 
-    public void setLayer(Layer layer) {
+    public void setLevelLayer(LevelLayer layer) {
         this.layer = layer;
     }
 
@@ -110,7 +110,7 @@ public class ChemicalComponentLayer implements Serializable {
 
     @Override
     public String toString() {
-        return "ChemicalComponentLayer{" + "id=" + id + ", layer=" + getLayer().getNom() + ", chemicalComponent=" + getChemicalComponent().getId() + ", teneur=" + teneur + '}';
+        return "ChemicalComponentLayer{" + "id=" + id + ", layer=" + getLevelLayer().getNom() + ", chemicalComponent=" + getChemicalComponent().getId() + ", teneur=" + teneur + '}';
     }
 
     

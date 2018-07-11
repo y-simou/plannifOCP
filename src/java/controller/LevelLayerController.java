@@ -127,7 +127,7 @@ public class LevelLayerController implements Serializable {
             }
             if (object instanceof LevelLayer) {
                 LevelLayer o = (LevelLayer) object;
-                return getStringKey(o.getNum());
+                return getStringKey(o.getSequenceNiveau());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), LevelLayer.class.getName()});
                 return null;

@@ -99,7 +99,7 @@ public class Accessibility implements Serializable {
 
     @Override
     public String toString() {
-        return "Accessibility{" + "id=" + id + ", levelLayer=" + getLevelLayer().getNum() + ", machine=" + getMachine().getId() + ", accessibile=" + accessibile + '}';
+        return "Accessibility{" + "id=" + id + ", levelLayer=" + getLevelLayer().getNom() + ", machine=" + getMachine().getId() + ", accessibile=" + accessibile + '}';
     }
 
     

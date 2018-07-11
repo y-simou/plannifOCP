@@ -6,13 +6,14 @@
 package controller;
 
 import bean.Annee;
+import bean.Panel;
+import bean.Parcel;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.timeline.TimelineModel;
+import service.ParcelFacade;
 import service.Readxl;
 
 /**
@@ -51,18 +53,24 @@ public class XlController implements Serializable {
     private UploadedFile fileGraphe;
     @EJB
     private Readxl ejbFacade;
+    @EJB
+    private ParcelFacade parcelFacade;
     private Annee annee;
     private LineChartModel lineChartModel;
     public static BarChartModel barModel;
     public static TimelineModel timeLineModel;
+    public static TimelineModel timeLineModelCtrl;
     public static XSSFSheet sheet;
+    //Gantt
     private Date start;
     private Date end;
     private String machineFilter;
     private String operationFilter;
     private Date dateDebut;
     private List<String> machines;
-    private List<String> operations = new ArrayList();
+    //generation data
+    private Panel panel;
+    private List<Parcel> parcels;
 
     public void handleFileUpload() {
         showMessage("Succesful " + file.getFileName() + " is uploaded.");
@@ -93,9 +101,10 @@ public class XlController implements Serializable {
             showMessage("Please Choose an Excel File");
         } else {
             try {
-                ejbFacade.filterGantt(sheet, getOperationFilter(), getMachineFilter(), dateDebut);
-//                RequestContext context = RequestContext.getCurrentInstance();
-//                context.update("timeline");
+                timeLineModel = ejbFacade.filterGantt(timeLineModelCtrl, getOperationFilter(), getMachineFilter(), dateDebut);
+                String machine, operation;
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.update("timeline");
             } catch (IOException ex) {
                 showErrorMessage("error of reading Graphe file");
             }
@@ -164,6 +173,7 @@ public class XlController implements Serializable {
 
             cal.add(Calendar.DAY_OF_MONTH, 7);
             end = cal.getTime();
+            timeLineModel = timeLineModelCtrl;
         }
     }
 
@@ -172,16 +182,10 @@ public class XlController implements Serializable {
         showMessage(e.getTimelineEvent().getData() + "");
     }
 
-    public void initOperations() {
-        operations.add("Amenagement Foration");
-        operations.add("Amenagement Decapage");
-        operations.add("Chargement");
-        operations.add("Decapage");
-        operations.add("Foration");
-        operations.add("Gerbage");
-        operations.add("Sautage");
+    public void generate(){
+        parcels = parcelFacade.findByPanel(panel.getId());
+        ejbFacade.generateData(parcels);
     }
-
     public void showMessage(String msg) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", msg));
@@ -287,18 +291,6 @@ public class XlController implements Serializable {
         this.machines = machines;
     }
 
-    public List<String> getOperations() {
-        if (operations.isEmpty()) {
-            initOperations();
-            System.out.println("operations :: "+ operations.toString());
-        }
-        return operations;
-    }
-
-    public void setOperations(List<String> operations) {
-        this.operations = operations;
-    }
-
     public Date getDateDebut() {
         return dateDebut;
     }
@@ -307,4 +299,48 @@ public class XlController implements Serializable {
         this.dateDebut = dateDebut;
     }
 
+    public LineChartModel getLineChartModel() {
+        return lineChartModel;
+    }
+
+    public void setLineChartModel(LineChartModel lineChartModel) {
+        this.lineChartModel = lineChartModel;
+    }
+
+    public static TimelineModel getTimeLineModelView() {
+        return timeLineModelCtrl;
+    }
+
+    public static void setTimeLineModelView(TimelineModel timeLineModelView) {
+        XlController.timeLineModelCtrl = timeLineModelView;
+    }
+
+    public static XSSFSheet getSheet() {
+        return sheet;
+    }
+
+    public static void setSheet(XSSFSheet sheet) {
+        XlController.sheet = sheet;
+    }
+
+    public Panel getPanel() {
+        if (panel==null) {
+            panel = new Panel();
+        }
+        return panel;
+    }
+
+    public void setPanel(Panel panel) {
+        this.panel = panel;
+    }
+
+    public List<Parcel> getParcels() {
+        return parcels;
+    }
+
+    public void setParcels(List<Parcel> parcels) {
+        this.parcels = parcels;
+    }
+
+    
 }
