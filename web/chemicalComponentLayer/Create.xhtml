@@ -27,11 +27,11 @@
                                             <p:outputLabel value="Layer" for="layer" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.layer}" >
-                                                <f:selectItems value="#{layerController.itemsAvailableSelectOne}"
+                                            <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.levelLayer}" >
+                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
                                                                var="layerItem"
-                                                               itemValue="#{layerItem},#{layerItem.level.nom}"
-                                                               itemLabel="#{layerItem.nom}"/>
+                                                               itemValue="#{layerItem}"
+                                                               itemLabel="P#{layerItem.parcel.trench.panel.nom} T#{layerItem.parcel.trench.nom} P#{layerItem.parcel.nom} #{layerItem.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>

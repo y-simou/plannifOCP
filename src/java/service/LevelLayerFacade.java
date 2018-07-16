@@ -9,6 +9,7 @@ import bean.LevelLayer;
 import bean.Parcel;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,8 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    @EJB
+    private ParcelFacade parcelFacade = new ParcelFacade();
 
     public LevelLayerFacade() {
         super(LevelLayer.class);
@@ -45,12 +48,18 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
         remove(levelLayer);
     }
 
-    public LevelLayer createNull(String nom, Parcel parcel, Double puissance, Double volume,Double thc, Double taux, Double surface) {
+    public LevelLayer createNull(String nom, Parcel parcel, Double puissance, Double volume, Double thc, Double taux, Double surface) {
         LevelLayer level;
         List<LevelLayer> lls = getEntityManager().createQuery("SELECT l FROM LevelLayer l where l.nom='" + nom + "' and l.parcel.id='" + parcel.getId() + "'").getResultList();
         if (lls.isEmpty()) {
-            level = new LevelLayer(generateSequense(parcel), nom, new BigDecimal(puissance), new BigDecimal(surface), new BigDecimal(volume), new BigDecimal(thc), new BigDecimal(taux), true, parcel);
+            level = new LevelLayer(generateSequense(parcel), nom, puissance, new BigDecimal(surface), new BigDecimal(volume), new BigDecimal(thc), new BigDecimal(taux), true, parcel);
             create(level);
+            Double epaisseur = parcel.getEpaisseur();
+            if (epaisseur == null) {
+                epaisseur = new Double(0);
+            }
+            parcel.setEpaisseur(epaisseur + puissance);
+            parcelFacade.edit(parcel);
             Readxl.layerConteur++;
         } else {
             level = lls.get(0);
@@ -60,10 +69,18 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
 
     public void createLevelNull(String nom, Double puissance, Double volume, Double surface, Parcel parcel) {
         LevelLayer level;
+        System.out.println("puissance:" + new BigDecimal(puissance));
         List<LevelLayer> lls = getEntityManager().createQuery("SELECT l FROM LevelLayer l where l.nom='" + nom + "' and l.parcel.id='" + parcel.getId() + "'").getResultList();
         if (lls.isEmpty()) {
-            level = new LevelLayer(generateSequense(parcel), nom, new BigDecimal(puissance), new BigDecimal(surface), new BigDecimal(volume), null, null, false, parcel);
+
+            level = new LevelLayer(generateSequense(parcel), nom, puissance, new BigDecimal(surface), new BigDecimal(volume), null, null, false, parcel);
             create(level);
+            Double epaisseur = parcel.getEpaisseur();
+            if (epaisseur == null) {
+                epaisseur = new Double(0);
+            }
+            parcel.setEpaisseur(epaisseur + puissance);
+            parcelFacade.edit(parcel);
             Readxl.layerConteur++;
         }
     }
@@ -72,8 +89,16 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
         int s = (int) getEntityManager().createQuery("SELECT max(l.sequenceNiveau) from LevelLayer l where l.parcel.id='" + parcel.getId() + "'").getSingleResult();
         return s == 0 ? 1 : s + 1;
     }
-    
-    public List<String> findByParcel(Long parcel){
-        return getEntityManager().createQuery("SELECT l.nom from LevelLayer l where l.parcel.id='"+ parcel +"' ORDER BY l.sequenceNiveau").getResultList();
+
+    public List<String> findNomByParcel(Long parcel) {
+        return getEntityManager().createQuery("SELECT l.nom from LevelLayer l where l.parcel.id='" + parcel + "' ORDER BY l.sequenceNiveau").getResultList();
+    }
+
+    public List<Double> findPuissanceByParcel(Long parcel) {
+        return getEntityManager().createQuery("SELECT l.puissance from LevelLayer l where l.parcel.id='" + parcel + "' ORDER BY l.sequenceNiveau").getResultList();
+    }
+
+    public List<LevelLayer> findAllOrdred() {
+        return getEntityManager().createQuery("SELECT l from LevelLayer l ORDER BY l.parcel.id,l.sequenceNiveau").getResultList();
     }
 }

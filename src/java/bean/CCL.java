@@ -42,6 +42,11 @@ public class CCL implements Serializable {
         this.surface = surface;
     }
 
+    public CCL(Long id, String nom, SubPanel subPanel) {
+        this.id = id;
+        this.nom = nom;
+        this.subPanel = subPanel;
+    }
     
 
     public CCL() {

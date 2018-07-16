@@ -15,17 +15,44 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputText value="Id : "/>
-                                    <h:outputText value=" #{levelLayerController.selected.id}" title="Id"/>
+                                <div class="col-md-4">
+                                    <h:outputText value="Panel/Trench/Parcel"/>
+                                    <h:outputText value=" P#{levelLayerController.selected.parcel.trench.panel.nom} T#{levelLayerController.selected.parcel.trench.nom} P#{levelLayerController.selected.parcel.nom}" title="Number"/>
                                 </div>
                                 <div class="col-md-3">
-                                    <h:outputText value="Number : "/>
-                                    <h:outputText value=" #{levelLayerController.selected.num}" title="Number"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="Name : "/>
+                                    <h:outputText value="Name "/>
                                     <h:outputText value=" #{levelLayerController.selected.nom}" title="Name"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <h:outputText value=" #{levelLayerController.selected.phosphate ? 'Layer' : 'Sterile'}" title="Type"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputText value="Sequence "/>
+                                    <h:outputText value=" #{levelLayerController.selected.sequenceNiveau}" title="Number"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputText value="Taux recuperation "/>
+                                    <h:outputText value=" #{levelLayerController.selected.tauxrecup}" title="Taux recuperation"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputText value="THC " rendered="#{levelLayerController.selected.phosphate}"/>
+                                    <h:outputText value=" #{levelLayerController.selected.thc}" rendered="#{levelLayerController.selected.phosphate}" title="Name"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputText value="Puissance "/>
+                                    <h:outputText value=" #{levelLayerController.selected.puissance}" title="Puissance"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputText value="Surface "/>
+                                    <h:outputText value=" #{levelLayerController.selected.surface}" title="Surface"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputText value="Volume "/>
+                                    <h:outputText value=" #{levelLayerController.selected.volume}" title="Volume"/>
                                 </div>
                             </div>
                         </div>

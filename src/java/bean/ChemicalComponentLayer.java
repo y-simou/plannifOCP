@@ -28,7 +28,7 @@ public class ChemicalComponentLayer implements Serializable {
     private LevelLayer layer;
     @ManyToOne
     private ChemicalComponent chemicalComponent;
-    private BigDecimal teneur;
+    private Double teneur;
 
     public ChemicalComponentLayer() {
     }
@@ -37,13 +37,13 @@ public class ChemicalComponentLayer implements Serializable {
         this.id = id;
     }
 
-    public ChemicalComponentLayer(LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+    public ChemicalComponentLayer(LevelLayer layer, ChemicalComponent chemicalComponent, Double teneur) {
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
         this.teneur = teneur;
     }
 
-    public ChemicalComponentLayer(Long id, LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+    public ChemicalComponentLayer(Long id, LevelLayer layer, ChemicalComponent chemicalComponent, Double teneur) {
         this.id = id;
         this.layer = layer;
         this.chemicalComponent = chemicalComponent;
@@ -72,11 +72,11 @@ public class ChemicalComponentLayer implements Serializable {
         this.chemicalComponent = chemicalComponent;
     }
 
-    public BigDecimal getTeneur() {
+    public Double getTeneur() {
         return teneur;
     }
 
-    public void setTeneur(BigDecimal teneur) {
+    public void setTeneur(Double teneur) {
         this.teneur = teneur;
     }
     

@@ -28,7 +28,7 @@ public class LevelLayer implements Serializable {
     private Long id;
     private int sequenceNiveau;
     private String nom;
-    private BigDecimal puissance;
+    private Double puissance;
     private BigDecimal surface;
     private BigDecimal volume;
     private BigDecimal thc;
@@ -45,7 +45,7 @@ public class LevelLayer implements Serializable {
         this.parcel = parcel;
     }
 
-    public LevelLayer(int sequenceNiveau, String nom, BigDecimal puissance, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
+    public LevelLayer(int sequenceNiveau, String nom, Double puissance, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
         this.sequenceNiveau = sequenceNiveau;
         this.nom = nom;
         this.puissance = puissance;
@@ -56,7 +56,7 @@ public class LevelLayer implements Serializable {
         this.parcel = parcel;
     }
 
-    public LevelLayer(int sequenceNiveau, String nom, BigDecimal puissance, BigDecimal surface, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
+    public LevelLayer(int sequenceNiveau, String nom, Double puissance, BigDecimal surface, BigDecimal volume, BigDecimal thc, BigDecimal tauxrecup, boolean phosphate, Parcel parcel) {
         this.sequenceNiveau = sequenceNiveau;
         this.nom = nom;
         this.puissance = puissance;
@@ -104,11 +104,11 @@ public class LevelLayer implements Serializable {
         this.sequenceNiveau = sequenceNiveau;
     }
 
-    public BigDecimal getPuissance() {
+    public Double getPuissance() {
         return puissance;
     }
 
-    public void setPuissance(BigDecimal puissance) {
+    public void setPuissance(Double puissance) {
         this.puissance = puissance;
     }
 

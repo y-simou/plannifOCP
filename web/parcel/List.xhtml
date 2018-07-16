@@ -21,7 +21,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Parcel : </h1>
+                         Parcel  </h1>
                     <hr></hr>
                     <h:form id="ParcelListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -34,7 +34,7 @@
                                         rowKey="#{item.id}"
                                          
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%;" rowStyleClass="high" 
                                          >
                                 <p:column>
                                     <f:facet name="header">
@@ -65,6 +65,18 @@
                                         <h:outputText value="Epaisseur"/>
                                     </f:facet>
                                     <h:outputText value="#{item.epaisseur}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Statut"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.statut}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Treatment"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.treatment}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">

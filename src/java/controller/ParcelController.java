@@ -74,7 +74,7 @@ public class ParcelController implements Serializable {
 
     public List<Parcel> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAllOrder();
         }
         return items;
     }
@@ -89,7 +89,7 @@ public class ParcelController implements Serializable {
     }
 
     public List<Parcel> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAllOrder();
     }
 
     @FacesConverter(forClass = Parcel.class)

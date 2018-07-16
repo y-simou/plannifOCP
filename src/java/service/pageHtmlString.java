@@ -213,7 +213,7 @@ public class pageHtmlString {
                 + "			</div>\n"
                 + "		</div>\n"
                 + "\n"
-                + "		<div >\n"
+                + "		<div>\n"
                 + "			<h1>Welcome,</h1><h1>"+nom+"</h1>\n"
                 + "			<p>You can login to your OCP account, Using :\n"
                 + "			       "+login+", OR This mail, \n"

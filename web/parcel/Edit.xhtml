@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ParcelEditDlg" widgetVar="ParcelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="370" showHeader="false">
+        <p:dialog id="ParcelEditDlg" widgetVar="ParcelEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="98%" showHeader="false">
 
             <h:form id="ParcelEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -22,67 +22,72 @@
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Name : " for="nom" />
+                                            <p:outputLabel value="Name "/>
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="nom" value="#{parcelController.selected.nom}" title="Name" />
                                         </p:column>
 
                                         <p:column>
-                                            <p:outputLabel value="X :" for="x" />
+                                            <p:outputLabel value="X"/>
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="x" value="#{parcelController.selected.x}" title="x" />
                                         </p:column>  <p:column>
-                                            <p:outputLabel value="Sub Panel :" for="subPanel" />
+                                            <p:outputLabel value="Sub Panel" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="subPanel" value="#{parcelController.selected.subPanel}" >
                                                 <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
-                                                               var="subPanelItem"
-                                                               itemLabel="#{subPanelItem.nom}"
-                                                               itemValue="#{subPanelItem}"/>
+                                                               var="subPanel"
+                                                               itemValue="#{subPanel}"
+                                                               itemLabel="P#{subPanel.panel.nom} S#{subPanel.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>
 
                                     </p:row>
                                     <p:row> 
+
                                         <p:column>
+                                            <p:outputLabel value="Statut " />
                                         </p:column>
                                         <p:column>
+                                            <p:inputText value="#{parcelController.selected.statut}" title="Statut" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Y :" for="y" />
+                                            <p:outputLabel value="Y" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="y" value="#{parcelController.selected.y}" title="Y" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Trench :" for="trench" />
+                                            <p:outputLabel value="Trench" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="trench" value="#{parcelController.selected.trench}" >
                                                 <f:selectItems value="#{trenchController.itemsAvailableSelectOne}"
                                                                var="trenchItem"
-                                                               itemLabel="#{trenchItem.nom}"
-                                                               itemValue="#{trenchItem}"/>
+                                                               itemValue="#{trenchItem}"
+                                                               itemLabel="P#{trenchItem.panel.nom} T#{trenchItem.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                     </p:row>
                                     <p:row> 
 
                                         <p:column>
+                                            <p:outputLabel value="Treatment " />
                                         </p:column>
                                         <p:column>
+                                            <p:inputText value="#{parcelController.selected.treatment}" title="Treatment" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Surface :" for="surface" />
+                                            <p:outputLabel value="Surface" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="surface" value="#{parcelController.selected.surface}" title="surface" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Epaisseur :" for="epaisseur" />
+                                            <p:outputLabel value="Epaisseur"/>
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="epaisseur" value="#{parcelController.selected.epaisseur}" title="Epaisseur" />

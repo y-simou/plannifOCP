@@ -9,7 +9,6 @@ import bean.ChemicalComponent;
 import bean.ChemicalComponentLayer;
 import bean.LevelLayer;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,7 +32,7 @@ public class ChemicalComponentLayerFacade extends AbstractFacade<ChemicalCompone
         super(ChemicalComponentLayer.class);
     }
 
-    public void createComponantLevel(LevelLayer layer, ChemicalComponent chemicalComponent, BigDecimal teneur) {
+    public void createComponantLevel(LevelLayer layer, ChemicalComponent chemicalComponent, Double teneur) {
         create(new ChemicalComponentLayer(layer, chemicalComponent, teneur));
     }
 

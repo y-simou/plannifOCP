@@ -36,8 +36,7 @@ public class SubPanelFacade extends AbstractFacade<SubPanel> {
         getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Storage st where st.block.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Block b where b.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM ChemicalComponentLayer ccl where ccl.layer.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Layer l where l.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM ChemicalComponentLayer ccl where ccl.layer.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM CompositionLevelSequence cls where cls.level.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM LevelLayer ll where ll.parcel.subPanel.id='" + spanel + "'").executeUpdate();
         getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.id='" + spanel + "'").executeUpdate();

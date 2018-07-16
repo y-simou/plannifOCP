@@ -78,7 +78,7 @@ public class ChemicalComponentController implements Serializable {
 
     public List<ChemicalComponent> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

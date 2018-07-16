@@ -31,13 +31,15 @@ public class Parcel implements Serializable {
     private Long x;
     private Long y;
     private Long surface;
-    private Long epaisseur;
+    private Double epaisseur;
     private String statut;
     private BigDecimal treatment;
     @ManyToOne
     private Trench trench;
     @ManyToOne
     private SubPanel subPanel;
+    @ManyToOne
+    private CCL ccl;
 
     public Parcel() {
     }
@@ -73,7 +75,7 @@ public class Parcel implements Serializable {
         this.subPanel = subPanel;
     }
 
-    public Parcel(String nom, Long x, Long y, Long surface, Long epaisseur, Trench trench, SubPanel subPanel) {
+    public Parcel(String nom, Long x, Long y, Long surface, Double epaisseur, Trench trench, SubPanel subPanel) {
         this.nom = nom;
         this.x = x;
         this.y = y;
@@ -83,7 +85,7 @@ public class Parcel implements Serializable {
         this.subPanel = subPanel;
     }
 
-    public Parcel(String nom, Long x, Long y, Long surface, Long epaisseur, String statut, BigDecimal treatment, Trench trench, SubPanel subPanel) {
+    public Parcel(String nom, Long x, Long y, Long surface, Double epaisseur, String statut, BigDecimal treatment, Trench trench, SubPanel subPanel) {
         this.nom = nom;
         this.x = x;
         this.y = y;
@@ -157,13 +159,39 @@ public class Parcel implements Serializable {
         this.surface = surface;
     }
 
-    public Long getEpaisseur() {
+    public Double getEpaisseur() {
         return epaisseur;
     }
 
-    public void setEpaisseur(Long epaisseur) {
+    public void setEpaisseur(Double epaisseur) {
         this.epaisseur = epaisseur;
     }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public BigDecimal getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(BigDecimal treatment) {
+        this.treatment = treatment;
+    }
+
+    public CCL getCcl() {
+        return ccl;
+    }
+
+    public void setCcl(CCL ccl) {
+        this.ccl = ccl;
+    }
+    
+    
     
     @Override
     public int hashCode() {
@@ -192,7 +220,7 @@ public class Parcel implements Serializable {
 
     @Override
     public String toString() {
-        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", surface=" + surface + ", epaisseur=" + epaisseur + ", statut=" + statut + ", treatment=" + treatment + ", trench=" + trench + ", subPanel=" + subPanel + '}';
+        return "Parcel{" + "id=" + id + ", nom=" + nom + ", x=" + x + ", y=" + y + ", surface=" + surface + ", epaisseur=" + epaisseur + ", statut=" + statut + ", treatment=" + treatment + ", trench=" + trench + ", subPanel=" + subPanel + ", ccl=" + ccl + '}';
     }
-    
+
 }

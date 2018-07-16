@@ -112,14 +112,12 @@ public class XlController implements Serializable {
     }
 
     public void afficherChart() throws IOException {
-        if (sheet == null) {
-            try {
-                InputStream excelFile = fileGraphe.getInputstream();
-                XSSFWorkbook wb = new XSSFWorkbook(excelFile);
-                sheet = wb.getSheetAt(0);
-            } catch (IOException ex) {
-                Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            InputStream excelFile = fileGraphe.getInputstream();
+            XSSFWorkbook wb = new XSSFWorkbook(excelFile);
+            sheet = wb.getSheetAt(0);
+        } catch (IOException ex) {
+            Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         createLineModels();
@@ -182,10 +180,11 @@ public class XlController implements Serializable {
         showMessage(e.getTimelineEvent().getData() + "");
     }
 
-    public void generate(){
+    public void generate() {
         parcels = parcelFacade.findByPanel(panel.getId());
         ejbFacade.generateData(parcels);
     }
+
     public void showMessage(String msg) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", msg));
@@ -324,7 +323,7 @@ public class XlController implements Serializable {
     }
 
     public Panel getPanel() {
-        if (panel==null) {
+        if (panel == null) {
             panel = new Panel();
         }
         return panel;
@@ -342,5 +341,4 @@ public class XlController implements Serializable {
         this.parcels = parcels;
     }
 
-    
 }

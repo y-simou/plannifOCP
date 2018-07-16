@@ -20,7 +20,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Level Layer : </h1>
+                         Level</h1>
                     <hr></hr>
                     <h:form id="LevelLayerListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -33,13 +33,13 @@
                                        rowKey="#{item.id}"
                                          
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width :100%" rowStyleClass="high" 
                                          >
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Number"/>
+                                        <h:outputText value="Parcel"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.num}"/>
+                                    <h:outputText value="#{item.parcel.nom}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
@@ -47,7 +47,48 @@
                                     </f:facet>
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Sequence"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sequenceNiveau}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Puissance"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.puissance}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Surface"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.surface}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Volume"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.volume}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Taux recuperation "/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tauxrecup}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="THC"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.thc}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value=" #{item.phosphate ? 'Layer' : 'Sterile'}" title="Type"/>
+                                </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{levelLayerController.delete(item)}" update=":LevelLayerListForm" styleClass="margin"> 
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />

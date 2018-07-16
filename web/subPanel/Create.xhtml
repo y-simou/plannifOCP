@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="50%" showHeader="false">
 
             <h:form id="SubPanelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Create Sub Panel :</h4>
+                    <h4 align="center">Create Sub Panel </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -29,15 +29,6 @@
                                                        itemLabel="#{panelItem.nom}"
                                                        itemValue="#{panelItem}"/>
                                     </p:selectOneMenu>
-                                    <p:outputLabel value="Sequence Level" for="sequenceLevel" />
-                                    <p:selectOneMenu id="sequenceLevel" value="#{subPanelController.selected.sequenceLevel}" >
-                                        <f:selectItems value="#{sequenceLevelController.itemsAvailableSelectOne}"
-                                                       var="sequenceLevelItem"
-                                                       itemLabel="#{sequenceLevelItem.id}"
-                                                       itemValue="#{sequenceLevelItem}"/>
-                                    </p:selectOneMenu>
-                                    <p:outputLabel value="Surface" for="surface" />
-                                    <p:inputText id="surface" value="#{subPanelController.selected.surface}" title="Surface" />
                                 </p:panelGrid>
                             </div>
                         </div>

@@ -6,6 +6,8 @@
 package service;
 
 import bean.CCL;
+import bean.SubPanel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,18 @@ public class CCLFacade extends AbstractFacade<CCL> {
 
     public CCLFacade() {
         super(CCL.class);
+    }
+    
+    public CCL createGroupe(String nom,SubPanel subPanel){
+        List<CCL> ccls =getEntityManager().createQuery("SELECT c FROM CCL c where c.nom='" + nom + "' and c.subPanel.id='" + subPanel.getId() + "'").getResultList();
+        CCL ccl;
+        if (ccls.isEmpty()) {
+            ccl = new CCL(generateId("CCL", "id"), nom, subPanel);
+            create(ccl);
+        }else{
+            ccl = ccls.get(0);
+        }
+        return ccl;
     }
     
 }

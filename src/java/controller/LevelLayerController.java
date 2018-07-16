@@ -78,12 +78,12 @@ public class LevelLayerController implements Serializable {
 
     public List<LevelLayer> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findAllOrdred();
         }
         return items;
     }
 
-    public LevelLayer getLevelLayer(int id) {
+    public LevelLayer getLevelLayer(Long id) {
         return getFacade().find(id);
     }
 
@@ -105,7 +105,7 @@ public class LevelLayerController implements Serializable {
             }
             LevelLayerController controller = (LevelLayerController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "levelLayerController");
-            return controller.getLevelLayer(new Integer(value));
+            return controller.getLevelLayer(new Long(value));
         }
 
         int getKey(String value) {

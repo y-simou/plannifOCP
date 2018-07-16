@@ -38,8 +38,8 @@
                                          rowStyleClass="high" 
                                          widgetVar="table"
                                          >
-                                <p:column filterBy="#{item.layer}" headerText="Layer" filterStyle="height: 20px" filterMatchMode="contains" >
-                                    <h:outputText value="#{item.layer.nom}"/>
+                                <p:column filterBy="#{item.levelLayer}" headerText="Layer" filterStyle="height: 20px" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.levelLayer.nom}"/>
                                 </p:column>
                                 <p:column filterBy="#{item.chemicalComponent}"  filterStyle="" headerText="Chemical Component" filterMatchMode="exact">
                                     <f:facet name="filter" >

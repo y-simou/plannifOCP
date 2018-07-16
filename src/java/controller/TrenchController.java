@@ -71,7 +71,7 @@ public class TrenchController implements Serializable {
     }
 
     public void delete(Trench trench) {
-        ejbFacade.remove(trench);
+        ejbFacade.delete(trench.getId());
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }

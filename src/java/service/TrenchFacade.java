@@ -57,5 +57,17 @@ public class TrenchFacade extends AbstractFacade<Trench> {
         
         return trench;
     }
+    
+    public void delete(Long tr) {
+        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.level.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.level.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Storage st where st.block.level.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Block b where b.level.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM ChemicalComponentLayer ccl where ccl.layer.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM CompositionLevelSequence cls where cls.level.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM LevelLayer ll where ll.parcel.trench.id='" + tr + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Parcel pa where pa.trench.id='" + tr + "'").executeUpdate();
+        remove(find(tr));
+    }
 
 }
