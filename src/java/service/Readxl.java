@@ -5,6 +5,7 @@
  */
 package service;
 
+import bean.CCL;
 import java.io.InputStream;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -42,6 +44,11 @@ import jxl.write.Label;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import static org.apache.xmlbeans.impl.jam.internal.javadoc.JavadocRunner.start;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -62,6 +69,8 @@ public class Readxl {
         return em;
     }
 
+    @EJB
+    private CCLFacade cclFacade;
     @EJB
     private PanelFacade panelFacade;
     @EJB
@@ -190,20 +199,18 @@ public class Readxl {
         rows = s.rowIterator();
         row = (XSSFRow) rows.next();
         BigDecimal[] previous = new BigDecimal[16];
-        String[] labels = new String[16];
+        List<String> labels = new ArrayList();
+        Collections.addAll(labels,"Cumul Sillon B","Cumul Sillon A2","Cumul Couche 0","Cumul Couche 1","Cumul Couche 0_1","Cumul Couche 2 supérieure","Cumul Couche 3 supérieure","Cumul Couche 3 inférieure","Cumul Couche 3","Cumul Couche 4 supérieure","Cumul Couche 4 inférieure","Cumul Couche 4","Cumul Couche 5 supérieure","Cumul Couche 5 inférieure","Cumul Couche 5","Cumul Couche 6");
         BigDecimal result, barVal;
         Double value;
 
-        for (int i = 33; i < 49; i++) {
-            if (row.getCell(i) != null) {
-                labels[i - 33] = "Cumul " + row.getCell(i).toString();
-                previous[i - 33] = new BigDecimal(0);
-                resultas.add(i - 33, new BigDecimal(0));
-            }
+        for (int i = 0; i < 16; i++) {
+                previous[i] = new BigDecimal(0);
+                resultas.add(i, new BigDecimal(0));
         }
 
         int t = 0;
-        for (int j = 0; j < lignes; j++) {
+        for (int j = 0; j < lignes - 1; j++) {
             row = (XSSFRow) rows.next();
             int k = 0; //t index of the size and k index of chartSerie
             if (row.getCell(6) != null && row.getCell(6).toString().equals("Gerbage") && row.getCell(5) != null && row.getCell(5).toString().equals("Fin")) {
@@ -238,8 +245,8 @@ public class Readxl {
         for (int i = 0; i < 16; i++) {
             ChartSeries chartSerie = new ChartSeries();
             ChartSeries barSerie = new ChartSeries();
-            chartSerie.setLabel(labels[i]);
-            barSerie.setLabel(labels[i]);
+            chartSerie.setLabel(labels.get(i));
+            barSerie.setLabel(labels.get(i));
             //add all points to the serie i
             for (int j = 0; j < size; j++) {
                 chartSerie.set(times.get(j), lineResulta[i][j]);
@@ -292,12 +299,11 @@ public class Readxl {
         String valeur, cellYear, year = "";
         Double puissance, surface, volume, thc, taux;
         panelConteur = trenchConteur = parcelConteur = layerConteur = 0;
-        ChemicalComponent bpl = chemicalComponentFacade.findByNom("bpl");
-        ChemicalComponent co2 = chemicalComponentFacade.findByNom("co2");
-        ChemicalComponent mgo = chemicalComponentFacade.findByNom("mgo");
-        ChemicalComponent sio2 = chemicalComponentFacade.findByNom("sio2");
-        ChemicalComponent cd = chemicalComponentFacade.findByNom("cd");
-        System.out.println(bpl + "" + co2 + "" + mgo + "" + sio2 + "" + cd);
+        ChemicalComponent bpl = chemicalComponentFacade.findByNom("BPL");
+        ChemicalComponent co2 = chemicalComponentFacade.findByNom("CO2");
+        ChemicalComponent mgo = chemicalComponentFacade.findByNom("MGO");
+        ChemicalComponent sio2 = chemicalComponentFacade.findByNom("SIO2");
+        ChemicalComponent cd = chemicalComponentFacade.findByNom("CD");
 
         try {
             XSSFWorkbook wb = new XSSFWorkbook(inputStream);
@@ -343,7 +349,6 @@ public class Readxl {
 
                         if (row.getCell(4) != null && !row.getCell(4).toString().equals("")) {
                             puissance = new Double(row.getCell(4).toString().replaceAll(",", "."));
-                            System.out.println("puissance level ::" + puissance);
                             //geting value of cell 3 and creating level if not exist
                             if (row.getCell(3) != null) {
                                 valeur = row.getCell(3).toString();
@@ -367,31 +372,31 @@ public class Readxl {
                         //the cell != null and has only numbers
                         if (row.getCell(13) != null && row.getCell(13).toString().matches("-?\\d+(\\.\\d+)?")) {
                             if (!row.getCell(13).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, bpl, new BigDecimal(new Double(row.getCell(13).toString().replaceAll(",", "."))));
+                                chemicalComponentLayerFacade.createComponantLevel(level, bpl, new Double(row.getCell(13).toString().replaceAll(",", ".")));
                             }
                         }
 
                         if (row.getCell(14) != null && row.getCell(14).toString().matches("-?\\d+(\\.\\d+)?")) {
                             if (!row.getCell(14).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, co2, new BigDecimal(new Double(row.getCell(14).toString().replaceAll(",", "."))));
+                                chemicalComponentLayerFacade.createComponantLevel(level, co2, new Double(row.getCell(14).toString().replaceAll(",", ".")));
                             }
                         }
 
                         if (row.getCell(15) != null && row.getCell(15).toString().matches("-?\\d+(\\.\\d+)?")) {
                             if (!row.getCell(15).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, mgo, new BigDecimal(new Double(row.getCell(15).toString().replaceAll(",", "."))));
+                                chemicalComponentLayerFacade.createComponantLevel(level, mgo, new Double(row.getCell(15).toString().replaceAll(",", ".")));
                             }
                         }
 
                         if (row.getCell(16) != null && row.getCell(16).toString().matches("-?\\d+(\\.\\d+)?")) {
                             if (!row.getCell(16).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, sio2, new BigDecimal(new Double(row.getCell(16).toString().replaceAll(",", "."))));
+                                chemicalComponentLayerFacade.createComponantLevel(level, sio2, new Double(row.getCell(16).toString().replaceAll(",", ".")));
                             }
                         }
 
                         if (row.getCell(17) != null && row.getCell(17).toString().matches("-?\\d+(\\.\\d+)?")) {
                             if (!row.getCell(17).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, cd, new BigDecimal(new Double(row.getCell(17).toString().replaceAll(",", "."))));
+                                chemicalComponentLayerFacade.createComponantLevel(level, cd, new Double(row.getCell(17).toString().replaceAll(",", ".")));
                             }
                         }
                     }
@@ -404,7 +409,7 @@ public class Readxl {
 
     public void generateData(List<Parcel> ps) {
         List<Parcel> parcels = ps;
-        List<String> structure, s;
+        List<String> structure, s, structsHeader = new ArrayList(), groupesHeader = new ArrayList();
         List<SubPanel> subPanels = new ArrayList();
         List<List<String>> structures = new ArrayList<List<String>>();
         int subPanelCntr = 0, exist = 0;
@@ -414,7 +419,7 @@ public class Readxl {
         for (int i = 0; i < parcels.size(); i++) {
 
             parcel = parcels.get(i);
-            structure = levelLayerFacade.findByParcel(parcel.getId());
+            structure = levelLayerFacade.findNomByParcel(parcel.getId());
             if (structure.size() > max) {
                 max = structure.size();
             }
@@ -432,50 +437,208 @@ public class Readxl {
                 subPanel = subPanels.get(subPanelCntr);
                 exist = 0;
             } else {
-                subPanel = subpanelFacade.createStructure("subPanel " + (structures.size() + 1), parcel.getTrench().getPanel());
+                subPanel = subpanelFacade.createStructure("Structure " + (structures.size() + 1), parcel.getTrench().getPanel());
                 subPanels.add(subPanel);
+                String get = "Structure " + (structures.size() + 1);
                 structures.add(structure);
+
+                structsHeader.add(get);
             }
             parcel.setSubPanel(subPanel);
+            parcelFacade.edit(parcel);
         }
-        System.out.println(structures);
         if (structures.size() > 0) {
             List<List<String>> structures2 = new ArrayList<List<String>>();
             List<String> structs2 = new ArrayList();
-            for (int j = 0; j < structures.size(); j++) {
-                String get = "Structure " + (j + 1);
-                structs2.add(get);
-            }
-            structures2.add(structs2);
+
+            //revert the array
             for (int i = 0; i < max; i++) {
                 structs2 = new ArrayList();
                 for (int j = 0; j < structures.size(); j++) {
+                    String get;
                     if (structures.get(j).size() < i + 1) {
-                        structures.get(j).add(i, "");
+                        get = "";
+                    } else {
+                        get = structures.get(j).get(i);
                     }
-                    String get = structures.get(j).get(i);
                     structs2.add(get);
                 }
                 structures2.add(structs2);
             }
+
+            //////////groupes//////////////////////////////////////////////////////////////////////////////////
+            List<List<Double>> puissanceGroupes = new ArrayList<List<Double>>();
+            CCL ccl;
+            max = 0;
+            List<Integer> nombreOfGroupeByStruct = new ArrayList();
+            for (int i = 0; i < subPanels.size(); i++) {
+                SubPanel subPanel1 = subPanels.get(i);
+                System.out.println(subPanel1);
+                parcels = parcelFacade.findBySubPanel(subPanel1.getId());
+                System.out.println("parcels::" + parcels.size());
+                List<List<Double>> puissanceGroupes1 = new ArrayList<List<Double>>();
+                List<Double> puissanceGroupe = new ArrayList(), p;
+                List<CCL> ccls = new ArrayList();
+                int cclIndex = 0, cclCntr = 0;
+
+                for (int j = 0; j < parcels.size(); j++) {
+                    Parcel parcel1 = parcels.get(j);
+                    puissanceGroupe = levelLayerFacade.findPuissanceByParcel(parcel1.getId());
+                    System.out.println("Levels::" + puissanceGroupe.size());
+                    if (puissanceGroupe.size() > max) {
+                        max = puissanceGroupe.size();
+                    }
+//                    Object[] p1 = {puissanceGroupe};
+                    for (int k = 0; k < puissanceGroupes1.size(); k++) {
+                        p = puissanceGroupes1.get(k);
+                        if (compareArray(puissanceGroupe, p) == 0) {
+                            cclIndex = k;
+                            exist = 1;
+                            break;
+                        }
+//                        Object[] p2 = {p};
+//                        if (Arrays.equals(p1, p2)) {
+//                            cclIndex = k;
+//                            exist = 1;
+//                            break;
+//                        }
+                    }
+                    if (exist == 1) {
+                        ccl = ccls.get(cclIndex);
+                        exist = 0;
+                    } else {
+                        ccl = cclFacade.createGroupe("Groupe " + (puissanceGroupes1.size() + 1), subPanel1);
+                        ccls.add(ccl);
+                        String get = "Groupe " + (puissanceGroupes1.size() + 1);
+                        puissanceGroupes1.add(puissanceGroupe);
+
+                        groupesHeader.add(get);
+                        cclCntr++;
+                    }
+                    parcel1.setCcl(ccl);
+                    parcelFacade.edit(parcel);
+                }
+                nombreOfGroupeByStruct.add(i, cclCntr);
+                puissanceGroupes.addAll(puissanceGroupes1);
+            }
+
+            List<List<Double>> groupes2 = new ArrayList<List<Double>>();
+            List<Double> groups2 = new ArrayList();
+
+            //revert the array
+            System.out.println("puissanceGroupes size :: " + puissanceGroupes.size());
+            for (int i = 0; i < max; i++) {
+                groups2 = new ArrayList();
+                for (int j = 0; j < puissanceGroupes.size(); j++) {
+                    Double get;
+                    if (puissanceGroupes.get(j).size() < i + 1) {
+                        get = null;
+                    } else {
+                        get = puissanceGroupes.get(j).get(i);
+                    }
+                    groups2.add(get);
+                }
+                groupes2.add(groups2);
+            }
+            parcels = parcelFacade.findByPanelAsc(parcel.getTrench().getPanel().getId());
+            System.out.println("parcels :: " + parcels.size());
             try {
-                String filename = "C:/Structures Panel " + parcel.getTrench().getPanel().getNom();
+                String filename = "F:/Structures_Panel_" + parcel.getTrench().getPanel().getNom() + ".xls";
                 HSSFWorkbook workbook = new HSSFWorkbook();
+
+                //////////////////////Application 1////////////////////
                 HSSFSheet sheet = workbook.createSheet("Application 1");
-                HSSFRow row;
+                HSSFRow row = sheet.createRow(0);
+                // Create a Font for styling header cells
+                Font headerFont = workbook.createFont();
+                headerFont.setBoldweight((short) 12);
+                headerFont.setFontHeightInPoints((short) 14);
+                headerFont.setColor(IndexedColors.BLACK.getIndex());
+
+                // Create a CellStyle for the first row
+                CellStyle headerCellStyle = workbook.createCellStyle();
+                headerCellStyle.setFont(headerFont);
+                for (int j = 0; j < structsHeader.size(); j++) {
+                    String struct = structsHeader.get(j);
+                    row.createCell(j).setCellValue(struct);
+                    row.getCell(j).setCellStyle(headerCellStyle);
+                }
+                //other rows
                 for (int i = 0; i < structures2.size(); i++) {
-                    row = sheet.createRow((short) i);
+                    row = sheet.createRow((short) (i + 1));
                     List<String> structs = structures2.get(i);
                     for (int j = 0; j < structs.size(); j++) {
                         String struct = structs.get(j);
-                        row.createCell(i).setCellValue(struct);
+                        row.createCell(j).setCellValue(struct);
                     }
 
                 }
 
-                FileOutputStream fileOut = new FileOutputStream(filename);
-                workbook.write(fileOut);
-                fileOut.close();
+                //////////////////////Application 2////////////////////
+                sheet = workbook.createSheet("Application 2");
+                row = sheet.createRow(0);
+
+                // Create the first row
+                row.createCell(0).setCellValue("Num Parcel ");
+                row.createCell(1).setCellValue("Num Panel ");
+                row.createCell(2).setCellValue("Num Trench ");
+                row.createCell(3).setCellValue("Num Structure ");
+                row.createCell(4).setCellValue("Num Groupe ");
+
+                for (int i = 0; i < parcels.size(); i++) {
+                    Parcel p = parcels.get(i);
+                    row = sheet.createRow(i + 1);
+                    row.createCell(0).setCellValue(p.getNom());
+                    row.createCell(1).setCellValue(p.getSubPanel().getPanel().getNom());
+                    row.createCell(2).setCellValue(p.getTrench().getNom());
+                    String[] values = p.getSubPanel().getNom().split(" ");
+                    row.createCell(3).setCellValue(new Double(values[1]));
+                    values = p.getCcl().getNom().split(" ");
+                    row.createCell(4).setCellValue(new Double(values[1]));
+                }
+                ////////////////////////////CCL/////////////////////////////////
+                sheet = workbook.createSheet("Application 3");
+                row = sheet.createRow(0);
+
+                // Create a CellStyle for the first row
+                row.createCell(0).setCellValue("Structures ");
+                row.getCell(0).setCellStyle(headerCellStyle);
+                int col1 = 1, col2, index = 0;
+                for (String struct : structsHeader) {
+                    row.createCell(col1).setCellValue(struct);
+                    row.getCell(col1).setCellStyle(headerCellStyle);
+                    col2 = col1 + nombreOfGroupeByStruct.get(index) - 1;
+                    index++;
+                    // Merges the cells
+                    CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, col1, col2);
+                    col1 = col2 + 1;
+                    sheet.addMergedRegion(cellRangeAddress);
+                }
+                row = sheet.createRow(1);
+
+                // Create the seconde row
+                row.createCell(0).setCellValue("Groupes ");
+                row.getCell(0).setCellStyle(headerCellStyle);
+                for (int j = 1; j < groupesHeader.size() + 1; j++) {
+                    String groupe = groupesHeader.get(j - 1);
+                    row.createCell(j).setCellValue(groupe);
+                    row.getCell(j).setCellStyle(headerCellStyle);
+                }
+                //other rows
+                for (int i = 0; i < groupes2.size(); i++) {
+                    row = sheet.createRow((short) (i + 2));
+                    List<Double> groups = groupes2.get(i);
+                    for (int j = 1; j < groups.size() + 1; j++) {
+                        Double group = groups.get(j - 1);
+                        if (group != null) {
+                            row.createCell(j).setCellValue(group);
+                        }
+                    }
+                }
+
+                try (FileOutputStream fileOut = new FileOutputStream(filename)) {
+                    workbook.write(fileOut);
+                }
 //                workbook.close();
                 System.out.println("Your excel file has been generated!");
 
@@ -483,5 +646,21 @@ public class Readxl {
                 System.out.println(ex);
             }
         }
+    }
+
+    private int compareArray(List<Double> l1, List<Double> l2) {
+        int c = 0;
+        if (l1.size() == l2.size()) {
+            for (int i = 0; i < l2.size(); i++) {
+                if (l1.get(i).compareTo(l2.get(i) + 0.50) > 0 || l1.get(i).compareTo(l2.get(i) - 0.50) < 0) {
+                    System.out.println("diff::::::::::::::::::::::::::::::::::::::::");
+                    c = 1;
+                    break;
+                }
+            }
+        } else {
+            c = 1;
+        }
+        return c;
     }
 }
