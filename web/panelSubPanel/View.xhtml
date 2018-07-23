@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PanelSubPanelViewDlg" widgetVar="PanelSubPanelViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPanelSubPanelTitle}">
+            <h:form id="PanelSubPanelViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{panelSubPanelController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPanelSubPanelLabel_panel}"/>
+                        <h:outputText value="#{panelSubPanelController.selected.panel}" title="#{bundle.ViewPanelSubPanelTitle_panel}"/>
+                        <h:outputText value="#{bundle.ViewPanelSubPanelLabel_subpanel}"/>
+                        <h:outputText value="#{panelSubPanelController.selected.subpanel}" title="#{bundle.ViewPanelSubPanelTitle_subpanel}"/>
+                        <h:outputText value="#{bundle.ViewPanelSubPanelLabel_id}"/>
+                        <h:outputText value="#{panelSubPanelController.selected.id}" title="#{bundle.ViewPanelSubPanelTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PanelSubPanelViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

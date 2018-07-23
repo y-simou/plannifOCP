@@ -69,7 +69,6 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
 
     public void createLevelNull(String nom, Double puissance, Double volume, Double surface, Parcel parcel) {
         LevelLayer level;
-        System.out.println("puissance:" + new BigDecimal(puissance));
         List<LevelLayer> lls = getEntityManager().createQuery("SELECT l FROM LevelLayer l where l.nom='" + nom + "' and l.parcel.id='" + parcel.getId() + "'").getResultList();
         if (lls.isEmpty()) {
 
@@ -92,6 +91,11 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
 
     public List<String> findNomByParcel(Long parcel) {
         return getEntityManager().createQuery("SELECT l.nom from LevelLayer l where l.parcel.id='" + parcel + "' ORDER BY l.sequenceNiveau").getResultList();
+    }
+    
+    public List<String> findSubPanel(Long sp) {
+        Parcel p = (Parcel) getEntityManager().createQuery("SELECT p from Parcel p where p.subPanel.id='" + sp + "'").setMaxResults(1).getSingleResult();
+        return findNomByParcel(p.getId());
     }
 
     public List<Double> findPuissanceByParcel(Long parcel) {

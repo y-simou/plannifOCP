@@ -200,13 +200,13 @@ public class Readxl {
         row = (XSSFRow) rows.next();
         BigDecimal[] previous = new BigDecimal[16];
         List<String> labels = new ArrayList();
-        Collections.addAll(labels,"Cumul Sillon B","Cumul Sillon A2","Cumul Couche 0","Cumul Couche 1","Cumul Couche 0_1","Cumul Couche 2 supérieure","Cumul Couche 3 supérieure","Cumul Couche 3 inférieure","Cumul Couche 3","Cumul Couche 4 supérieure","Cumul Couche 4 inférieure","Cumul Couche 4","Cumul Couche 5 supérieure","Cumul Couche 5 inférieure","Cumul Couche 5","Cumul Couche 6");
+        Collections.addAll(labels, "Cumul Sillon B", "Cumul Sillon A2", "Cumul Couche 0", "Cumul Couche 1", "Cumul Couche 0_1", "Cumul Couche 2 supérieure", "Cumul Couche 3 supérieure", "Cumul Couche 3 inférieure", "Cumul Couche 3", "Cumul Couche 4 supérieure", "Cumul Couche 4 inférieure", "Cumul Couche 4", "Cumul Couche 5 supérieure", "Cumul Couche 5 inférieure", "Cumul Couche 5", "Cumul Couche 6");
         BigDecimal result, barVal;
         Double value;
 
         for (int i = 0; i < 16; i++) {
-                previous[i] = new BigDecimal(0);
-                resultas.add(i, new BigDecimal(0));
+            previous[i] = new BigDecimal(0);
+            resultas.add(i, new BigDecimal(0));
         }
 
         int t = 0;
@@ -330,7 +330,7 @@ public class Readxl {
                 }
 
                 if (year.equals(cellYear)) {
-                    System.out.println("haaa row   ::::::::  " + row.getRowNum());
+                    System.out.println("row   ::::::::  " + row.getRowNum());
 
                     //geting value of cell 0 and creating panel if not exist
                     if (row.getCell(0) != null && row.getCell(1) != null && row.getCell(2) != null && row.getCell(7) != null) {
@@ -437,19 +437,18 @@ public class Readxl {
                 subPanel = subPanels.get(subPanelCntr);
                 exist = 0;
             } else {
-                subPanel = subpanelFacade.createStructure("Structure " + (structures.size() + 1), parcel.getTrench().getPanel());
+                subPanel = subpanelFacade.createStructure(parcel);
                 subPanels.add(subPanel);
-                String get = "Structure " + (structures.size() + 1);
+                String get = "Structure " + subPanel.getNom();
                 structures.add(structure);
-
                 structsHeader.add(get);
             }
             parcel.setSubPanel(subPanel);
             parcelFacade.edit(parcel);
         }
         if (structures.size() > 0) {
-            List<List<String>> structures2 = new ArrayList<List<String>>();
-            List<String> structs2 = new ArrayList();
+            List<List<String>> structures2 = new ArrayList<>();
+            List<String> structs2;
 
             //revert the array
             for (int i = 0; i < max; i++) {
@@ -471,11 +470,12 @@ public class Readxl {
             CCL ccl;
             max = 0;
             List<Integer> nombreOfGroupeByStruct = new ArrayList();
+            Long idPanel = parcel.getTrench().getPanel().getId();
             for (int i = 0; i < subPanels.size(); i++) {
                 SubPanel subPanel1 = subPanels.get(i);
                 System.out.println(subPanel1);
                 parcels = parcelFacade.findBySubPanel(subPanel1.getId());
-                System.out.println("parcels::" + parcels.size());
+                System.out.println("parcels :: " + parcels.size());
                 List<List<Double>> puissanceGroupes1 = new ArrayList<List<Double>>();
                 List<Double> puissanceGroupe = new ArrayList(), p;
                 List<CCL> ccls = new ArrayList();
@@ -483,45 +483,41 @@ public class Readxl {
 
                 for (int j = 0; j < parcels.size(); j++) {
                     Parcel parcel1 = parcels.get(j);
-                    puissanceGroupe = levelLayerFacade.findPuissanceByParcel(parcel1.getId());
-                    System.out.println("Levels::" + puissanceGroupe.size());
-                    if (puissanceGroupe.size() > max) {
-                        max = puissanceGroupe.size();
-                    }
-//                    Object[] p1 = {puissanceGroupe};
-                    for (int k = 0; k < puissanceGroupes1.size(); k++) {
-                        p = puissanceGroupes1.get(k);
-                        if (compareArray(puissanceGroupe, p) == 0) {
-                            cclIndex = k;
-                            exist = 1;
-                            break;
-                        }
-//                        Object[] p2 = {p};
-//                        if (Arrays.equals(p1, p2)) {
-//                            cclIndex = k;
-//                            exist = 1;
-//                            break;
-//                        }
-                    }
-                    if (exist == 1) {
-                        ccl = ccls.get(cclIndex);
-                        exist = 0;
-                    } else {
-                        ccl = cclFacade.createGroupe("Groupe " + (puissanceGroupes1.size() + 1), subPanel1);
-                        ccls.add(ccl);
-                        String get = "Groupe " + (puissanceGroupes1.size() + 1);
-                        puissanceGroupes1.add(puissanceGroupe);
 
-                        groupesHeader.add(get);
-                        cclCntr++;
+                    if (parcel1.getTrench().getPanel().getId().equals(idPanel)) {
+                        puissanceGroupe = levelLayerFacade.findPuissanceByParcel(parcel1.getId());
+                        if (puissanceGroupe.size() > max) {
+                            max = puissanceGroupe.size();
+                        }
+                        for (int k = 0; k < puissanceGroupes1.size(); k++) {
+                            p = puissanceGroupes1.get(k);
+                            if (compareArray(puissanceGroupe, p) == 0) {
+                                cclIndex = k;
+                                exist = 1;
+                                break;
+                            }
+                        }
+                        if (exist == 1) {
+                            ccl = ccls.get(cclIndex);
+                            exist = 0;
+                        } else {
+                            ccl = cclFacade.createGroupe("Groupe " + (puissanceGroupes1.size() + 1), subPanel1);
+                            ccls.add(ccl);
+                            String get = "Groupe " + (puissanceGroupes1.size() + 1);
+                            puissanceGroupes1.add(puissanceGroupe);
+                            groupesHeader.add(get);
+                            cclCntr++;
+                        }
+                        parcel1.setCcl(ccl);
+                        parcelFacade.edit(parcel);
+
                     }
-                    parcel1.setCcl(ccl);
-                    parcelFacade.edit(parcel);
+                    nombreOfGroupeByStruct.add(i, cclCntr);
                 }
-                nombreOfGroupeByStruct.add(i, cclCntr);
                 puissanceGroupes.addAll(puissanceGroupes1);
             }
 
+            System.out.println("max :: " + max);
             List<List<Double>> groupes2 = new ArrayList<List<Double>>();
             List<Double> groups2 = new ArrayList();
 
@@ -543,7 +539,7 @@ public class Readxl {
             parcels = parcelFacade.findByPanelAsc(parcel.getTrench().getPanel().getId());
             System.out.println("parcels :: " + parcels.size());
             try {
-                String filename = "F:/Structures_Panel_" + parcel.getTrench().getPanel().getNom() + ".xls";
+                String filename = "D:/Structures_Panel_" + parcel.getTrench().getPanel().getNom() + ".xls";
                 HSSFWorkbook workbook = new HSSFWorkbook();
 
                 //////////////////////Application 1////////////////////
@@ -589,11 +585,10 @@ public class Readxl {
                     Parcel p = parcels.get(i);
                     row = sheet.createRow(i + 1);
                     row.createCell(0).setCellValue(p.getNom());
-                    row.createCell(1).setCellValue(p.getSubPanel().getPanel().getNom());
+                    row.createCell(1).setCellValue(p.getTrench().getPanel().getNom());
                     row.createCell(2).setCellValue(p.getTrench().getNom());
-                    String[] values = p.getSubPanel().getNom().split(" ");
-                    row.createCell(3).setCellValue(new Double(values[1]));
-                    values = p.getCcl().getNom().split(" ");
+                    row.createCell(3).setCellValue(new Double(p.getSubPanel().getNom()));
+                    String[] values = p.getCcl().getNom().split(" ");
                     row.createCell(4).setCellValue(new Double(values[1]));
                 }
                 ////////////////////////////CCL/////////////////////////////////
@@ -635,6 +630,45 @@ public class Readxl {
                         }
                     }
                 }
+                //////////////////////Coupes litho////////////////////
+                sheet = workbook.createSheet("Coupes litho");
+                row = sheet.createRow(0);
+                HSSFRow row2 = sheet.createRow(1);
+                headerCellStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
+                headerCellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+
+                // Create a CellStyle for the first row
+                col1 = 0;
+                for (int j = 0; j < structsHeader.size(); j++) {
+                    row2.createCell(col1).setCellValue("Nom niveau");
+                    row2.createCell(col1 + 1).setCellValue("Num niveau");
+                    row2.createCell(col1 + 2).setCellValue("Amenagement Foration");
+                    row2.createCell(col1 + 3).setCellValue("Foration");
+                    row2.createCell(col1 + 4).setCellValue("Sautage");
+                    row2.createCell(col1 + 5).setCellValue("Amenagement Decapage");
+                    row2.createCell(col1 + 6).setCellValue("Decapage");
+                    row2.createCell(col1 + 7).setCellValue("Gerbage");
+                    row2.createCell(col1 + 8).setCellValue("Charg/Transport");
+                    String struct = "Panel " + parcel.getTrench().getPanel().getNom() + "_" + structsHeader.get(j);
+                    row.createCell(col1).setCellValue(struct);
+                    row.getCell(col1).setCellStyle(headerCellStyle);
+                    col2 = col1 + 8;
+                    // Merges the cells
+                    CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, col1, col2);
+                    col1 = col2 + 1;
+                    sheet.addMergedRegion(cellRangeAddress);
+
+                }
+                //other rows
+                for (int i = 0; i < structures2.size(); i++) {
+                    row = sheet.createRow((short) (i + 2));
+                    List<String> structs = structures2.get(i);
+                    for (int j = 0; j < structs.size(); j++) {
+                        String struct = structs.get(j);
+                        row.createCell(j).setCellValue(struct);
+                    }
+
+                }
 
                 try (FileOutputStream fileOut = new FileOutputStream(filename)) {
                     workbook.write(fileOut);
@@ -653,10 +687,11 @@ public class Readxl {
         if (l1.size() == l2.size()) {
             for (int i = 0; i < l2.size(); i++) {
                 if (l1.get(i).compareTo(l2.get(i) + 0.50) > 0 || l1.get(i).compareTo(l2.get(i) - 0.50) < 0) {
-                    System.out.println("diff::::::::::::::::::::::::::::::::::::::::");
+                    System.out.println(":::::::::::::::::::::::::::::::::::::diff::::::::::::::::::::::::::::::::::::::::");
                     c = 1;
                     break;
                 }
+                System.out.println("------------------saame-----------------------------");
             }
         } else {
             c = 1;

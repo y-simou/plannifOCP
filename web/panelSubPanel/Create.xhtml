@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PanelSubPanelCreateDlg" widgetVar="PanelSubPanelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePanelSubPanelTitle}">
+            <h:form id="PanelSubPanelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{panelSubPanelController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_panel}" for="panel" />
+                        <p:selectOneMenu id="panel" value="#{panelSubPanelController.selected.panel}" >
+                            <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                           var="panelItem"
+                                           itemValue="#{panelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_subpanel}" for="subpanel" />
+                        <p:selectOneMenu id="subpanel" value="#{panelSubPanelController.selected.subpanel}" >
+                            <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
+                                           var="subpanelItem"
+                                           itemValue="#{subpanelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{panelSubPanelController.selected.id}" title="#{bundle.CreatePanelSubPanelTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{panelSubPanelController.create}" value="#{bundle.Save}" update="display,:PanelSubPanelListForm:datalist,:growl" oncomplete="handleSubmit(args,'PanelSubPanelCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PanelSubPanelCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

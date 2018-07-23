@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,8 +26,6 @@ public class SubPanel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    @ManyToOne
-    private Panel panel;
 
     public SubPanel() {
     }
@@ -41,20 +38,11 @@ public class SubPanel implements Serializable {
         this.nom = nom;
     }
 
-    public SubPanel(String nom, String surface) {
-        this.nom = nom;
-    }
-
-    public SubPanel(Long id, String nom, Panel panel) {
+    public SubPanel(Long id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.panel = panel;
     }
     
-    public SubPanel(String nom, String surface,Panel panel) {
-        this.nom = nom;
-        this.panel = panel;
-    }
     
     public Long getId() {
         return id;
@@ -73,13 +61,6 @@ public class SubPanel implements Serializable {
         this.nom = nom;
     }
 
-    public Panel getPanel() {
-        return panel;
-    }
-
-    public void setPanel(Panel panel) {
-        this.panel = panel;
-    }
 
     @Override
     public int hashCode() {
@@ -108,7 +89,7 @@ public class SubPanel implements Serializable {
 
     @Override
     public String toString() {
-        return "SubPanel{" + "id=" + id + ", nom=" + nom + ", panel=" + panel + '}';
+        return "SubPanel{" + "id=" + id + ", nom=" + nom  + '}';
     }
 
    

@@ -5,9 +5,13 @@
  */
 package service;
 
-import bean.Panel;
+import bean.PanelSubPanel;
+import bean.Parcel;
 import bean.SubPanel;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,16 +46,42 @@ public class SubPanelFacade extends AbstractFacade<SubPanel> {
         getEntityManager().createQuery("DELETE FROM Parcel pa where pa.subPanel.id='" + spanel + "'").executeUpdate();
         remove(find(spanel));
     }
+    @EJB
+    private LevelLayerFacade levelLayerFacade;
+    @EJB
+    private PanelSubPanelFacade panelSubPanelFacade;
 
-    public SubPanel createStructure(String nom, Panel panel) {
-        List<SubPanel> subPanels = getEntityManager().createQuery("SELECT s FROM SubPanel s where s.nom='" + nom + "' and s.panel.id='" + panel.getId() + "'").getResultList();
-        SubPanel subPanel;
-        if (subPanels.isEmpty()) {
-            subPanel = new SubPanel(generateId("SubPanel", "id"), nom, panel);
-            create(subPanel);
-        }else{
-            subPanel = subPanels.get(0);
+    public SubPanel createStructure(Parcel parcel) {
+        int exist = 0, index = 0;
+        List<List<String>> structures = new ArrayList<List<String>>();
+        List<String> structure = levelLayerFacade.findNomByParcel(parcel.getId()), s, sp;
+        List<SubPanel> subPanels = findAll();
+        for (int i = 0; i < subPanels.size(); i++) {
+            SubPanel subPanel = subPanels.get(i);
+            sp = levelLayerFacade.findSubPanel(subPanel.getId());
+            structures.add(sp);
         }
+        Object[] s1 = {structure};
+        for (int j = 0; j < structures.size(); j++) {
+            s = structures.get(j);
+            Object[] s2 = {s};
+            if (Arrays.equals(s1, s2)) {
+                index = j;
+                exist = 1;
+                break;
+            }
+        }
+        SubPanel subPanel;
+        if (exist == 1) {
+            subPanel = subPanels.get(index);
+            exist = 0;
+        } else {
+            Long id = generateId("SubPanel", "id");
+            subPanel = new SubPanel(id, id + "");
+            create(subPanel);
+        }
+        PanelSubPanel panelSubPanel = new PanelSubPanel(parcel.getTrench().getPanel(), subPanel);
+        panelSubPanelFacade.create(panelSubPanel);
         return subPanel;
     }
 
