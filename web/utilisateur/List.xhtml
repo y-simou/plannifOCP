@@ -22,7 +22,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                          Utilisateur : </h1>
+                          Utilisateur  </h1>
                     <hr></hr>
                     <h:form id="UtilisateurListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -33,51 +33,38 @@
                              <hr></hr>
                             <p:dataTable value="#{utilisateurController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;width: 105%;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Prenom"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.prenom}" filterStyle="height: 20px" headerText="Prenom" filterMatchMode="contains" >
                                     <h:outputText value="#{item.prenom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Login"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.login}" filterStyle="height: 20px" headerText="Login" filterMatchMode="contains" >
                                     <h:outputText value="#{item.login}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Mail"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.mail}" filterStyle="height: 20px" headerText="Mail" filterMatchMode="contains" >
                                     <h:outputText value="#{item.mail}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Password"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.password}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Site"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.site.nom}" filterStyle="height: 20px" headerText="Site" filterMatchMode="contains" >
                                     <h:outputText value="#{item.site.nom}"/>
-                                </p:column> 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Type"/>
+                                </p:column>
+                                <p:column filterBy="#{item.type}" headerText="Admin ?" filterMatchMode="equals">
+                                    <f:facet name="filter">
+                                        <p:selectOneButton onchange="PF('table').filter()">
+                                            <f:converter converterId="javax.faces.Boolean" />
+                                            <f:selectItem itemLabel="All" itemValue="" />
+                                            <f:selectItem itemLabel="yes" itemValue="true" />
+                                            <f:selectItem itemLabel="no" itemValue="false" />
+                                        </p:selectOneButton>
                                     </f:facet>
-                                    <h:outputText value="#{item.type eq 1 ? 'Admin' : 'user'}"/>
+                                    <h:outputText value="#{item.type eq 1 ? 'Admin' : 'user'}" />
                                 </p:column>
                                 <p:column>
                                     <p:commandLink actionListener="#{utilisateurController.delete(item)}" update=":UtilisateurListForm" styleClass="margin"> 

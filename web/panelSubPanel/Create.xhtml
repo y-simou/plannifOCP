@@ -8,28 +8,57 @@
 
     <ui:composition>
 
-        <p:dialog id="PanelSubPanelCreateDlg" widgetVar="PanelSubPanelCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePanelSubPanelTitle}">
-            <h:form id="PanelSubPanelCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{panelSubPanelController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_panel}" for="panel" />
-                        <p:selectOneMenu id="panel" value="#{panelSubPanelController.selected.panel}" >
-                            <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
-                                           var="panelItem"
-                                           itemValue="#{panelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_subpanel}" for="subpanel" />
-                        <p:selectOneMenu id="subpanel" value="#{panelSubPanelController.selected.subpanel}" >
-                            <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
-                                           var="subpanelItem"
-                                           itemValue="#{subpanelItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePanelSubPanelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{panelSubPanelController.selected.id}" title="#{bundle.CreatePanelSubPanelTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{panelSubPanelController.create}" value="#{bundle.Save}" update="display,:PanelSubPanelListForm:datalist,:growl" oncomplete="handleSubmit(args,'PanelSubPanelCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PanelSubPanelCreateDialog.hide()"/>
-                </h:panelGroup>
+         <p:dialog id="PanelSubPanelCreateDlg" widgetVar="PanelSubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="60%" height="80%" showHeader="false">
+
+            <h:form id="PanelSubPanelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
+
+                <div class="form-control">
+                    <h4 align="center">Create Chemical Component Layer :</h4>
+                    <hr></hr>
+                    <br></br>
+                    <div class="container" align="center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+
+                                            <p:outputLabel value="Panel"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{panelSubPanelController.selected.panel}" >
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemValue="#{p}"
+                                                               itemLabel="#{p.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Sub Panel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{panelSubPanelController.selected.subpanel}" >
+                                                <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
+                                                                var="sp"
+                                                               itemValue="#{sp}"
+                                                               itemLabel="Structure #{sp.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{panelSubPanelController.create()}" onclick="handleSubmit(args, 'PanelSubPanelCreateDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'PanelSubPanelCreateDialog');"> 
+                            <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
 

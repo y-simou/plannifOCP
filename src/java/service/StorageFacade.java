@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.Block;
 import bean.Storage;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +21,8 @@ public class StorageFacade extends AbstractFacade<Storage> {
 
     @PersistenceContext(unitName = "plannOCPPU")
     private EntityManager em;
+    @EJB
+    private BlockFacade blockFacade;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -28,5 +32,22 @@ public class StorageFacade extends AbstractFacade<Storage> {
     public StorageFacade() {
         super(Storage.class);
     }
-    
+
+    public void create(Storage storage, Long id) {
+        Block b = null;
+        if (id != null) {
+            b = blockFacade.find(id);
+        }
+        storage.setBlock(b);
+        super.create(storage);
+    }
+
+    public void update(Storage storage, Long id) {
+        if (id != null) {
+           Block  b = blockFacade.find(id);
+            storage.setBlock(b);
+        }
+        edit(storage);
+    }
+
 }

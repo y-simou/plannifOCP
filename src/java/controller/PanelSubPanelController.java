@@ -32,6 +32,9 @@ public class PanelSubPanelController implements Serializable {
     }
 
     public PanelSubPanel getSelected() {
+        if (selected==null) {
+            selected = new PanelSubPanel();
+        }
         return selected;
     }
 
@@ -56,27 +59,26 @@ public class PanelSubPanelController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PanelSubPanelCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+        ejbFacade.create(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PanelSubPanelUpdated"));
+        ejbFacade.edit(selected);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
-    public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PanelSubPanelDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+    public void delete(PanelSubPanel panelSubPanel) {
+        ejbFacade.remove(panelSubPanel);
+        selected = null; // Remove selection
+        items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<PanelSubPanel> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

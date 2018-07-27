@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-      <p:dialog id="OperationEditDlg" widgetVar="OperationEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="250" showHeader="false">
+      <p:dialog id="OperationEditDlg" widgetVar="OperationEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="30%" height="30%" showHeader="false">
 
             <h:form id="OperationEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Edit Operation :</h4>
+                    <h4 align="center">Edit Operation </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -24,7 +24,7 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Name : " for="nom" />
+                                            <p:outputLabel value="Name " for="nom" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="nom" value="#{operationController.selected.nom}" title="Name" />

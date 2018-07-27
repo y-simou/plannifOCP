@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="StorageCreateDlg" widgetVar="StorageCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+        <p:dialog id="StorageCreateDlg" widgetVar="StorageCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="60%" showHeader="false">
 
             <h:form id="StorageCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -30,13 +30,13 @@
                                             <p:selectOneMenu id="stock" value="#{storageController.selected.stock}" >
                                                 <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
                                                                var="stockItem"
-                                                               itemLabel="#{stockItem.nom}"
+                                                               itemLabel=" #{stockItem.nom}"
                                                                itemValue="#{stockItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
 
-                                            <p:outputLabel value="Machine :  " for="machine" />
+                                            <p:outputLabel value="Machine   " for="machine" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="machine" value="#{storageController.selected.machine}" >
@@ -45,32 +45,92 @@
                                                                itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
                                             </p:selectOneMenu>
                                         </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{storageController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{storageController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{storageController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{storageController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{storageController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{storageController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{storageController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{storageController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{storageController.levelLayer}" >
+                                                <p:ajax event="valueChange" update="block"  listener="#{storageController.doActionLevel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--Level--" />
+                                                <f:selectItems value="#{storageController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel=" #{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
                                             <p:outputLabel value="Block" for="block" />
-
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="block" value="#{storageController.selected.block}" >
-                                                <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
+                                            <p:selectOneMenu id="block" value="#{storageController.block}" >
+                                                <f:selectItem value="#{null}" itemLabel="--BLOCK--" />
+                                                <f:selectItems value="#{storageController.blocks}"
                                                                var="blockItem"
                                                                itemLabel="#{blockItem.nom}"
-                                                               itemValue="#{blockItem}"/>
+                                                               itemValue="#{blockItem.id}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
 
-                                            <p:outputLabel value="Date Transport :" for="dateTransport" />
+                                            <p:outputLabel value="Date Transport " for="dateTransport" />
 
                                         </p:column>
                                         <p:column>
-                                            <p:calendar id="dateTransport" pattern="dd/MM/yyyy" value="#{storageController.selected.dateTransport}" title="dateTransport"  showOn="button"/>
+                                            <p:calendar id="dateTransport" pattern="dd/MM/yyyy" value="#{storageController.selected.dateTransport}" title="dateTransport"  timeZone="Africa/Casablanca"  showOn="button"/>
                                         </p:column>
-                                    </p:row>
-                                    <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Quantity :" for="quantity" />
+                                            <p:outputLabel value="Quantity " for="quantity" />
 
                                         </p:column>
                                         <p:column>
@@ -81,8 +141,8 @@
                             </div>
                         </div>
                     </div>
-                   <div class="f1-buttons" align="right">
-                       <p:commandButton  value="Save" class="myBtn" actionListener="#{storageController.create()}" onclick="handleSubmit(args, 'StorageCreateDialog');" />
+                    <div class="f1-buttons" align="right">
+                        <p:commandButton  value="Save" class="myBtn" actionListener="#{storageController.create()}" onclick="handleSubmit(args, 'StorageCreateDialog');" />
                         <p:commandLink oncomplete="handleSubmit(args,'StorageCreateDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>

@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="MovementViewDlg" widgetVar="MovementViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+        <p:dialog id="MovementViewDlg" widgetVar="MovementViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="40%" showHeader="false">
             <h:form id="MovementViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,36 +17,79 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{movementController.selected.id}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Duration :"/>
-                                    <h:outputText value=" #{movementController.selected.duree} #{movementController.selected.unitOfTime.unite}" title="Duration"/>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputText value="From : "/>
-                                    <h:outputText value=" #{movementController.selected.depart.position.nom}" title="From"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="To : "/>
-                                    <h:outputText value=" #{movementController.selected.arrive.position.nom}" title="To :"/>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-12" align="center">
-                                    <p:commandLink oncomplete="handleSubmit(args,'MovementViewDialog');"> 
-                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                                    </p:commandLink>
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Machine" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{movementController.machine.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Site"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{movementController.machine.site.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Duration"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{movementController.selected.duree} #{movementController.selected.unitOfTime}"  />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="From"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{movementController.selected.depart.position.nom}" title="Position"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:outputLabel value="X" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{movementController.selected.depart.position.x}" title="x" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Y"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{movementController.selected.depart.position.y}" title="y" />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="To"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{movementController.selected.arrive.position.nom}" title="Position"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:outputLabel value="X" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{movementController.selected.arrive.position.x}" title="x" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Y"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{movementController.selected.arrive.position.y}" title="y" />
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
                                 </div>
                             </div>
                         </div>
+                        <hr></hr>
                     </div>
+                    <p:commandLink oncomplete="handleSubmit(args,'MovementViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
 
                 </h:panelGroup>
             </h:form>

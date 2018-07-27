@@ -57,9 +57,12 @@ public class SubPanelFacade extends AbstractFacade<SubPanel> {
         List<String> structure = levelLayerFacade.findNomByParcel(parcel.getId()), s, sp;
         List<SubPanel> subPanels = findAll();
         for (int i = 0; i < subPanels.size(); i++) {
+            sp = new ArrayList();
             SubPanel subPanel = subPanels.get(i);
             sp = levelLayerFacade.findSubPanel(subPanel.getId());
-            structures.add(sp);
+            if (sp!=null) {
+                structures.add(sp);
+            }
         }
         Object[] s1 = {structure};
         for (int j = 0; j < structures.size(); j++) {

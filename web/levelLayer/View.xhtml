@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="LevelLayerViewDlg" widgetVar="LevelLayerViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="220" showHeader="false">
+        <p:dialog id="LevelLayerViewDlg" widgetVar="LevelLayerViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="65%" height="60%" showHeader="false">
             <h:form id="LevelLayerViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -15,44 +15,83 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <h:outputText value="Panel/Trench/Parcel"/>
-                                    <h:outputText value=" P#{levelLayerController.selected.parcel.trench.panel.nom} T#{levelLayerController.selected.parcel.trench.nom} P#{levelLayerController.selected.parcel.nom}" title="Number"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="Name "/>
-                                    <h:outputText value=" #{levelLayerController.selected.nom}" title="Name"/>
-                                </div>
-                                <div class="col-md-2">
-                                    <h:outputText value=" #{levelLayerController.selected.phosphate ? 'Layer' : 'Sterile'}" title="Type"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputText value="Sequence "/>
-                                    <h:outputText value=" #{levelLayerController.selected.sequenceNiveau}" title="Number"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="Taux recuperation "/>
-                                    <h:outputText value=" #{levelLayerController.selected.tauxrecup}" title="Taux recuperation"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="THC " rendered="#{levelLayerController.selected.phosphate}"/>
-                                    <h:outputText value=" #{levelLayerController.selected.thc}" rendered="#{levelLayerController.selected.phosphate}" title="Name"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputText value="Puissance "/>
-                                    <h:outputText value=" #{levelLayerController.selected.puissance}" title="Puissance"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="Surface "/>
-                                    <h:outputText value=" #{levelLayerController.selected.surface}" title="Surface"/>
-                                </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="Volume "/>
-                                    <h:outputText value=" #{levelLayerController.selected.volume}" title="Volume"/>
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Panel" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{levelLayerController.selected.parcel.trench.panel.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Trench "  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{levelLayerController.selected.parcel.trench.panel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Parcel"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{levelLayerController.selected.parcel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{levelLayerController.selected.phosphate ? 'Layer' : 'Sterile'}" title="Type"/>
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Name"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{levelLayerController.selected.nom}" title="Name"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:outputLabel value="Sequence" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.sequenceNiveau}" title="Number" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Taux recuperation "  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.tauxrecup}" title="Taux recuperation" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="THC"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.thc}" title="THC" />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Puissance" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.puissance}" title="Puissance" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Surface"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.surface}" title="Surface" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Volume"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{levelLayerController.selected.volume}" title="Volume" />
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
                                 </div>
                             </div>
                         </div>

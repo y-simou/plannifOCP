@@ -31,35 +31,42 @@
                             </div>
                              <hr></hr>
                             <p:dataTable value="#{storageController.items}" var="item" 
-                                         rowKey="#{item.id}"
-                                         
+                                        rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="machine"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.machine.nom}"/>
+                                <p:column filterBy="#{item.block.level.parcel.trench.panel.nom} - #{item.block.level.parcel.trench.nom} - #{item.block.level.parcel.nom}" filterStyle="height: 20px" headerText="Pan Tr Parcel" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.block.level.parcel.trench.panel.nom} - #{item.block.level.parcel.trench.nom} - #{item.block.level.parcel.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Block"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.block.level.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.block.level.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.block.nom}" filterStyle="height: 20px" headerText="Block" filterMatchMode="contains" >
                                     <h:outputText value="#{item.block.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Date Transport"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.dateTransport}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                <p:column filterBy="#{item.machine.nom}" filterStyle="height: 20px" headerText="machine" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.machine.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Quantity"/>
+                                <p:column filterBy="#{item.stock.nom}" filterStyle="height: 20px" headerText="Stock" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.stock.nom}"/>
+                                </p:column>
+                                <p:column headerText="Date Transport"
+                                          filterFunction="#{storageController.filterByDate}"
+                                          filterBy="#{item.dateTransport}">
+                                    <f:facet name="filter">
+                                        <p:calendar pattern="yyyy-MM-dd" effect="fold" timeZone="Africa/Casablanca">
+                                            <p:ajax event="dateSelect" oncomplete="PF('table').filter()" />
+                                        </p:calendar>
                                     </f:facet>
+                                    <p:outputLabel value="#{item.dateTransport}">
+                                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Africa/Casablanca"/>
+                                    </p:outputLabel>
+                                </p:column>
+                                <p:column filterBy="#{item.quantity}" filterStyle="height: 20px" headerText="Quantity" filterMatchMode="contains" >
                                     <h:outputText value="#{item.quantity}"/>
                                 </p:column>
                                 <p:column> 

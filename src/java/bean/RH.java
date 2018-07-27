@@ -27,6 +27,7 @@ public class RH implements Serializable {
     private Site site;
     @ManyToOne
     private Poste poste;
+    private boolean available;
 
     public RH() {
     }
@@ -34,6 +35,20 @@ public class RH implements Serializable {
     public RH(Site site, Poste poste) {
         this.site = site;
         this.poste = poste;
+    }
+
+    public RH(Site site, Poste poste, boolean available) {
+        this.site = site;
+        this.poste = poste;
+        this.available = available;
+    }
+    
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
     
     public Long getId() {

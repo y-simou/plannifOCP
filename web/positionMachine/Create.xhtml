@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PositionMachineCreateDlg" widgetVar="PositionMachineCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+        <p:dialog id="PositionMachineCreateDlg" widgetVar="PositionMachineCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="35%" height="40%" showHeader="false">
 
             <h:form id="PositionMachineCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -28,7 +28,7 @@
                                             <p:selectOneMenu id="machine" value="#{positionMachineController.selected.machine}" >
                                                 <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
                                                                var="machineItem"
-                                                               itemLabel="#{machineItem.nom}"
+                                                               itemLabel=" #{machineItem.nom}"
                                                                itemValue="#{machineItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
@@ -39,19 +39,19 @@
                                             <p:outputLabel value="Date :" for="datePosition" />
                                         </p:column>
                                         <p:column>
-                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionMachineController.selected.datePosition}" title="Date" effect="fold" />
+                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionMachineController.selected.datePosition}" title="Date" effect="fold" timeZone="Africa/Casablanca"  showOn="button" />
                                         </p:column>
                                     </p:row>
                                     
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Position :" for="position" />
+                                            <p:outputLabel value="Position(X-Y) :" for="position" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="position" value="#{positionMachineController.selected.position}" >
                                                 <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
                                                                var="positionItem"
-                                                               itemLabel="#{positionItem.nom}-X: #{positionItem.x} -Y: #{positionItem.y}"
+                                                               itemLabel="#{positionItem.nom} : #{positionItem.x} - #{positionItem.y}"
                                                                itemValue="#{positionItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>

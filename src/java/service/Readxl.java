@@ -33,22 +33,19 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import jxl.read.biff.BiffException;
-import jxl.write.Label;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import static org.apache.xmlbeans.impl.jam.internal.javadoc.JavadocRunner.start;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -94,7 +91,7 @@ public class Readxl {
     public static BigDecimal max1;
     public static List<String> allMachines;
 
-    public LineChartModel createLineChart(XSSFSheet sheet, String o, String m, Date dateSimulation) throws IOException {
+    public LineChartModel createLineChart(XSSFSheet sheet, String o, String m, Date dateSimulation, Date dateMin, Date dateMax) throws IOException {
 
         LineChartModel model = new LineChartModel();
         BarChartModel barModel = new BarChartModel();
@@ -102,7 +99,8 @@ public class Readxl {
 
         // groups for time line (Gantt)
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        List<String> machines = new ArrayList(), times = new ArrayList(), operations = new ArrayList(); // "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage"
+        List<Date> times = new ArrayList();
+        List<String> machines = new ArrayList(), operations = new ArrayList(); // "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage"
         Collections.addAll(operations, "Amenagement Foration", "Amenagement Decapage", "Chargement", "Decapage", "Foration", "Gerbage", "Sautage");
         List<List<Integer>> debutOperations = new ArrayList<List<Integer>>();
         List<Integer> tableDebutOperations;
@@ -139,10 +137,11 @@ public class Readxl {
                     cal.add(Calendar.HOUR_OF_DAY, (int) (double) new Double(row.getCell(0).toString()));// Date debut operation
                     debut = cal.getTime();
                     if (operation.equals("Gerbage") && row.getCell(5).toString().equals("Fin")) {
-                        times.add(size, (new SimpleDateFormat("yyyy-MM-dd")).format(debut));
+                        times.add(size, debut);
                         size++;
                     }
 
+                    Date dateMaxFilter;
                     //time line Chart////////////
                     if (machine.equals(machineFilter) && operation.equals(operationFilter)) {
                         dbHours = new Double(row.getCell(0).toString());
@@ -160,15 +159,23 @@ public class Readxl {
                                 cal.add(Calendar.HOUR_OF_DAY, hours); // adds hours
                                 cal.getTime(); // returns new date object .. in the future
                                 Date fin = cal.getTime();
+                                //filter
+                                dateMaxFilter = dateMax;
+                                if (dateMaxFilter == null) {
+                                    dateMaxFilter = fin;
+                                }
+                                if (!debut.before(dateMin) && !fin.after(dateMaxFilter)) {
+                                    //legende of event
+                                    String title = operation + " (" + (hours - dateDebut) + "H) " + " - P" + ((int) (double) new Double(row.getCell(1).toString())) + " T" + ((int) (double) new Double(row.getCell(2).toString())) + " C" + ((int) (double) new Double(row.getCell(3).toString()));
 
-                                //legende of event
-                                String title = operation + "(" + (hours - dateDebut) + "H) " + " - P" + ((int) (double) new Double(row.getCell(1).toString())) + " T" + ((int) (double) new Double(row.getCell(2).toString())) + " C" + ((int) (double) new Double(row.getCell(3).toString()));
+                                    // create an event with content, start / end dates, editable flag, group name and custom style class  
+                                    TimelineEvent event = new TimelineEvent(title, debut, fin, false, machine, operation.toLowerCase().replaceAll(" ", ""));
+                                    timeLineModel.add(event);
 
-                                // create an event with content, start / end dates, editable flag, group name and custom style class  
-                                TimelineEvent event = new TimelineEvent(title, debut, fin, false, machine, operation.toLowerCase().replaceAll(" ", ""));
-                                timeLineModel.add(event);
+                                }
                                 //delete the start date
                                 debutOperations.get(indexOfMachine).set(operations.indexOf(operation), -1);
+
                             } else if (row.getCell(5).toString().equals("Debut")) {
                                 debutOperations.get(indexOfMachine).set(operations.indexOf(operation), hours);
                             }
@@ -192,19 +199,19 @@ public class Readxl {
         System.out.println("size ::" + size);
 
         // Results     
-        BigDecimal[][] lineResulta = new BigDecimal[16][size], barResulta = new BigDecimal[16][size];
+        BigDecimal[][] lineResulta = new BigDecimal[17][size], barResulta = new BigDecimal[17][size];
         List<BigDecimal> resultas = new ArrayList();
 
         //retour au debut par rowIterator
         rows = s.rowIterator();
         row = (XSSFRow) rows.next();
-        BigDecimal[] previous = new BigDecimal[16];
+        BigDecimal[] previous = new BigDecimal[17];
         List<String> labels = new ArrayList();
-        Collections.addAll(labels, "Cumul Sillon B", "Cumul Sillon A2", "Cumul Couche 0", "Cumul Couche 1", "Cumul Couche 0_1", "Cumul Couche 2 supérieure", "Cumul Couche 3 supérieure", "Cumul Couche 3 inférieure", "Cumul Couche 3", "Cumul Couche 4 supérieure", "Cumul Couche 4 inférieure", "Cumul Couche 4", "Cumul Couche 5 supérieure", "Cumul Couche 5 inférieure", "Cumul Couche 5", "Cumul Couche 6");
+        Collections.addAll(labels, "Couche 1_0", "Sillon B", "Sillon A2", "Couche 0", "Couche 1", "Couche 2 inférieure", "Couche 2 supérieure", "Couche 3 supérieure", "Couche 3 inférieure", "Couche 3", "Couche 4 supérieure", "Couche 4 inférieure", "Couche 4", "Couche 5 supérieure", "Couche 5 inférieure", "Couche 5", "Couche 6");
         BigDecimal result, barVal;
         Double value;
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 17; i++) {
             previous[i] = new BigDecimal(0);
             resultas.add(i, new BigDecimal(0));
         }
@@ -215,7 +222,7 @@ public class Readxl {
             int k = 0; //t index of the size and k index of chartSerie
             if (row.getCell(6) != null && row.getCell(6).toString().equals("Gerbage") && row.getCell(5) != null && row.getCell(5).toString().equals("Fin")) {
                 //LineChart
-                for (int i = 33; i < 49; i++) {
+                for (int i = 33; i < 50; i++) {
                     if (row.getCell(i) != null && !"".equals(row.getCell(i).toString())) {
                         value = new Double(row.getCell(i).toString());
                         result = new BigDecimal(value);
@@ -242,17 +249,30 @@ public class Readxl {
             maxim = MathUtil.calculerMax(resultas);
             max = maxim.compareTo(max) == 1 ? maxim : max;
         }
-        for (int i = 0; i < 16; i++) {
+        String dateStringDebutFormat;
+        Date dateDebutFormat;
+        Date dateMaxFilter;
+        for (int i = 0; i < 17; i++) {
             ChartSeries chartSerie = new ChartSeries();
             ChartSeries barSerie = new ChartSeries();
             chartSerie.setLabel(labels.get(i));
             barSerie.setLabel(labels.get(i));
             //add all points to the serie i
             for (int j = 0; j < size; j++) {
-                chartSerie.set(times.get(j), lineResulta[i][j]);
-                barVal = barResulta[i][j];
-                barSerie.set(times.get(j), barVal);
-                max1 = barVal.compareTo(max1) == 1 ? barVal : max1;
+                dateDebutFormat = times.get(j);
+                dateMaxFilter = dateMax;
+                if (dateMaxFilter == null) {
+                    dateMaxFilter = dateDebutFormat;
+                }
+                dateStringDebutFormat = (new SimpleDateFormat("yyyy-MM-dd")).format(dateDebutFormat);
+
+                if (!dateDebutFormat.before(dateMin) && !dateDebutFormat.after(dateMaxFilter)) {
+                    chartSerie.set(dateStringDebutFormat, lineResulta[i][j]);
+                    barVal = barResulta[i][j];
+                    barSerie.set(dateStringDebutFormat, barVal);
+                    max1 = barVal.compareTo(max1) == 1 ? barVal : max1;
+                }
+
             }
             if (previous[i].compareTo(new BigDecimal(0)) == 1) {
                 model.addSeries(chartSerie);
@@ -289,7 +309,7 @@ public class Readxl {
         return timeLineModel;
     }
 
-    public Long read(InputStream inputStream, Long annee) throws IOException, BiffException {
+    public Long read(XSSFSheet sheet, Long annee) throws IOException, BiffException {
 
         Long rowsConteur = 0L;
         Panel panel;
@@ -305,112 +325,133 @@ public class Readxl {
         ChemicalComponent sio2 = chemicalComponentFacade.findByNom("SIO2");
         ChemicalComponent cd = chemicalComponentFacade.findByNom("CD");
 
-        try {
-            XSSFWorkbook wb = new XSSFWorkbook(inputStream);
-            XSSFSheet s = wb.getSheetAt(0);
-            XSSFRow row;
-            Long size = new Long(s.getLastRowNum());
-            if (size > 3600) {
-                return null;
+        XSSFSheet s = sheet;
+        XSSFRow row;
+        Long size = new Long(s.getLastRowNum());
+        if (size > 3600) {
+            return null;
+        }
+        System.out.println("siiiiiiiiiiiize : " + size);
+        Iterator<Row> rows = s.rowIterator();
+        if (annee != null) {
+            year = annee.toString();
+        }
+        while (rows.hasNext()) {
+
+            row = (XSSFRow) rows.next();
+            rowsConteur++;
+
+            if (row.getCell(18) == null) {
+                cellYear = "";
+            } else {
+                cellYear = row.getCell(18).toString();
             }
-            Iterator<Row> rows = s.rowIterator();
 
-            if (annee != null) {
-                year = annee.toString();
-            }
-            while (rows.hasNext()) {
+            if (year.equals(cellYear)) {
+                System.out.println("row   ::::::::  " + row.getRowNum());
 
-                row = (XSSFRow) rows.next();
-                rowsConteur++;
+                //geting value of cell 0 and creating panel if not exist
+                if (row.getCell(0) != null && row.getCell(1) != null && row.getCell(2) != null && row.getCell(7) != null) {
+                    valeur = row.getCell(0).toString();
+                    panel = panelFacade.createNull(valeur);
 
-                if (row.getCell(18) == null) {
-                    cellYear = "";
-                } else {
-                    cellYear = row.getCell(18).toString();
-                }
+                    //geting value of cell 1 and creating trench if not exist
+                    valeur = row.getCell(1).toString();
 
-                if (year.equals(cellYear)) {
-                    System.out.println("row   ::::::::  " + row.getRowNum());
+                    trench = trenchFacade.createNull(valeur, panel, cellYear);
 
-                    //geting value of cell 0 and creating panel if not exist
-                    if (row.getCell(0) != null && row.getCell(1) != null && row.getCell(2) != null && row.getCell(7) != null) {
-                        valeur = row.getCell(0).toString();
-                        panel = panelFacade.createNull(valeur);
+                    //geting value of cell 2 and creating parcel if not exist
+                    valeur = row.getCell(2).toString();
 
-                        //geting value of cell 1 and creating trench if not exist
-                        valeur = row.getCell(1).toString();
-
-                        trench = trenchFacade.createNull(valeur, panel);
-
-                        //geting value of cell 2 and creating parcel if not exist
-                        valeur = row.getCell(2).toString();
-
-                        parcel = parcelFacade.createNull(valeur, trench);
-
-                        if (row.getCell(4) != null && !row.getCell(4).toString().equals("")) {
-                            puissance = new Double(row.getCell(4).toString().replaceAll(",", "."));
+                    parcel = parcelFacade.createNull(valeur, trench);
+                    puissance = surface = volume = thc = taux = 0.0;
+                    if (row.getCell(4) != null && !row.getCell(4).toString().equals("") && row.getCell(4).toString().matches("-?\\d+(\\.\\d+)?")) {
+                        puissance = new Double(row.getCell(4).toString().replaceAll(",", "."));
+                        if (puissance != 0.0) {
                             //geting value of cell 3 and creating level if not exist
                             if (row.getCell(3) != null) {
                                 valeur = row.getCell(3).toString();
                             } else {
                                 valeur = "";
                             }
-                            surface = new Double(row.getCell(5).toString().replaceAll(",", "."));
-                            volume = new Double(row.getCell(6).toString().replaceAll(",", "."));
+                            if (row.getCell(5) != null && !row.getCell(5).toString().equals("") && row.getCell(5).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                surface = new Double(row.getCell(5).toString().replaceAll(",", "."));
+                            }
+                            if (row.getCell(6) != null && !row.getCell(6).toString().equals("") && row.getCell(6).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                volume = new Double(row.getCell(6).toString().replaceAll(",", "."));
+                            }
                             levelLayerFacade.createLevelNull(valeur, puissance, surface, volume, parcel);
                         }
-
-                        //geting value of cell 7 and creating layer if not exist
-                        valeur = row.getCell(7).toString();
+                    }
+                    puissance = surface = volume = thc = taux = 0.0;
+                    //geting value of cell 7 and creating layer if not exist
+                    valeur = row.getCell(7).toString();
+                    if (row.getCell(8) != null && !row.getCell(8).toString().equals("") && row.getCell(8).toString().matches("-?\\d+(\\.\\d+)?")) {
                         puissance = new Double(row.getCell(8).toString().replaceAll(",", "."));
-                        surface = new Double(row.getCell(9).toString().replaceAll(",", "."));
-                        volume = new Double(row.getCell(10).toString().replaceAll(",", "."));
-                        thc = new Double(row.getCell(11).toString().replaceAll(",", "."));
-                        taux = new Double(row.getCell(12).toString().replaceAll(",", "."));
-                        level = levelLayerFacade.createNull(valeur, parcel, puissance, surface, volume, thc, taux);
-
-                        //the cell != null and has only numbers
-                        if (row.getCell(13) != null && row.getCell(13).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            if (!row.getCell(13).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, bpl, new Double(row.getCell(13).toString().replaceAll(",", ".")));
+                        if (puissance != 0.0) {
+                            if (row.getCell(9) != null && !row.getCell(9).toString().equals("") && row.getCell(9).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                surface = new Double(row.getCell(9).toString().replaceAll(",", "."));
                             }
-                        }
-
-                        if (row.getCell(14) != null && row.getCell(14).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            if (!row.getCell(14).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, co2, new Double(row.getCell(14).toString().replaceAll(",", ".")));
+                            if (row.getCell(10) != null && !row.getCell(10).toString().equals("") && row.getCell(10).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                volume = new Double(row.getCell(10).toString().replaceAll(",", "."));
                             }
-                        }
-
-                        if (row.getCell(15) != null && row.getCell(15).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            if (!row.getCell(15).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, mgo, new Double(row.getCell(15).toString().replaceAll(",", ".")));
+                            if (row.getCell(11) != null && !row.getCell(11).toString().equals("") && row.getCell(11).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                thc = new Double(row.getCell(11).toString().replaceAll(",", "."));
                             }
-                        }
+                            taux = thc * 0.9;
+                            level = levelLayerFacade.createNull(valeur, parcel, puissance, surface, volume, thc, taux);
 
-                        if (row.getCell(16) != null && row.getCell(16).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            if (!row.getCell(16).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, sio2, new Double(row.getCell(16).toString().replaceAll(",", ".")));
+                            //the cell != null and has only numbers
+                            if (row.getCell(13) != null && row.getCell(13).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                if (!row.getCell(13).toString().equals("0.0")) {
+                                    chemicalComponentLayerFacade.createComponantLevel(level, bpl, new Double(row.getCell(13).toString().replaceAll(",", ".")));
+                                }
                             }
-                        }
 
-                        if (row.getCell(17) != null && row.getCell(17).toString().matches("-?\\d+(\\.\\d+)?")) {
-                            if (!row.getCell(17).toString().equals("0.0")) {
-                                chemicalComponentLayerFacade.createComponantLevel(level, cd, new Double(row.getCell(17).toString().replaceAll(",", ".")));
+                            if (row.getCell(14) != null && row.getCell(14).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                if (!row.getCell(14).toString().equals("0.0")) {
+                                    chemicalComponentLayerFacade.createComponantLevel(level, co2, new Double(row.getCell(14).toString().replaceAll(",", ".")));
+                                }
+                            }
+
+                            if (row.getCell(15) != null && row.getCell(15).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                if (!row.getCell(15).toString().equals("0.0")) {
+                                    chemicalComponentLayerFacade.createComponantLevel(level, mgo, new Double(row.getCell(15).toString().replaceAll(",", ".")));
+                                }
+                            }
+
+                            if (row.getCell(16) != null && row.getCell(16).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                if (!row.getCell(16).toString().equals("0.0")) {
+                                    chemicalComponentLayerFacade.createComponantLevel(level, sio2, new Double(row.getCell(16).toString().replaceAll(",", ".")));
+                                }
+                            }
+
+                            if (row.getCell(17) != null && row.getCell(17).toString().matches("-?\\d+(\\.\\d+)?")) {
+                                if (!row.getCell(17).toString().equals("0.0")) {
+                                    chemicalComponentLayerFacade.createComponantLevel(level, cd, new Double(row.getCell(17).toString().replaceAll(",", ".")));
+                                }
                             }
                         }
                     }
                 }
             }
-        } catch (IOException e) {
         }
         return rowsConteur;
     }
 
-    public void generateData(List<Parcel> ps) {
+    public String generateData(Panel pane) {
+        String filename = "";
+        List<Parcel> ps;
+        if (pane == null) {
+            ps = parcelFacade.findAllOrder();
+        } else {
+            ps = parcelFacade.findByPanel(pane.getId());
+        }
         List<Parcel> parcels = ps;
         List<String> structure, s, structsHeader = new ArrayList(), groupesHeader = new ArrayList();
         List<SubPanel> subPanels = new ArrayList();
+        List<LevelLayer> listStructure = new ArrayList();
+        List<List<LevelLayer>> listStructures = new ArrayList<List<LevelLayer>>();
         List<List<String>> structures = new ArrayList<List<String>>();
         int subPanelCntr = 0, exist = 0;
         SubPanel subPanel;
@@ -441,6 +482,8 @@ public class Readxl {
                 subPanels.add(subPanel);
                 String get = "Structure " + subPanel.getNom();
                 structures.add(structure);
+                listStructure = levelLayerFacade.findByParcel(parcel.getId());
+                listStructures.add(listStructure);
                 structsHeader.add(get);
             }
             parcel.setSubPanel(subPanel);
@@ -449,20 +492,31 @@ public class Readxl {
         if (structures.size() > 0) {
             List<List<String>> structures2 = new ArrayList<>();
             List<String> structs2;
+            List<Boolean> booleanStructure = new ArrayList();
+            List<List<Boolean>> booleanStructures = new ArrayList<List<Boolean>>();
 
             //revert the array
             for (int i = 0; i < max; i++) {
                 structs2 = new ArrayList();
+                booleanStructure = new ArrayList();
                 for (int j = 0; j < structures.size(); j++) {
                     String get;
+                    Boolean b;
                     if (structures.get(j).size() < i + 1) {
                         get = "";
                     } else {
                         get = structures.get(j).get(i);
                     }
+                    if (listStructures.get(j).size() < i + 1) {
+                        b = null;
+                    } else {
+                        b = listStructures.get(j).get(i).isPhosphate();
+                    }
                     structs2.add(get);
+                    booleanStructure.add(b);
                 }
                 structures2.add(structs2);
+                booleanStructures.add(booleanStructure);
             }
 
             //////////groupes//////////////////////////////////////////////////////////////////////////////////
@@ -470,7 +524,7 @@ public class Readxl {
             CCL ccl;
             max = 0;
             List<Integer> nombreOfGroupeByStruct = new ArrayList();
-            Long idPanel = parcel.getTrench().getPanel().getId();
+//            Long idPanel = parcel.getTrench().getPanel().getId();
             for (int i = 0; i < subPanels.size(); i++) {
                 SubPanel subPanel1 = subPanels.get(i);
                 System.out.println(subPanel1);
@@ -484,34 +538,34 @@ public class Readxl {
                 for (int j = 0; j < parcels.size(); j++) {
                     Parcel parcel1 = parcels.get(j);
 
-                    if (parcel1.getTrench().getPanel().getId().equals(idPanel)) {
-                        puissanceGroupe = levelLayerFacade.findPuissanceByParcel(parcel1.getId());
-                        if (puissanceGroupe.size() > max) {
-                            max = puissanceGroupe.size();
-                        }
-                        for (int k = 0; k < puissanceGroupes1.size(); k++) {
-                            p = puissanceGroupes1.get(k);
-                            if (compareArray(puissanceGroupe, p) == 0) {
-                                cclIndex = k;
-                                exist = 1;
-                                break;
-                            }
-                        }
-                        if (exist == 1) {
-                            ccl = ccls.get(cclIndex);
-                            exist = 0;
-                        } else {
-                            ccl = cclFacade.createGroupe("Groupe " + (puissanceGroupes1.size() + 1), subPanel1);
-                            ccls.add(ccl);
-                            String get = "Groupe " + (puissanceGroupes1.size() + 1);
-                            puissanceGroupes1.add(puissanceGroupe);
-                            groupesHeader.add(get);
-                            cclCntr++;
-                        }
-                        parcel1.setCcl(ccl);
-                        parcelFacade.edit(parcel);
-
+//                    if (parcel1.getTrench().getPanel().getId().equals(idPanel)) {
+                    puissanceGroupe = levelLayerFacade.findPuissanceByParcel(parcel1.getId());
+                    if (puissanceGroupe.size() > max) {
+                        max = puissanceGroupe.size();
                     }
+                    for (int k = 0; k < puissanceGroupes1.size(); k++) {
+                        p = puissanceGroupes1.get(k);
+                        if (compareArray(puissanceGroupe, p) == 0) {
+                            cclIndex = k;
+                            exist = 1;
+                            break;
+                        }
+                    }
+                    if (exist == 1) {
+                        ccl = ccls.get(cclIndex);
+                        exist = 0;
+                    } else {
+                        ccl = cclFacade.createGroupe("Groupe " + (puissanceGroupes1.size() + 1), subPanel1);
+                        ccls.add(ccl);
+                        String get = "Groupe " + (puissanceGroupes1.size() + 1);
+                        puissanceGroupes1.add(puissanceGroupe);
+                        groupesHeader.add(get);
+                        cclCntr++;
+                    }
+                    parcel1.setCcl(ccl);
+                    parcelFacade.edit(parcel);
+
+//                    }
                     nombreOfGroupeByStruct.add(i, cclCntr);
                 }
                 puissanceGroupes.addAll(puissanceGroupes1);
@@ -536,15 +590,21 @@ public class Readxl {
                 }
                 groupes2.add(groups2);
             }
-            parcels = parcelFacade.findByPanelAsc(parcel.getTrench().getPanel().getId());
+            parcels = ps;
             System.out.println("parcels :: " + parcels.size());
+            List<Long> conteurs = new ArrayList();
             try {
-                String filename = "D:/Structures_Panel_" + parcel.getTrench().getPanel().getNom() + ".xls";
-                HSSFWorkbook workbook = new HSSFWorkbook();
+                if (pane == null) {
+                    filename = "D:/Structures.xls";
+                } else {
+                    filename = "D:/Structures_Panel_" + parcel.getTrench().getPanel().getNom() + ".xls";
+                }
+
+                XSSFWorkbook workbook = new XSSFWorkbook();
 
                 //////////////////////Application 1////////////////////
-                HSSFSheet sheet = workbook.createSheet("Application 1");
-                HSSFRow row = sheet.createRow(0);
+                XSSFSheet sheet = workbook.createSheet("Application 1");
+                XSSFRow row = sheet.createRow(0);
                 // Create a Font for styling header cells
                 Font headerFont = workbook.createFont();
                 headerFont.setBoldweight((short) 12);
@@ -558,6 +618,7 @@ public class Readxl {
                     String struct = structsHeader.get(j);
                     row.createCell(j).setCellValue(struct);
                     row.getCell(j).setCellStyle(headerCellStyle);
+                    conteurs.add(0L);
                 }
                 //other rows
                 for (int i = 0; i < structures2.size(); i++) {
@@ -633,12 +694,14 @@ public class Readxl {
                 //////////////////////Coupes litho////////////////////
                 sheet = workbook.createSheet("Coupes litho");
                 row = sheet.createRow(0);
-                HSSFRow row2 = sheet.createRow(1);
-                headerCellStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
-                headerCellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+                XSSFRow row2 = sheet.createRow(1);
+//                CellStyle headerCellStyle1 = headerCellStyle;
+//                headerCellStyle1.setFillBackgroundColor(IndexedColors.ORANGE.index);
+//                headerCellStyle1.setAlignment(CellStyle.ALIGN_CENTER);
 
                 // Create a CellStyle for the first row
                 col1 = 0;
+                String struct;
                 for (int j = 0; j < structsHeader.size(); j++) {
                     row2.createCell(col1).setCellValue("Nom niveau");
                     row2.createCell(col1 + 1).setCellValue("Num niveau");
@@ -649,7 +712,12 @@ public class Readxl {
                     row2.createCell(col1 + 6).setCellValue("Decapage");
                     row2.createCell(col1 + 7).setCellValue("Gerbage");
                     row2.createCell(col1 + 8).setCellValue("Charg/Transport");
-                    String struct = "Panel " + parcel.getTrench().getPanel().getNom() + "_" + structsHeader.get(j);
+                    if (pane == null) {
+                        struct = "" + structsHeader.get(j);
+                    } else {
+                        struct = "Panel " + parcel.getTrench().getPanel().getNom() + "_" + structsHeader.get(j);
+                    }
+
                     row.createCell(col1).setCellValue(struct);
                     row.getCell(col1).setCellStyle(headerCellStyle);
                     col2 = col1 + 8;
@@ -662,10 +730,38 @@ public class Readxl {
                 //other rows
                 for (int i = 0; i < structures2.size(); i++) {
                     row = sheet.createRow((short) (i + 2));
+                    int k = 0;
+                    Long val;
                     List<String> structs = structures2.get(i);
                     for (int j = 0; j < structs.size(); j++) {
-                        String struct = structs.get(j);
-                        row.createCell(j).setCellValue(struct);
+                        Boolean b = booleanStructures.get(i).get(j);
+                        struct = structs.get(j);
+                        row.createCell(k).setCellValue(struct);
+                        if (b != null) {
+                            if (b) {
+                                val = conteurs.get(j) + 1;
+                                row.createCell(k + 7).setCellValue(val);
+                                val++;
+                                row.createCell(k + 8).setCellValue(val);
+                                conteurs.set(j, val);
+
+                            } else {
+                                val = conteurs.get(j) + 1;
+                                row.createCell(k + 1).setCellValue(val);
+                                val++;
+                                row.createCell(k + 2).setCellValue(val);
+                                val++;
+                                row.createCell(k + 3).setCellValue(val);
+                                val++;
+                                row.createCell(k + 4).setCellValue(val);
+                                val++;
+                                row.createCell(k + 5).setCellValue(val);
+                                val++;
+                                row.createCell(k + 6).setCellValue(val);
+                                conteurs.set(j, val);
+                            }
+                        }
+                        k += 9;
                     }
 
                 }
@@ -680,6 +776,7 @@ public class Readxl {
                 System.out.println(ex);
             }
         }
+        return filename;
     }
 
     private int compareArray(List<Double> l1, List<Double> l2) {

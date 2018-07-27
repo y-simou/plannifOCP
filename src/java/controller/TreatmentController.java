@@ -1,6 +1,11 @@
 package controller;
 
+import bean.Block;
+import bean.LevelLayer;
+import bean.Panel;
+import bean.Parcel;
 import bean.Treatment;
+import bean.Trench;
 import service.TreatmentFacade;
 
 import java.io.Serializable;
@@ -14,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("treatmentController")
 @SessionScoped
@@ -23,6 +29,114 @@ public class TreatmentController implements Serializable {
     private service.TreatmentFacade ejbFacade;
     private List<Treatment> items = null;
     private Treatment selected;
+    @EJB
+    private service.TrenchFacade trenchFacade;
+    @EJB
+    private service.ParcelFacade parcelFacade;
+    @EJB
+    private service.LevelLayerFacade levelLayerFacade;
+    @EJB
+    private service.BlockFacade blockFacade;
+    private Panel panel;
+    private Trench trench;
+    private Parcel parcel;
+    private Long levelLayer;
+    private List<Trench> trenchs;
+    private List<Parcel> parcels;
+    private List<LevelLayer> levelLayers;
+    private List<Block> blocks;
+
+    public void doActionPanel(AjaxBehaviorEvent event) {
+        trenchs = trenchFacade.findByPanel(getPanel().getId());
+    }
+
+    public void doActionTrench(AjaxBehaviorEvent event) {
+        parcels = parcelFacade.findByTrench(getTrench().getId());
+    }
+
+    public void doActionParcel(AjaxBehaviorEvent event) {
+        levelLayers = levelLayerFacade.findByParcel(getParcel().getId());
+    }
+
+    public void doActionLevel(AjaxBehaviorEvent event) {
+        blocks = blockFacade.findByLevel(levelLayer);
+    }
+
+    public Panel getPanel() {
+        if (panel == null) {
+            panel = new Panel();
+        }
+        return panel;
+    }
+
+    public void setPanel(Panel panel) {
+        this.panel = panel;
+    }
+
+    public Trench getTrench() {
+        if (trench == null) {
+            trench = new Trench();
+        }
+        return trench;
+    }
+
+    public void setTrench(Trench trench) {
+        this.trench = trench;
+    }
+
+    public Parcel getParcel() {
+        if (parcel == null) {
+            parcel = new Parcel();
+        }
+        return parcel;
+    }
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
+
+    public Long getLevelLayer() {
+//        if (levelLayer == null) {
+//            levelLayer = new LevelLayer();
+//        }
+        return levelLayer;
+    }
+
+    public void setLevelLayer(Long levelLayer) {
+        this.levelLayer = levelLayer;
+    }
+
+    public List<Trench> getTrenchs() {
+        return trenchs;
+    }
+
+    public void setTrenchs(List<Trench> trenchs) {
+        this.trenchs = trenchs;
+    }
+
+    public List<Parcel> getParcels() {
+        return parcels;
+    }
+
+    public void setParcels(List<Parcel> parcels) {
+        this.parcels = parcels;
+    }
+
+    public List<LevelLayer> getLevelLayers() {
+        return levelLayers;
+    }
+
+    public void setLevelLayers(List<LevelLayer> levelLayers) {
+        this.levelLayers = levelLayers;
+    }
+
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = blocks;
+    }
 
     public TreatmentController() {
     }
@@ -61,24 +175,40 @@ public class TreatmentController implements Serializable {
     public void create() {
         ejbFacade.create(selected);
         selected = null; // Remove selection
-        items = null;    // Invalidate list of items to trigger re-query.
+        items = ejbFacade.findAllAsc();    // Invalidate list of items to trigger re-query.
+        levelLayer = null;
+        panel = null;
+        trench = null;
+        trenchs = null;
+        parcel = null;
+        parcels = null;
+        levelLayers = null;
+        blocks= null;
     }
 
     public void update() {
         ejbFacade.edit(selected);
         selected = null; // Remove selection
-        items = null;    // Invalidate list of items to trigger re-query.
+        items = ejbFacade.findAllAsc();    // Invalidate list of items to trigger re-query.
+         levelLayer = null;
+        panel = null;
+        trench = null;
+        trenchs = null;
+        parcel = null;
+        parcels = null;
+        levelLayers = null;
+        blocks= null;
     }
 
     public void delete(Treatment treatment) {
         ejbFacade.remove(treatment);
         selected = null; // Remove selection
-        items = null;    // Invalidate list of items to trigger re-query.
+        items = ejbFacade.findAllAsc();    // Invalidate list of items to trigger re-query.
     }
 
     public List<Treatment> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAllAsc();
         }
         return items;
     }

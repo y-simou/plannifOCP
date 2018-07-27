@@ -20,7 +20,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                        Chemical Component Layer : </h1>
+                        Chemical Component Layer  </h1>
                     <hr></hr>
                     <h:form id="ChemicalComponentLayerListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -38,7 +38,21 @@
                                          rowStyleClass="high" 
                                          widgetVar="table"
                                          >
-                                <p:column filterBy="#{item.levelLayer}" headerText="Layer" filterStyle="height: 20px" filterMatchMode="contains" >
+                                <p:column filterBy="#{item.levelLayer.parcel.trench.panel.nom}" filterStyle="height: 30px !important" headerText="Panel" filterMatchMode="in">
+                                    <f:facet name="filter" >
+                                        <p:selectCheckboxMenu label="panels" onchange="PF('table').filter()" style="width : 80% !important;" panelStyle="width:125px" scrollHeight="150">
+                                            <f:selectItems value="#{panelController.itemsAvailableSelectMany}" var="p"  itemValue="#{p.nom}" itemLabel="#{p.nom}" />
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>  
+                                    <h:outputText value="#{item.levelLayer.parcel.trench.panel.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.levelLayer.parcel.trench.nom}" filterStyle="height: 20px" headerText="Trench" filterMatchMode="contains">
+                                    <h:outputText value="#{item.levelLayer.parcel.trench.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.levelLayer.parcel.nom}" filterStyle="height: 20px" headerText="Parcel" filterMatchMode="contains">
+                                    <h:outputText value="#{item.levelLayer.parcel.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.levelLayer.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains">
                                     <h:outputText value="#{item.levelLayer.nom}"/>
                                 </p:column>
                                 <p:column filterBy="#{item.chemicalComponent}"  filterStyle="" headerText="Chemical Component" filterMatchMode="exact">

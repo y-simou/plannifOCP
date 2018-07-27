@@ -32,30 +32,31 @@
                             </div>
                             <hr></hr>
                             <p:dataTable value="#{positionMachineController.items}" var="item" 
-                                         rowKey="#{item.id}"
-                                         
+                                        rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Machine"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.machine.nom}" filterStyle="height: 20px" headerText="Machine" filterMatchMode="contains" >
                                     <h:outputText value="#{item.machine.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Position Name"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.position.nom}" filterStyle="height: 20px" headerText="Position" filterMatchMode="contains" >
                                     <h:outputText value="#{item.position.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Date"/>
+                                <p:column headerText="Date"
+                                          filterFunction="#{positionMachineController.filterByDate}"
+                                          filterBy="#{item.datePosition}">
+                                    <f:facet name="filter">
+                                        <p:calendar pattern="yyyy-MM-dd" effect="fold" timeZone="Africa/Casablanca">
+                                            <p:ajax event="dateSelect" oncomplete="PF('table').filter()" />
+                                        </p:calendar>
                                     </f:facet>
-                                    <h:outputText value="#{item.datePosition}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                    <p:outputLabel value="#{item.datePosition}">
+                                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Africa/Casablanca"/>
+                                    </p:outputLabel>
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{positionMachineController.delete(item)}" update=":PositionMachineListForm" styleClass="margin"> 

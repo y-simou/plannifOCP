@@ -30,7 +30,7 @@
                                 <div class="col-md-9 col-lg-9 col-sm-9">
                                     <div class="input-group mb-3" style="vertical-align: central">
                                         <div class="input-group-prepend">
-                                            <h:commandLink class="btn btn-outline-secondary" action="#{xlController.database()}" style="background-color: grey" >Import</h:commandLink>
+                                            <h:commandLink class="btn btn-outline-secondary" action="#{xlController.database()}" style="background-color: grey" >Import &nbsp; <i class="fa fa-upload"></i></h:commandLink>
                                         </div>
                                         <div class="input-group-prepend">
                                             <p:selectOneMenu id="poste" value="#{xlController.annee}" >
@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="custom-file">
                                             <p:fileUpload value="#{xlController.file}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
-                                            <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
+                                            <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file &nbsp; <i class="fa fa-file"></i></label>
                                         </div>
                                     </div>
                                 </div>

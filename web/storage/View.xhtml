@@ -8,43 +8,47 @@
 
     <ui:composition>
 
-        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="50%" showHeader="false">
             <h:form id="StorageViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
-                        <h4 align="center">More informations :</h4>
+                        <h4 align="center">More informations </h4>
                         <hr></hr>
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{storageController.selected.id}" />
-                                </div>
                                 <div class="col-md-4">
                                     <h:outputText value="Stock :"/>
                                     <h:outputText value=" #{storageController.selected.stock.nom}" title="Stock"/>
                                 </div>
-                                <div class="col-md-5">
-                                    <h:outputText value="Quantity :"/>
-                                    <h:outputText value=" #{storageController.selected.quantity} Tn" title="Quantity"/>
+                                <div class="col-md-4">
+                                    <h:outputText value="Site :"/>
+                                    <h:outputText value=" #{storageController.selected.stock.site.nom}" title="Stock"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputLabel value="machine :"/>
+                                    <h:outputText value=" #{storageController.selected.machine.nom}" />
                                 </div>
                             </div>
                             <hr></hr>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputLabel value="machine :"/>
-                                    <h:outputText value=" #{storageController.selected.machine.nom}" />
-                                </div>
                                 <div class="col-md-4">
                                     <h:outputText value="Block : "/>
-                                    <h:outputText value=" #{storageController.selected.block.nom}" title="Block"/>
+                                    <h:outputText value="P #{storageController.selected.block.level.parcel.trench.panel.nom} - 
+                                                  T #{storageController.selected.block.level.parcel.trench.nom} - 
+                                                  P #{storageController.selected.block.level.parcel.nom} - 
+                                                  L #{storageController.selected.block.level.nom} -
+                                                  #{storageController.selected.block.nom}" title="Block" rendered="#{storageController.selected.block.id ne null}"/>
                                 </div>
-                                <div class="col-md-5">
-                                    <h:outputText value="Date Transport :"/>
+                                <div class="col-md-4">
+                                    <h:outputText value="Date :"/>
                                     <h:outputText value="#{storageController.selected.dateTransport}" title="Date Transport">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        <f:convertDateTime pattern="dd-MM-yyyy"  timeZone="Africa/Casablanca"/>
                                     </h:outputText>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value="Quantity :"/>
+                                    <h:outputText value=" #{storageController.selected.quantity} Tn" title="Quantity" rendered="#{storageController.selected.quantity ne null}"/>
                                 </div>
                             </div>
                         </div>

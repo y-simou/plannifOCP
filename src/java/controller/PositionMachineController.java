@@ -5,7 +5,9 @@ import bean.PositionMachine;
 import service.PositionMachineFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -30,6 +32,19 @@ public class PositionMachineController implements Serializable {
     private PositionFacade positionFacade;
     private Position position;
 
+    public boolean filterByDate(Object value, Object filter, Locale locale) {
+
+        if (filter == null) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        return !((Date) value).before((Date) filter);
+    }
+
     public String redirect() {
         return "/positionMachine/List?faces-redirect=true";
     }
@@ -51,16 +66,14 @@ public class PositionMachineController implements Serializable {
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
-    
-    public void createPosition(){
+
+    public void createPosition() {
         RequestContext context = RequestContext.getCurrentInstance();
         positionFacade.creer(position);
         selected.setPosition(null);
-        context.update("position");
+        context.update(":PositionMachineCreateForm:position");
         selected.setPosition(position);
-        System.out.println(position);
-        System.out.println(selected);
-        position=null;
+        position = null;
         context.execute("PF('PositionMachineEditDialog').show();");
     }
 
@@ -68,7 +81,7 @@ public class PositionMachineController implements Serializable {
     }
 
     public PositionMachine getSelected() {
-        if (selected==null) {
+        if (selected == null) {
             selected = new PositionMachine();
         }
         return selected;
@@ -89,8 +102,8 @@ public class PositionMachineController implements Serializable {
     }
 
     public Position getPosition() {
-        if (position ==null) {
-            position= new Position();
+        if (position == null) {
+            position = new Position();
         }
         return position;
     }

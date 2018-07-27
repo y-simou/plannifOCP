@@ -57,6 +57,15 @@ public class Trench implements Serializable {
         this.nom = nom;
         this.panel = panel;
     }
+
+    public Trench(Long id, String nom, Date datePDebutExploitation, Panel panel) {
+        this.id = id;
+        this.nom = nom;
+        this.datePDebutExploitation = datePDebutExploitation;
+        this.panel = panel;
+    }
+    
+    
     
     public Trench(String nom, Long surface, Date datePDebutExploitation, Date datePFinExploitation, Long reserves, Long x, Long y, Panel panel) {
         this.nom = nom;

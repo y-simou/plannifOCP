@@ -21,71 +21,69 @@
                 <div class="content">
                     <hr></hr>
                     <h1 align="center"> 
-                        Trench : </h1>
+                        Trench  </h1>
                     <hr></hr>
                     <h:form id="TrenchListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
-                        <div class="container">
+                        <div class="container-fluid">
                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('TrenchCreateDialog').show()" />
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('TrenchCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{trenchController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         
+                                         paginator="true"
+                                         rows="20"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Surface"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.surface}" filterStyle="height: 20px" headerText="Surface" filterMatchMode="contains" >
                                     <h:outputText value="#{item.surface}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Start of Operation"/>
+                                <p:column headerText="Start"
+                                          filterFunction="#{trenchController.filterByDate}"
+                                          filterBy="#{item.datePDebutExploitation}">
+                                    <f:facet name="filter">
+                                        <p:calendar pattern="yyyy-MM-dd" effect="fold" timeZone="Africa/Casablanca">
+                                            <p:ajax event="dateSelect" oncomplete="PF('table').filter()" />
+                                        </p:calendar>
                                     </f:facet>
-                                    <h:outputText value="#{item.datePDebutExploitation}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                    <p:outputLabel value="#{item.datePDebutExploitation}">
+                                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Africa/Casablanca"/>
+                                    </p:outputLabel>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="End of Operation"/>
+                                <p:column headerText="End"
+                                          filterFunction="#{trenchController.filterByDate}"
+                                          filterBy="#{item.datePFinExploitation}">
+                                    <f:facet name="filter">
+                                        <p:calendar pattern="yyyy-MM-dd" effect="fold" timeZone="Africa/Casablanca">
+                                            <p:ajax event="dateSelect" oncomplete="PF('table').filter()" />
+                                        </p:calendar>
                                     </f:facet>
-                                    <h:outputText value="#{item.datePFinExploitation}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                    <p:outputLabel value="#{item.datePFinExploitation}">
+                                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Africa/Casablanca"/>
+                                    </p:outputLabel>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Reserves"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.reserves}" filterStyle="height: 20px" headerText="Reserves" filterMatchMode="contains" >
                                     <h:outputText value="#{item.reserves}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="X"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.x}" filterStyle="height: 20px" headerText="X" filterMatchMode="contains" >
                                     <h:outputText value="#{item.x}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Y"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.y}" filterStyle="height: 20px" headerText="Y" filterMatchMode="contains" >
                                     <h:outputText value="#{item.y}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Panel"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.panel.nom}" filterStyle="height: 30px !important" headerText="Panel" filterMatchMode="in">
+                                    <f:facet name="filter" >
+                                        <p:selectCheckboxMenu label="panels" onchange="PF('table').filter()" style="width : 80% !important;" panelStyle="width:125px" scrollHeight="150">
+                                            <f:selectItems value="#{panelController.itemsAvailableSelectMany}" var="p"  itemValue="#{p.nom}" itemLabel="#{p.nom}" />
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>  
                                     <h:outputText value="#{item.panel.nom}"/>
                                 </p:column>
                                 <p:column> 

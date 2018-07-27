@@ -33,10 +33,13 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
     }
 
     public void delete(Parcel parcel) {
-        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.parcel.trench.panel.id='" + parcel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.parcel.trench.panel.id='" + parcel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Storage st where st.block.parcel.trench.panel.id='" + parcel.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE FROM Block b where b.parcel.trench.panel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM StatutBlock sb where sb.block.level.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Treatment tr where tr.block.level.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Storage st where st.block.level.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM Block b where b.level.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM ChemicalComponentLayer ccl where ccl.layer.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM CompositionLevelSequence cls where cls.level.parcel.id='" + parcel.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM LevelLayer ll where ll.parcel.id='" + parcel.getId() + "'").executeUpdate();
         remove(parcel);
     }
 
@@ -48,6 +51,10 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
             return ps.get(0);
         }
 
+    }
+    
+    public List<Parcel> findByTrench(Long trench) {
+        return getEntityManager().createQuery("SELECT p FROM Parcel p where p.trench.id='" + trench + "'").getResultList();
     }
 
     public Parcel createNull(String nom, Trench trench) {
@@ -78,6 +85,6 @@ public class ParcelFacade extends AbstractFacade<Parcel> {
     }
     
     public List<Parcel> findAllOrder() {
-        return getEntityManager().createQuery("SELECT p From Parcel p ORDER BY p.trench.panel.id, p.trench.id").getResultList();
+        return getEntityManager().createQuery("SELECT p From Parcel p ORDER BY p.trench.panel.id, p.trench.id, p.subPanel.id, p.ccl.id").getResultList();
     }
 }

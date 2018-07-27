@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="TrenchViewDlg" widgetVar="TrenchViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="410" showHeader="false">
+        <p:dialog id="TrenchViewDlg" widgetVar="TrenchViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="70%" showHeader="false">
             <h:form id="TrenchViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,28 +17,24 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{trenchController.selected.id}" />
-                                </div>
-                                <div class="col-md-4">
-                                    <h:outputLabel value="Name :"/>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Name "/>
                                     <h:outputText value=" #{trenchController.selected.nom}" />
                                 </div>
-                                <div class="col-md-5">
-                                    <h:outputLabel value="Surface :"/>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Surface "/>
                                     <h:outputText value=" #{trenchController.selected.surface}" />
                                 </div>
                             </div>
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputText value="X :"/>
+                                    <h:outputText value="X "/>
                                     <h:outputText value=" #{trenchController.selected.x}" title="X"/>
 
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="Y :"/>
+                                    <h:outputText value="Y "/>
                                     <h:outputText value=" #{trenchController.selected.y}" title="Y"/>
 
                                 </div>
@@ -46,11 +42,11 @@
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputText value="Panel :"/>
+                                    <h:outputText value="Panel "/>
                                     <h:outputText value=" #{trenchController.selected.panel.nom}" title="Panel"/>
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="Reserves :"/>
+                                    <h:outputText value="Reserves "/>
                                     <h:outputText value=" #{trenchController.selected.reserves}" title="Reserves"/>
 
                                 </div>
@@ -58,16 +54,16 @@
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputText value="Start of Operation :"/>
+                                    <h:outputText value="Start "/>
                                     <h:outputText value="#{trenchController.selected.datePDebutExploitation}" title="Start of Operation">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Africa/Casablanca"/>
                                     </h:outputText>
 
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="End of Operation :"/>
+                                    <h:outputText value="End "/>
                                     <h:outputText value="#{trenchController.selected.datePFinExploitation}" title="End of Operation">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Africa/Casablanca"/>
                                     </h:outputText>
 
                                 </div>

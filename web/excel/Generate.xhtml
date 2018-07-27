@@ -32,6 +32,7 @@
                                 </p:column>
                                 <p:column styleClass="text-font">
                                     <p:selectOneMenu id="panel" value="#{xlController.panel}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                        <f:selectItem value="#{null}" itemLabel="--PANEL--" />
                                         <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
                                                        var="panel"
                                                        itemValue="#{panel}"
@@ -39,7 +40,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column styleClass="text-font">
-                                    <h:commandLink class="btn btn-outline-secondary" action="#{xlController.generate()}" style="background-color: grey" >Generate</h:commandLink>
+                                    <h:commandLink class="btn btn-outline-secondary" action="#{xlController.generate()}" style="background-color: grey" >Generate &nbsp; <i class="fa fa-download"></i></h:commandLink>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

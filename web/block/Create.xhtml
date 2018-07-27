@@ -51,14 +51,61 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Level" for="level" />
+                                            <p:outputLabel value="Panel" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="level" value="#{blockController.selected.level}" >
-                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                                               var="levelItem"
-                                                               itemLabel="#{levelItem.toString()}"
-                                                               itemValue="#{levelItem}"
+                                            <p:selectOneMenu value="#{blockController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{blockController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{blockController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{blockController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{blockController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{blockController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{blockController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{blockController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{blockController.levelLayer}" >
+                                                <f:selectItems value="#{blockController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel="#{l.nom}"
                                                                />
                                             </p:selectOneMenu>
 

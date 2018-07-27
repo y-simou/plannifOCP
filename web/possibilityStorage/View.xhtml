@@ -7,7 +7,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PossibilityStorageViewDlg" widgetVar="PossibilityStorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+        <p:dialog id="PossibilityStorageViewDlg" widgetVar="PossibilityStorageViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="40%" showHeader="false">
             <h:form id="PossibilityStorageViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -16,17 +16,19 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{possibilityStorageController.selected.id}" />
+                                <div class="col-md-4">
+                                    <h:outputText value="Stock  "/>
+                                    <h:outputText value="  #{possibilityStorageController.selected.stock.nom}" title="Stock"/>
                                 </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Stock :"/>
-                                    <h:outputText value=" #{possibilityStorageController.selected.stock.nom}" title="Stock"/>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <h:outputText value="Level :"/>
-                                    <h:outputText value=" #{possibilityStorageController.selected.level.nom}" title="Level"/>
+                                    <h:outputText value=" P #{possibilityStorageController.selected.level.parcel.trench.panel.nom} - 
+                                                  T #{possibilityStorageController.selected.level.parcel.trench.nom} - 
+                                                  P #{possibilityStorageController.selected.level.parcel.nom} - 
+                                                  #{possibilityStorageController.selected.level.nom}" title="Level" rendered="#{possibilityStorageController.selected.level.id ne null}"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:outputText value=" #{possibilityStorageController.selected.possibility ? 'possible' : 'impossible'}" />
                                 </div>
                             </div>
                             <hr></hr>

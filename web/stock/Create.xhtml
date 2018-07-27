@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="StockCreateDlg" widgetVar="StockCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+        <p:dialog id="StockCreateDlg" widgetVar="StockCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="40%" height="50%" showHeader="false">
 
             <h:form id="StockCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Create Stock :</h4>
+                    <h4 align="center">Create Stock </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -22,13 +22,13 @@
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Name :  " for="nom" />
+                                            <p:outputLabel value="Name  " for="nom" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="nom" value="#{stockController.selected.nom}" title="Nom" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Capacity :" for="capacity" />
+                                            <p:outputLabel value="Capacity " for="capacity" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="capacity" value="#{stockController.selected.capacity}" title="Capacity" />
@@ -36,7 +36,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="initial Quantity :" for="initialQte" />
+                                            <p:outputLabel value="initial Quantity " for="initialQte" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="initialQte" value="#{stockController.selected.initialQte}" title="initial Quantity" />

@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PanelViewDlg" widgetVar="PanelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="900" height="330" showHeader="false">
+        <p:dialog id="PanelViewDlg" widgetVar="PanelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="60%" showHeader="false">
             <h:form id="PanelViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,41 +17,40 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{panelController.selected.id}" />
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <h:outputText value="Name :"/>
                                     <h:outputText value=" #{panelController.selected.nom}" title="Name"/>
                                 </div> 
                                 <div class="col-md-4">
-                                    <h:outputText value="Date P Debut Exploitation : "/>
-                                    <h:outputText value="#{panelController.selected.datePDebutExploitation}" title="Date P Debut Exploitation">
+                                    <h:outputText value="Date Debut Exploitation "/>
+                                    <h:outputText value="#{panelController.selected.datePDebutExploitation}" title="Date Debut Exploitation">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                 </div>
-                                <div class="col-md-3">
-                                    <h:outputText value="X"/>
-                                    <h:outputText value=" #{panelController.selected.x}" title="X"/>
+
+                                <div class="col-md-4">
+                                    <h:outputText value="Date Fin Exploitation "/>
+                                    <h:outputText value="#{panelController.selected.datePFinExploitation}" title="Date Fin Exploitation">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
                                 </div>
 
                             </div>
                             <hr></hr>
-                            <div class="row"><div class="col-md-2">
-                                    <h:outputText value="Surface : "/>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputText value="Surface  "/>
                                     <h:outputText value=" #{panelController.selected.surface}" title="Surface"/>
                                 </div>
+                                
                                 <div class="col-md-3">
-                                    <h:outputText value="Reserves : "/>
+                                    <h:outputText value="Reserves  "/>
                                     <h:outputText value=" #{panelController.selected.reserves}" title="Reserves"/>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <h:outputText value="Date P Fin Exploitation :"/>
-                                    <h:outputText value="#{panelController.selected.datePFinExploitation}" title="Date P Fin Exploitation">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                
+                                <div class="col-md-3">
+                                    <h:outputText value="X"/>
+                                    <h:outputText value=" #{panelController.selected.x}" title="X"/>
                                 </div>
 
                                 <div class="col-md-3">

@@ -4,7 +4,10 @@ import bean.Trench;
 import service.TrenchFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -23,6 +26,19 @@ public class TrenchController implements Serializable {
     private service.TrenchFacade ejbFacade;
     private List<Trench> items = null;
     private Trench selected;
+
+    public boolean filterByDate(Object value, Object filter, Locale locale) {
+
+        if (filter == null) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        return !((Date) value).before((Date) filter);
+    }
 
     public TrenchController() {
     }

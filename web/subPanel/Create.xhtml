@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="50%" showHeader="false">
+        <p:dialog id="SubPanelCreateDlg" widgetVar="SubPanelCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="35%" height="40%" showHeader="false">
 
             <h:form id="SubPanelCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -19,17 +19,8 @@
                     <div class="container" align="center">
                         <div class="row">
                             <div class="col-md-12">
-                                <p:panelGrid columns="2" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:outputLabel value="name  " for="nom" />
-                                    <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="Name" />
-                                    <p:outputLabel value="Panel " for="panel" />
-                                    <p:selectOneMenu id="panel" value="#{subPanelController.selected.panel}" >
-                                        <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
-                                                       var="panelItem"
-                                                       itemLabel="#{panelItem.nom}"
-                                                       itemValue="#{panelItem}"/>
-                                    </p:selectOneMenu>
-                                </p:panelGrid>
+                                <p:outputLabel value="name  " for="nom" />&nbsp;&nbsp;
+                                <p:inputText id="nom" value="#{subPanelController.selected.nom}" title="Name" />
                             </div>
                         </div>
                         <hr></hr>

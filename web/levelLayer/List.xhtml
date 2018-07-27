@@ -24,70 +24,54 @@
                     <hr></hr>
                     <h:form id="LevelLayerListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
-                        <div class="container">
+                        <div class="container-fluid">
                              <div align="right">
                              <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('LevelLayerCreateDialog').show()" />
                             </div>
                              <hr></hr>
                             <p:dataTable value="#{levelLayerController.items}" var="item" 
                                        rowKey="#{item.id}"
-                                         
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;width :100%" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Parcel"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.parcel.nom}"/>
+                                <p:column filterBy="#{item.parcel.trench.panel.nom} - #{item.parcel.trench.nom} - #{item.parcel.nom}" filterStyle="height: 20px" headerText="Pan Tr Parcel" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.parcel.trench.panel.nom} - #{item.parcel.trench.nom} - #{item.parcel.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Sequence"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.sequenceNiveau}" filterStyle="height: 20px" headerText="Sequence" filterMatchMode="contains" >
                                     <h:outputText value="#{item.sequenceNiveau}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Puissance"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.puissance}" filterStyle="height: 20px" headerText="Puissance" filterMatchMode="contains" >
                                     <h:outputText value="#{item.puissance}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Surface"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.surface}" filterStyle="height: 20px" headerText="Surface" filterMatchMode="contains" >
                                     <h:outputText value="#{item.surface}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Volume"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.volume}" filterStyle="height: 20px" headerText="Volume" filterMatchMode="contains" >
                                     <h:outputText value="#{item.volume}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Taux recuperation "/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.tauxrecup}" filterStyle="height: 20px" headerText="Taux recup" filterMatchMode="contains" >
                                     <h:outputText value="#{item.tauxrecup}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="THC"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.thc}" filterStyle="height: 20px" headerText="THC" filterMatchMode="contains" >
                                     <h:outputText value="#{item.thc}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Type"/>
+                                <p:column filterBy="#{item.phosphate}" headerText="Layer ?" filterMatchMode="equals">
+                                    <f:facet name="filter">
+                                        <p:selectOneButton onchange="PF('table').filter()">
+                                            <f:converter converterId="javax.faces.Boolean" />
+                                            <f:selectItem itemLabel="All" itemValue="" />
+                                            <f:selectItem itemLabel="yes" itemValue="true" />
+                                            <f:selectItem itemLabel="no" itemValue="false" />
+                                        </p:selectOneButton>
                                     </f:facet>
-                                    <h:outputText value=" #{item.phosphate ? 'Layer' : 'Sterile'}" title="Type"/>
+                                    <h:outputText value="#{item.phosphate ? 'Layer' : 'Sterile'}" />
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{levelLayerController.delete(item)}" update=":LevelLayerListForm" styleClass="margin"> 

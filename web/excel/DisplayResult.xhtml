@@ -33,42 +33,81 @@
                                 <div class="input-group mb-3" style="vertical-align: central">
                                     <div class="input-group-prepend">
 
-                                        <label >Date of simulation </label>
-                                        <p:calendar id="datePosition" pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateDebut}" title="Date" effect="fold" />
+                                        <label >Date of simulation &nbsp;</label>
+                                        <p:calendar pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateDebutSimulation}" title="Date" effect="fold" showOn="button" />
                                     </div>
                                     <div class="custom-file">
 
                                         <p:fileUpload value="#{xlController.fileGraphe}" class="custom-file-input" id="inputGroupFile" mode="simple"/>
-                                        <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file</label>
-                                        <h:commandLink class="btn btn-outline-secondary" action="#{xlController.afficherChart()}" style="background-color: grey;border-radius: 0px;width: 50%;line-height: 20px;" >Display</h:commandLink>
+                                        <label class="custom-file-label" style="width: 50%" for="inputGroupFile">Choose file &nbsp; <i class="fa fa-file"></i></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <br></br>
+                        <p:panelGrid id="filterMinMax" style="margin: 0 auto;width: 100%" >
+                            <p:row>
+                                <p:column styleClass="text-font">
+                                    <p:outputLabel value="Show Results "/>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <p:outputLabel value="From "/>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <p:calendar pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateDebutFilter}" title="Date" showOn="button" effect="fold" />
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <p:outputLabel value="To "/>
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <p:calendar pattern="dd/MM/yyyy HH:mm:ss" value="#{xlController.dateFinFilter}" title="Date" showOn="button" effect="fold" />
+                                </p:column>
+                                <p:column styleClass="text-font">
+                                    <h:commandLink class="btn btn-outline-secondary" action="#{xlController.afficherChart()}" style="background-color: grey;border-radius: 0px;width: 80%;line-height: 20px;" >Display &nbsp; <i class="fa fa-line-chart" ></i></h:commandLink>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
-                                <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="height:100%;width: 100%;" styleClass="text-size15"/>
+                                <p:chart id="lineChart" type="line" model="#{xlController.lineCharModel}" style="width: 85%;height:600px; margin: 0 auto;" class="my-line-chart" styleClass="text-size15"/>
                             </div>
                         </div>
+                        <script>
+                            function extLegendLine()
+                            {
+                                this.cfg.highlighter = {show: true, tooltipAxes: 'y', useAxesFormatters: false, tooltipFormatString: "%'d"};
+                                this.cfg.seriesDefaults = {
+                                    showMarker: false
+//                                    }
+                                };
+                            };
+                        </script>
+                        <br></br>
+                        <br></br>
+                        <hr></hr>
                         <br></br>
                         <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
-                                <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="height:100%;width: 100%;" styleClass="text-size15" >
+                                <p:chart id="barChart" type="bar" model="#{xlController.barModel}" style="width: 85%;height:600px; margin: 0 auto;" class="my-line-chart" styleClass="text-size15" >
                                 </p:chart>
                             </div>
                         </div>
-
                         <script>
-                            function extLegend()
+                            function extLegendBar()
                             {
-                                this.cfg.legend = {
-                                    show: true,
-                                    location: 'e',
-                                    placement: 'outsideGrid'
-                                };
-                            }
+//                                this.cfg.seriesDefaults = {
+//                                    showMarker: false
+////                                    }
+//                                };
+                                this.cfg.highlighter = {show: true, tooltipAxes: 'y', useAxesFormatters: false, tooltipFormatString: "%'d"};
+                            };
                         </script>
+                        <br></br>
+                        <br></br>
+                        <hr></hr>
+                        <br></br>
                         <br></br>
                         <p:panelGrid id="filter" style="margin: 0 auto;width: 100%" rendered="#{xlController.machines.size() > 0}" >
                             <p:row>
@@ -76,18 +115,18 @@
                                     <p:outputLabel value="Machine "/>
                                 </p:column>
                                 <p:column styleClass="text-font">
-                                    <h:selectOneMenu id="machine" value="#{xlController.machineFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                    <p:selectOneMenu id="machine" value="#{xlController.machineFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
                                         <f:selectItem value="#{null}" itemLabel="-- SELECT MACHINE --" />
                                         <f:selectItems value="#{xlController.machines}"
                                                        var="machineItem"
                                                        itemValue="#{machineItem}" />
-                                    </h:selectOneMenu>
+                                    </p:selectOneMenu>
                                 </p:column>
                                 <p:column styleClass="text-font">
                                     <p:outputLabel value="Operation "/>
                                 </p:column>
                                 <p:column styleClass="text-font">
-                                    <h:selectOneMenu id="operation" value="#{xlController.operationFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
+                                    <p:selectOneMenu id="operation" value="#{xlController.operationFilter}" style="width: 60%;border-radius: 0px;line-height: 20px;">
                                         <f:selectItem value="#{null}" itemLabel="-- SELECT OPERATION --" />
                                         <f:selectItem itemValue="#{'amenagementforation'}" itemLabel="Amenagement Foration"/>
                                         <f:selectItem itemValue="#{'amenagementdecapage'}" itemLabel="Amenagement Decapage"/>
@@ -96,10 +135,10 @@
                                         <f:selectItem itemValue="#{'chargement'}" itemLabel="Chargement"/>
                                         <f:selectItem itemValue="#{'gerbage'}" itemLabel="Gerbage"/>
                                         <f:selectItem itemValue="#{'sautage'}" itemLabel="Sautage"/>
-                                    </h:selectOneMenu>
+                                    </p:selectOneMenu>
                                 </p:column>
                                 <p:column styleClass="text-font">
-                                    <h:commandLink class="btn btn-outline-secondary" actionListener="#{xlController.filterGantt}" value="Filter" style="background-color: grey;border-radius: 0px;width: 70%;line-height: 20px;" >
+                                    <h:commandLink class="btn btn-outline-secondary" actionListener="#{xlController.filterGantt}" value="Filter " style="background-color: grey;border-radius: 0px;width: 70%;line-height: 20px;" >&nbsp;<i class="fa fa-filter"></i>
                                     </h:commandLink>
                                 </p:column>
                             </p:row>
@@ -107,15 +146,17 @@
                         <br></br>
                         <div Class="ui-grid-row">
                             <div Class="ui-grid-col-12"> 
-                                <p:timeline id="timeline" value="#{xlController.timeLineModel}" 
-                                            editable="false" eventMargin="8" eventMarginAxis="0" 
-                                            start="#{xlController.start}" 
-                                            end="#{xlController.end}" 
-                                            var="event"
-                                            showNavigation="true" zoomable="true" showButtonNew="false" 
-                                            axisOnTop="true" style="border-radius: 0px ! important;line-height: 20px;" stackEvents="false">
-                                    <p:ajax event="select" listener="#{xlController.onSelect}" />
-                                </p:timeline>
+                                <h:form id="timeline">
+                                    <p:timeline value="#{xlController.timeLineModel}" 
+                                                editable="false" eventMargin="8" eventMarginAxis="0" 
+                                                start="#{xlController.start}" 
+                                                end="#{xlController.end}" 
+                                                var="event"
+                                                showNavigation="true" zoomable="true" showButtonNew="false" 
+                                                axisOnTop="true" style="border-radius: 0px ! important;line-height: 20px;" stackEvents="false">
+                                        <p:ajax event="select" listener="#{xlController.onSelect}" process="timeline" />
+                                    </p:timeline>
+                                </h:form>
                             </div>
                         </div>
                         <br></br>
@@ -125,6 +166,14 @@
             </div>
 
             <style type="text/css">
+                .my-line-chart {
+                    height: auto; 
+                    min-height: 100%;
+                    width:  auto;
+                    min-width: 100%;
+                    border: none;  
+                }
+
                 /* Custom styles for the Timeline */  
                 div.timeline-frame {  
                     border-color: #5D99C3;  

@@ -1,6 +1,10 @@
 package controller;
 
+import bean.LevelLayer;
+import bean.Panel;
+import bean.Parcel;
 import bean.PossibilityStorage;
+import bean.Trench;
 import service.PossibilityStorageFacade;
 
 import java.io.Serializable;
@@ -14,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("possibilityStorageController")
 @SessionScoped
@@ -23,6 +28,99 @@ public class PossibilityStorageController implements Serializable {
     private service.PossibilityStorageFacade ejbFacade;
     private List<PossibilityStorage> items = null;
     private PossibilityStorage selected;
+    @EJB
+    private service.TrenchFacade trenchFacade;
+    @EJB
+    private service.ParcelFacade parcelFacade;
+    @EJB
+    private service.LevelLayerFacade levelLayerFacade;
+    private Panel panel;
+    private Trench trench;
+    private Parcel parcel;
+    private Long levelLayer;
+    private List<Trench> trenchs;
+    private List<Parcel> parcels;
+    private List<LevelLayer> levelLayers;
+
+    public void doActionPanel(AjaxBehaviorEvent event) {
+        trenchs = trenchFacade.findByPanel(panel.getId());
+        panel = null;
+    }
+
+    public void doActionTrench(AjaxBehaviorEvent event) {
+        parcels = parcelFacade.findByTrench(trench.getId());
+        trench = null;
+    }
+
+    public void doActionParcel(AjaxBehaviorEvent event) {
+        levelLayers = levelLayerFacade.findByParcel(parcel.getId());
+        parcel = null;
+    }
+
+    public Panel getPanel() {
+        if (panel == null) {
+            panel = new Panel();
+        }
+        return panel;
+    }
+
+    public void setPanel(Panel panel) {
+        this.panel = panel;
+    }
+
+    public Trench getTrench() {
+        if (trench == null) {
+            trench = new Trench();
+        }
+        return trench;
+    }
+
+    public void setTrench(Trench trench) {
+        this.trench = trench;
+    }
+
+    public Parcel getParcel() {
+        if (parcel == null) {
+            parcel = new Parcel();
+        }
+        return parcel;
+    }
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
+
+    public Long getLevelLayer() {
+        return levelLayer;
+    }
+
+    public void setLevelLayer(Long levelLayer) {
+        this.levelLayer = levelLayer;
+    }
+
+    public List<Trench> getTrenchs() {
+        return trenchs;
+    }
+
+    public void setTrenchs(List<Trench> trenchs) {
+        this.trenchs = trenchs;
+    }
+
+    public List<Parcel> getParcels() {
+        return parcels;
+    }
+
+    public void setParcels(List<Parcel> parcels) {
+        this.parcels = parcels;
+    }
+
+    public List<LevelLayer> getLevelLayers() {
+        return levelLayers;
+    }
+
+    public void setLevelLayers(List<LevelLayer> levelLayers) {
+        this.levelLayers = levelLayers;
+    }
 
     public PossibilityStorageController() {
     }
@@ -59,13 +157,13 @@ public class PossibilityStorageController implements Serializable {
     }
 
     public void create() {
-        ejbFacade.create(selected);
+        ejbFacade.create(getSelected(), levelLayer);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public void update() {
-        ejbFacade.edit(selected);
+        ejbFacade.update(getSelected(), levelLayer);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
@@ -77,9 +175,7 @@ public class PossibilityStorageController implements Serializable {
     }
 
     public List<PossibilityStorage> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = ejbFacade.findAll();
         return items;
     }
 

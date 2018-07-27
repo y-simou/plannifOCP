@@ -8,6 +8,7 @@ package controller;
 import bean.Annee;
 import bean.Panel;
 import bean.Parcel;
+import controller.util.DateUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
@@ -24,6 +25,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import jxl.read.biff.BiffException;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.context.RequestContext;
@@ -33,6 +35,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.timeline.TimelineModel;
 import service.ParcelFacade;
@@ -66,7 +69,9 @@ public class XlController implements Serializable {
     private Date end;
     private String machineFilter;
     private String operationFilter;
-    private Date dateDebut;
+    private Date dateDebutSimulation;
+    private Date dateDebutFilter;
+    private Date dateFinFilter;
     private List<String> machines;
     //generation data
     private Panel panel;
@@ -76,16 +81,22 @@ public class XlController implements Serializable {
         showMessage("Succesful " + file.getFileName() + " is uploaded.");
     }
 
-    public void database() {
+    public void database() throws IOException, BiffException {
         try {
-            Long size = ejbFacade.read(file.getInputstream(), getAnnee().getAnnee());
-            if (size == null) {
-                showErrorMessage("the File is Big,\n max is 3500 Rows");
-            } else {
-                String msg = size + " Rows Executed.";
-                showMessage(msg);
-                msg = Readxl.panelConteur + " Panels Added. " + Readxl.trenchConteur + " Trenchs Added. \n" + Readxl.parcelConteur + " Parcels Added. " + Readxl.layerConteur + " Layers, \n" + Readxl.layerConteur * 5 + " Chemical Component Layer Added.";
-                showMessage(msg);
+            InputStream excelFile = file.getInputstream();
+            if (excelFile.available() != 0) {
+                XSSFWorkbook wb = new XSSFWorkbook(excelFile);
+                XSSFSheet s = wb.getSheetAt(0);
+                Long size = new Long(s.getLastRowNum());
+                if (size < 3600) {
+                    size = ejbFacade.read(s, getAnnee().getAnnee());
+                    String msg = size + " Rows Executed.";
+                    showMessage(msg);
+                    msg = Readxl.panelConteur + " Panels Added. " + Readxl.trenchConteur + " Trenchs Added. \n" + Readxl.parcelConteur + " Parcels Added. " + Readxl.layerConteur + " Layers, \n" + Readxl.layerConteur * 5 + " Chemical Component Layer Added.";
+                    showMessage(msg);
+                } else {
+                    showErrorMessage("the File is Big,\n max is 3500 Rows");
+                }
             }
         } catch (IOException | BiffException ex) {
             Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,10 +112,9 @@ public class XlController implements Serializable {
             showMessage("Please Choose an Excel File");
         } else {
             try {
-                timeLineModel = ejbFacade.filterGantt(timeLineModelCtrl, getOperationFilter(), getMachineFilter(), dateDebut);
-                String machine, operation;
+                timeLineModel = ejbFacade.filterGantt(timeLineModelCtrl, getOperationFilter(), getMachineFilter(), dateDebutSimulation);
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("timeline");
+                context.update(":DisplayDataForm:timeline");
             } catch (IOException ex) {
                 showErrorMessage("error of reading Graphe file");
             }
@@ -114,13 +124,17 @@ public class XlController implements Serializable {
     public void afficherChart() throws IOException {
         try {
             InputStream excelFile = fileGraphe.getInputstream();
-            XSSFWorkbook wb = new XSSFWorkbook(excelFile);
-            sheet = wb.getSheetAt(0);
+            if (excelFile.available() != 0) {
+                XSSFWorkbook wb = new XSSFWorkbook(excelFile);
+                sheet = wb.getSheetAt(0);
+                createLineModels();
+            } else {
+                showErrorMessage("Please Choose an Excel File to Display Data");
+            }
         } catch (IOException ex) {
             Logger.getLogger(XlController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        createLineModels();
     }
 
     private void createLineModels() {
@@ -129,14 +143,15 @@ public class XlController implements Serializable {
             showMessage("Please Choose an Excel File");
         } else {
             try {
-                lineChartModel = ejbFacade.createLineChart(sheet, operationFilter, machineFilter, dateDebut);
+                lineChartModel = ejbFacade.createLineChart(sheet, operationFilter, machineFilter, getDateDebutSimulation(), getDateDebutFilter(), getDateFinFilter());
             } catch (IOException ex) {
                 showErrorMessage("error of reading Graphe file");
             }
 
             ///////////////////Line Chart/////////////////
             lineChartModel.setTitle("Cumulative Layer Feed Curve");
-            lineChartModel.setLegendPosition("ne");
+            lineChartModel.setLegendPosition("e");
+            lineChartModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Période"));
             Axis yAxis = lineChartModel.getAxis(AxisType.Y);
             yAxis.setLabel("Volume m3");
@@ -145,10 +160,12 @@ public class XlController implements Serializable {
             System.out.println("max::" + Readxl.max);
             Axis xAxis = lineChartModel.getAxis(AxisType.X);
             xAxis.setTickAngle(-60);
+            lineChartModel.setExtender("extLegendLine");
 
             ///////////////////Bar Chart/////////////////
             barModel.setTitle("Date de fin au plut tot du gerbage");
-            barModel.setLegendPosition("ne");
+            barModel.setLegendPosition("e");
+            barModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             barModel.getAxes().put(AxisType.X, new CategoryAxis("Période"));
             yAxis = barModel.getAxis(AxisType.Y);
             yAxis.setLabel("Volume m3");
@@ -158,13 +175,12 @@ public class XlController implements Serializable {
             xAxis = barModel.getAxis(AxisType.X);
             xAxis.setTickAngle(-60);
             barModel.setBarMargin(1);
-            lineChartModel.setExtender("extLegend");
-            barModel.setExtender("extLegend");
+//            barModel.setExtender("extLegendBar");
 
             /////////////////// Time Line Chart (Gantt) ///////////////
             // set initial start / end dates for the axis of the timeline  
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            Date now = dateDebut;
+            Date now = dateDebutFilter;
 
             cal.setTimeInMillis(now.getTime());
             start = cal.getTime();
@@ -176,13 +192,18 @@ public class XlController implements Serializable {
     }
 
     public void onSelect(TimelineSelectEvent e) {
-        System.out.println("onclick");
-        showMessage(e.getTimelineEvent().getData() + "");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("" + e.getTimelineEvent().getData(), "Machine " + e.getTimelineEvent().getGroup() + System.lineSeparator() + " --Start on " + DateUtil.formateDate("yyyy-MM-dd HH:mm:ss", e.getTimelineEvent().getStartDate()) + System.lineSeparator() + " --End on " + DateUtil.formateDate("yyyy-MM-dd HH:mm:ss", e.getTimelineEvent().getEndDate())));
     }
 
     public void generate() {
-        parcels = parcelFacade.findByPanel(panel.getId());
-        ejbFacade.generateData(parcels);
+        String name = ejbFacade.generateData(panel);
+        showMessage("check"+name);
+    }
+
+    public void showEventMessage(String title, String msg) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(title, msg));
     }
 
     public void showMessage(String msg) {
@@ -290,12 +311,34 @@ public class XlController implements Serializable {
         this.machines = machines;
     }
 
-    public Date getDateDebut() {
-        return dateDebut;
+    public Date getDateDebutSimulation() {
+        if (dateDebutSimulation == null) {
+            dateDebutSimulation = new Date();
+        }
+        return dateDebutSimulation;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebutSimulation(Date dateDebut) {
+        this.dateDebutSimulation = dateDebut;
+    }
+
+    public Date getDateDebutFilter() {
+        if (dateDebutFilter == null) {
+            dateDebutFilter = getDateDebutSimulation();
+        }
+        return dateDebutFilter;
+    }
+
+    public void setDateDebutFilter(Date dateDebutFilter) {
+        this.dateDebutFilter = dateDebutFilter;
+    }
+
+    public Date getDateFinFilter() {
+        return dateFinFilter;
+    }
+
+    public void setDateFinFilter(Date dateFinFilter) {
+        this.dateFinFilter = dateFinFilter;
     }
 
     public LineChartModel getLineChartModel() {

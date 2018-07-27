@@ -6,6 +6,7 @@
 package service;
 
 import bean.Stock;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,7 +30,13 @@ public class StockFacade extends AbstractFacade<Stock> {
         super(Stock.class);
     }
     
-    public void delete(Long stock){
-        getEntityManager().createQuery("DELETE FROM Storage s where s.stock.id='"+ stock +"'").executeUpdate();
+    public void delete(Stock stock){
+        getEntityManager().createQuery("DELETE FROM Storage s where s.stock.id='"+ stock.getId() +"'").executeUpdate();
+        getEntityManager().createQuery("DELETE FROM PossibilityStorage p where p.stock.id='"+ stock.getId() +"'").executeUpdate();
+        remove(stock);
+    }
+    
+    public List<Stock> findAllAsc(){
+        return getEntityManager().createQuery("select s from Stock s ORDER BY s.site.axe.id, s.site.id, s.nom").getResultList();
     }
 }

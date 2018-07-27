@@ -20,20 +20,23 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Movement : </h1>
+                        Movement : </h1>
                     <hr></hr>
                     <h:form id="MovementListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('MovementCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('MovementCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{movementController.items}" var="item" 
-                                       rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
                                 <p:column>
                                     <f:facet name="header">
@@ -51,7 +54,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Duration"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.duree}#{item.unitOfTime.unite}"/>
+                                    <h:outputText value="#{item.duree} #{item.unitOfTime.unite}"/>
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{movementController.delete(item)}" update=":MovementListForm" styleClass="margin"> 
@@ -73,7 +76,7 @@
                     <ui:include src="View.xhtml"/>
                 </div>
             </div>
-          
+
         </ui:define>
     </ui:composition>
 

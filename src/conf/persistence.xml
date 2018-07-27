@@ -1,24 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="plannOCPPU" transaction-type="JTA">
     <jta-data-source>java:app/ocpjndi</jta-data-source>
     <class>bean.Accessibility</class>
+    <class>bean.Annee</class>
     <class>bean.AvailabilityMachine</class>
+    <class>bean.AvailabilityRh</class>
+    <class>bean.Axe</class>
     <class>bean.Block</class>
     <class>bean.CCL</class>
     <class>bean.ChemicalComponent</class>
     <class>bean.ChemicalComponentLayer</class>
     <class>bean.CompositionLevelSequence</class>
-    <class>bean.Layer</class>
+    <class>bean.ExitPanel</class>
     <class>bean.LevelLayer</class>
     <class>bean.Machine</class>
     <class>bean.Movement</class>
     <class>bean.Operation</class>
     <class>bean.Panel</class>
+    <class>bean.PanelSubPanel</class>
     <class>bean.Parcel</class>
     <class>bean.Position</class>
+    <class>bean.PositionMachine</class>
     <class>bean.PossibilityStorage</class>
+    <class>bean.Poste</class>
+    <class>bean.RH</class>
     <class>bean.SequenceLevel</class>
+    <class>bean.Site</class>
     <class>bean.StatutBlock</class>
     <class>bean.Stock</class>
     <class>bean.Storage</class>
@@ -26,17 +34,8 @@
     <class>bean.Treatment</class>
     <class>bean.Trench</class>
     <class>bean.UnitOfTime</class>
-    <class>bean.String</class>
-    <class>bean.AvailabilityRh</class>
-    <class>bean.StatutParcel</class>
-    <class>bean.Axe</class>
-    <class>bean.PositionMachine</class>
-    <class>bean.Poste</class>
-    <class>bean.RH</class>
-    <class>bean.Site</class>
     <class>bean.Utilisateur</class>
     <class>bean.Ville</class>
-    <class>bean.ExitPanel</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

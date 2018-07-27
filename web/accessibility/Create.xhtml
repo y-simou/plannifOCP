@@ -7,12 +7,12 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="AccessibilityCreateDlg" widgetVar="AccessibilityCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="270" showHeader="false">
+        <p:dialog id="AccessibilityCreateDlg" widgetVar="AccessibilityCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="50%" showHeader="false">
 
             <h:form id="AccessibilityCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Create Accessibility :</h4>
+                    <h4 align="center">Create Accessibility </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -20,20 +20,67 @@
                             <div class="col-md-12">
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
                                     <p:row>
-
                                         <p:column>
-
-                                            <p:outputLabel value="Level   " for="levelLayer" />
+                                            <p:outputLabel value="Panel" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="levelLayer" value="#{accessibilityController.selected.levelLayer}" >
-                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                                               var="levelLayerItem"
-                                                               itemValue="#{levelLayerItem}" itemLabel="#{levelLayerItem.toString()}"/>
+                                            <p:selectOneMenu value="#{accessibilityController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{accessibilityController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel=" #{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
                                             </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{accessibilityController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{accessibilityController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{accessibilityController.trenchs}"
+                                                               var="t"
+                                                               itemLabel=" #{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{accessibilityController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{accessibilityController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{accessibilityController.parcels}"
+                                                               var="p"
+                                                               itemLabel=" #{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
                                         </p:column>
                                     </p:row>
                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{accessibilityController.levelLayer}" >
+                                                <f:selectItem value="#{null}" itemLabel="--LEVEL--" />
+                                                <f:selectItems value="#{accessibilityController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel=" #{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
                                         <p:column>
 
                                             <p:outputLabel value="Machine   " for="machine" />
@@ -42,11 +89,11 @@
                                             <p:selectOneMenu id="machine" value="#{accessibilityController.selected.machine}" >
                                                 <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
                                                                var="machineItem"
-                                                               itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
+                                                               itemValue="#{machineItem}" itemLabel=" #{machineItem.nom}-#{machineItem.type} "/>
                                             </p:selectOneMenu>
                                         </p:column>
-                                    </p:row>
-                                    <p:row>
+                                        <p:column>
+                                        </p:column>
                                         <p:column>
                                             <p:selectBooleanButton id="type" class="myBtn" value="#{accessibilityController.selected.accessibile}" onLabel="Accessible" offLabel="Inaccessible" />
                                         </p:column>

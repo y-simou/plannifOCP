@@ -33,15 +33,30 @@
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="x" value="#{parcelController.selected.x}" title="x" />
-                                        </p:column>  <p:column>
+                                        </p:column> 
+                                        <p:column>
                                             <p:outputLabel value="Sub Panel" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="subPanel" value="#{parcelController.selected.subPanel}" >
+                                                <p:ajax event="valueChange" update="ccl"  listener="#{parcelController.doActionSubPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--SUBPANEL--" />
                                                 <f:selectItems value="#{subPanelController.itemsAvailableSelectOne}"
                                                                var="subPanel"
                                                                itemValue="#{subPanel}"
-                                                               itemLabel="P#{subPanel.panel.nom} S#{subPanel.nom}"/>
+                                                               itemLabel="#{subPanel.nom}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Sub Panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="ccl" value="#{parcelController.selected.ccl}" >
+                                                <f:selectItem value="#{null}" itemLabel="--CCL--" />
+                                                <f:selectItems value="#{parcelController.ccls}"
+                                                               var="c"
+                                                               itemValue="#{c}"
+                                                               itemLabel="#{c.nom}"/>
                                             </p:selectOneMenu>
                                         </p:column>
 

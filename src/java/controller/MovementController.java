@@ -1,6 +1,8 @@
 package controller;
 
+import bean.Machine;
 import bean.Movement;
+import bean.PositionMachine;
 import service.MovementFacade;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("movementController")
 @SessionScoped
@@ -21,8 +24,36 @@ public class MovementController implements Serializable {
 
     @EJB
     private service.MovementFacade ejbFacade;
+    @EJB
+    private service.PositionMachineFacade positionMachineFacade;
     private List<Movement> items = null;
     private Movement selected;
+    private Machine machine;
+    private List<PositionMachine> positions;
+
+    public void doActionMachine(AjaxBehaviorEvent event) {
+        positions = positionMachineFacade.findByMachine(getMachine().getId());
+        machine = null;
+    }
+
+    public Machine getMachine() {
+        if (machine == null) {
+            machine = new Machine();
+        }
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
+
+    public List<PositionMachine> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<PositionMachine> positions) {
+        this.positions = positions;
+    }
 
     public MovementController() {
     }

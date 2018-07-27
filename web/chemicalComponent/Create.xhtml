@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ChemicalComponentCreateDlg" widgetVar="ChemicalComponentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="350" height="300" showHeader="false">
+        <p:dialog id="ChemicalComponentCreateDlg" widgetVar="ChemicalComponentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="40%" height="50%" showHeader="false">
 
             <h:form id="ChemicalComponentCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -25,6 +25,7 @@
                                     <p:inputText id="nom" value="#{chemicalComponentController.selected.nom}" title="Name" />
                                     <p:outputLabel value="Site :  " for="site" />
                                     <p:selectOneMenu id="site" value="#{chemicalComponentController.selected.site}" >
+                                        <f:selectItem value="#{null}" itemLabel="--SITE--"/>
                                         <f:selectItems value="#{siteController.itemsAvailableSelectOne}"
                                                        var="site"
                                                        itemValue="#{site}" itemLabel="#{site.nom}"/>

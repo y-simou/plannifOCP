@@ -30,27 +30,21 @@
                             </div>
                             <hr></hr>
                             <p:dataTable value="#{cCLController.items}" var="item" 
-                                        rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Nom"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="SubPanel"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.subPanel.nom}" filterStyle="height: 20px" headerText="SubPanel" filterMatchMode="contains" >
                                     <h:outputText value="#{item.subPanel.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Surface"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.surface}" filterStyle="height: 20px" headerText="Surface" filterMatchMode="contains" >
                                     <h:outputText value="#{item.surface}"/>
                                 </p:column>
                                 <p:column> 

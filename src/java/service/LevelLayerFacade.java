@@ -36,8 +36,7 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
     }
 
     public void delete(LevelLayer levelLayer) {
-        getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.level.id'" + levelLayer.getId() + "'").executeUpdate();
-        getEntityManager().createQuery("DELETE from Layer l where l.level.id='" + levelLayer.getId() + "'").executeUpdate();
+        getEntityManager().createQuery("DELETE from ChemicalComponentLayer ch where ch.layer.id='" + levelLayer.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE from Storage st where st.block.level.id='" + levelLayer.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE from Accessibility a where a.levelLayer.id='" + levelLayer.getId() + "'").executeUpdate();
         getEntityManager().createQuery("DELETE from StatutBlock s where s.block.level.id='" + levelLayer.getId() + "'").executeUpdate();
@@ -93,8 +92,18 @@ public class LevelLayerFacade extends AbstractFacade<LevelLayer> {
         return getEntityManager().createQuery("SELECT l.nom from LevelLayer l where l.parcel.id='" + parcel + "' ORDER BY l.sequenceNiveau").getResultList();
     }
     
+    public List<LevelLayer> findByParcel(Long parcel) {
+        return getEntityManager().createQuery("SELECT l from LevelLayer l where l.parcel.id='" + parcel + "' ORDER BY l.sequenceNiveau").getResultList();
+    }
+
     public List<String> findSubPanel(Long sp) {
-        Parcel p = (Parcel) getEntityManager().createQuery("SELECT p from Parcel p where p.subPanel.id='" + sp + "'").setMaxResults(1).getSingleResult();
+        Parcel p;
+        List<Parcel> ps = getEntityManager().createQuery("SELECT p from Parcel p where p.subPanel.id='" + sp + "'").getResultList();
+        if (ps.isEmpty()) {
+            return null;
+        } else {
+            p = ps.get(0);
+        }
         return findNomByParcel(p.getId());
     }
 

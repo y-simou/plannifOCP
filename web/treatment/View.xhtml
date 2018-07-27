@@ -7,44 +7,82 @@
 
     <ui:composition>
 
-        <p:dialog id="TreatmentViewDlg" widgetVar="TreatmentViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+        <p:dialog id="TreatmentViewDlg" widgetVar="TreatmentViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="35%" showHeader="false">
             <h:form id="TreatmentViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
                         <h4 align="center">More informations :</h4>
                         <hr></hr>
-                        <br></br>
-                        <div class="container" align="center">
+                        <br></br>  <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value="#{treatmentController.selected.id}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Operation :"/>
-                                    <h:outputText value=" #{treatmentController.selected.operation.nom}" title="Operation"/>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="machine :"/>
-                                    <h:outputText value="#{treatmentController.selected.machine.nom}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Block :"/>
-                                    <h:outputText value=" #{treatmentController.selected.block.nom}" title="Block"/>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputText value="Time :"/>
-                                    <h:outputText value=" #{treatmentController.selected.temps} #{treatmentController.selected.unitOfTime.unite}" title="time}"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Chronological Order :"/>
-                                    <h:outputText value=" #{treatmentController.selected.chronologicalOrder}" title="Chronological Order"/>
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Panel" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{treatmentController.selected.block.level.parcel.trench.panel.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Trench "  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{treatmentController.selected.block.level.parcel.trench.panel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Parcel"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{treatmentController.selected.block.level.parcel.nom}"  />
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Level"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{treatmentController.selected.block.level.nom}" title="Level"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:outputLabel value="Block" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{treatmentController.selected.block.nom}" title="Block" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="machine "  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{treatmentController.selected.machine.nom}" title="machine" />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Operation" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{treatmentController.selected.operation.nom}" title="Operation" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Time"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{treatmentController.selected.temps} #{treatmentController.selected.unitOfTime.unite}" title="Time" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Chronological Order"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{treatmentController.selected.chronologicalOrder}" title="Chronological Order" />
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
                                 </div>
                             </div>
                         </div>

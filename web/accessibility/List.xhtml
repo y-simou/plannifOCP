@@ -29,31 +29,36 @@
                     <h:form id="AccessibilityListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('AccessibilityCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('AccessibilityCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{accessibilityController.items}" var="item" 
-                                        rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="20"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="level Layer"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.levelLayer.parcel.trench.panel.nom} - #{item.levelLayer.parcel.trench.nom} - #{item.levelLayer.parcel.nom}" filterStyle="height: 20px" headerText="Pan Tr Parcel" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.levelLayer.parcel.trench.panel.nom} - #{item.levelLayer.parcel.trench.nom} - #{item.levelLayer.parcel.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.levelLayer.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains" >
                                     <h:outputText value="#{item.levelLayer.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="machine"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.machine.nom}" filterStyle="height: 20px" headerText="Machine" filterMatchMode="contains" >
                                     <h:outputText value="#{item.machine.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="accessibility"/>
+                                <p:column filterBy="#{item.accessibile}" headerText="accessible ?" filterMatchMode="equals">
+                                    <f:facet name="filter">
+                                        <p:selectOneButton onchange="PF('table').filter()">
+                                            <f:converter converterId="javax.faces.Boolean" />
+                                            <f:selectItem itemLabel="All" itemValue="" />
+                                            <f:selectItem itemLabel="yes" itemValue="true" />
+                                            <f:selectItem itemLabel="no" itemValue="false" />
+                                        </p:selectOneButton>
                                     </f:facet>
                                     <p:outputLabel value="#{item.accessibile ? 'accessible' : 'not accessible'}"/>
                                 </p:column>

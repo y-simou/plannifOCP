@@ -127,15 +127,11 @@ public class UtilisateurController implements Serializable {
     }
 
     public void update() {
-        RequestContext context = RequestContext.getCurrentInstance();
         selected.setMail(selected.getMail().toUpperCase());
-        selected.setPassword(HashageUtil.sha256(selected.getPassword()));
         ejbFacade.edit(selected);
         showMessage("Update Successfully Complete.");
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
-//        context.execute("PF('UtilisateurCreateDialog').show();");
-//        showErrorMessage("Confirmation of Passwords Failed !!");
     }
 
     public void delete(Utilisateur utilisateur) {
@@ -248,7 +244,7 @@ public class UtilisateurController implements Serializable {
 
     public List<Utilisateur> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

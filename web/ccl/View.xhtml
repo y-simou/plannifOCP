@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="CCLViewDlg" widgetVar="CCLViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
+        <p:dialog id="CCLViewDlg" widgetVar="CCLViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="60%" height="50%" showHeader="false">
             <h:form id="CCLViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -16,31 +16,24 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value="#{cCLController.selected.id}" />
+                                <div class="col-md-4">
+                                    <h:outputLabel value="Name "/>
+                                    <h:outputText value=" #{cCLController.selected.nom}" />
                                 </div>
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Nom :"/>
-                                    <h:outputText value="#{cCLController.selected.nom}" />
+                                <div class="col-md-4">
+                                    <h:outputLabel value="Surface " />
+                                    <h:outputText value=" #{cCLController.selected.surface}" />
                                 </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Surface :" />
-                                    <h:outputText value="#{cCLController.selected.surface}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Sub Panel :"/>
-                                    <h:outputText value="#{cCLController.selected.subPanel.nom}" />
+                                <div class="col-md-4">
+                                    <h:outputLabel value="Sub Panel "/>
+                                    <h:outputText value=" Stricture #{cCLController.selected.subPanel.nom}" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                        <p:commandLink oncomplete="handleSubmit(args,'CCLViewDialog');"> 
-                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                        </p:commandLink>
+                    <p:commandLink oncomplete="handleSubmit(args,'CCLViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -78,7 +78,7 @@ public class CCLController implements Serializable {
 
     public List<CCL> getItems() {
         if (items == null) {
-            items = ejbFacade.findAll();
+            items = ejbFacade.findAllAsc();
         }
         return items;
     }

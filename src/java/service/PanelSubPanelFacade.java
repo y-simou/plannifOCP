@@ -37,4 +37,9 @@ public class PanelSubPanelFacade extends AbstractFacade<PanelSubPanel> {
             super.create(new PanelSubPanel(panelSubPanel.getPanel(), panelSubPanel.getSubpanel()));
         }
     }
+    
+    @Override
+    public List<PanelSubPanel> findAll(){
+        return getEntityManager().createQuery("Select p from PanelSubPanel p ORDER BY p.panel.id").getResultList();
+    }
 }

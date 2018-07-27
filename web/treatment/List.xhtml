@@ -31,39 +31,33 @@
                             </div>
                              <hr></hr>
                             <p:dataTable value="#{treatmentController.items}" var="item" 
-                                         rowKey="#{item.id}"
-                                         
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         style="text-align: center;" rowStyleClass="high"
+                                        rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
+                                         class="tableCrud"
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="machine"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.machine.nom}"/>
+                                <p:column filterBy="#{item.block.level.parcel.trench.panel.nom} - #{item.block.level.parcel.trench.nom} - #{item.block.level.parcel.nom}" filterStyle="height: 20px" headerText="Pan Tr Parcel" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.block.level.parcel.trench.panel.nom} - #{item.block.level.parcel.trench.nom} - #{item.block.level.parcel.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Operation"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.operation.nom}"/>
+                                <p:column filterBy="#{item.block.level.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.block.level.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Block"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.block.nom}" filterStyle="height: 20px" headerText="Block" filterMatchMode="contains" >
                                     <h:outputText value="#{item.block.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Time"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.machine.nom}" filterStyle="height: 20px" headerText="machine" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.machine.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.operation.nom}" filterStyle="height: 20px" headerText="Operation" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.operation.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.temps} #{item.unitOfTime.unite}" filterStyle="height: 20px" headerText="Time" filterMatchMode="contains" >
                                     <h:outputText value="#{item.temps} #{item.unitOfTime.unite}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Chronological Order"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.chronologicalOrder}" filterStyle="height: 20px" headerText="Chronological Order" filterMatchMode="contains" >
                                     <h:outputText value="#{item.chronologicalOrder}"/>
                                 </p:column>
                                 <p:column> 

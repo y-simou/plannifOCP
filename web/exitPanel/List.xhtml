@@ -20,20 +20,24 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Exit Panel : </h1>
+                        Exit Panel  </h1>
                     <hr></hr>
                     <h:form id="ExitPanelListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ExitPanelCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ExitPanelCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{exitPanelController.items}" var="item" 
                                          rowKey="#{item.id}"
-                                         
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high"                                          >
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
+                                         >
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Panel"/>

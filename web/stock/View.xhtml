@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="StockViewDlg" widgetVar="StockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="500" height="300" showHeader="false">
+        <p:dialog id="StockViewDlg" widgetVar="StockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="40%" showHeader="false">
             <h:form id="StockViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,16 +17,12 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{stockController.selected.id}" />
-                                </div>
-                                <div class="col-md-4">
-                                    <h:outputLabel value="Nom :"/>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Nom : "/>
                                     <h:outputText value=" #{stockController.selected.nom}" />
                                 </div>
-                                <div class="col-md-4">
-                                    <h:outputLabel value="Site :"/>
+                                <div class="col-md-6">
+                                    <h:outputLabel value="Site : "/>
                                     <h:outputText value=" #{stockController.selected.site.nom}" />
                                 </div>
                             </div>
@@ -34,12 +30,12 @@
                             
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputText value="Capacity :"/>
-                                    <h:outputText value=" #{stockController.selected.capacity}" title="Capacity"/>
+                                    <h:outputText value="Capacity : "/>
+                                    <h:outputText value=" #{stockController.selected.capacity} Tn" title="Capacity"/>
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputText value="Initial Quantity :"/>
-                                    <h:outputText value=" #{stockController.selected.initialQte}" title="Initial Quantity"/>
+                                    <h:outputText value="Initial Quantity : "/>
+                                    <h:outputText value=" #{stockController.selected.initialQte} Tn" title="Initial Quantity"/>
                                 </div>
                             </div>
                             <hr></hr>

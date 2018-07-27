@@ -22,7 +22,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         RH : </h1>
+                         RH  </h1>
                     <hr></hr>
                     <h:form id="RHListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -49,6 +49,12 @@
                                     </f:facet>
                                     <h:outputText value="#{item.poste.nom}"/>
                                 </p:column>
+                                 <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="availability"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.available ? 'available' : 'not available'}"/>
+                                </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{rHController.delete(item)}" update=":RHListForm" styleClass="margin"> 
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
@@ -63,7 +69,6 @@
                     </h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
-                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 

@@ -6,6 +6,7 @@
 package service;
 
 import bean.PositionMachine;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +29,9 @@ public class PositionMachineFacade extends AbstractFacade<PositionMachine> {
     public PositionMachineFacade() {
         super(PositionMachine.class);
     }
-    
+
+    public List<PositionMachine> findByMachine(Long id) {
+        return getEntityManager().createQuery("SELECT p From PositionMachine p where p.machine.id='" + id + "'").getResultList();
+    }
+
 }

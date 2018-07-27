@@ -71,14 +71,14 @@ public class StockController implements Serializable {
     }
 
     public void delete(Stock stock) {
-        ejbFacade.delete(stock.getId());
+        ejbFacade.delete(stock);
         selected = null; // Remove selection
         items = null;    // Invalidate list of items to trigger re-query.
     }
 
     public List<Stock> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findAll();
         }
         return items;
     }

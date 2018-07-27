@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-       <p:dialog id="PositionMachineEditDlg" widgetVar="PositionMachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="370" showHeader="false">
+       <p:dialog id="PositionMachineEditDlg" widgetVar="PositionMachineEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="35%" height="40%" showHeader="false">
 
             <h:form id="PositionMachineEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -39,19 +39,19 @@
                                             <p:outputLabel value="Date :" for="datePosition" />
                                         </p:column>
                                         <p:column>
-                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionMachineController.selected.datePosition}" title="Date"  showOn="button"/>
+                                            <p:calendar id="datePosition" pattern="MM/dd/yyyy" value="#{positionMachineController.selected.datePosition}" title="Date" timeZone="Africa/Casablanca"  showOn="button"/>
                                         </p:column>
                                     </p:row>
                                     
                                     <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Position :" for="position" />
+                                       <p:column>
+                                            <p:outputLabel value="Position(X-Y) :" for="position" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="position" value="#{positionMachineController.selected.position}" >
                                                 <f:selectItems value="#{positionController.itemsAvailableSelectOne}"
                                                                var="positionItem"
-                                                               itemLabel="#{positionItem.nom}-X: #{positionItem.x} -Y: #{positionItem.y}"
+                                                               itemLabel="#{positionItem.nom} : #{positionItem.x} - #{positionItem.y}"
                                                                itemValue="#{positionItem}"/>
                                             </p:selectOneMenu>
                                         </p:column>
@@ -66,8 +66,8 @@
                     </div>
                     <hr></hr>
                      <div class="f1-buttons" align="right">
-                         <p:commandButton  value="Save" class="myBtn" actionListener="#{positionMachineController.update()}" onclick="handleSubmit(args, 'PositionMachineEditCreateDialog');" />
-                        <p:commandLink oncomplete="handleSubmit(args,'PositionMachineEditCreateDialog');"> 
+                         <p:commandButton  value="Save" class="myBtn" actionListener="#{positionMachineController.update()}" onclick="handleSubmit(args, 'PositionMachineEditDialog');" />
+                        <p:commandLink oncomplete="handleSubmit(args,'PositionMachineEditDialog');"> 
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>
                     </div>

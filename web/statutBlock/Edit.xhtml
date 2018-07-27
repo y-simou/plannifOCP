@@ -8,32 +8,113 @@
 
     <ui:composition>
 
-           <p:dialog id="StatutBlockEditDlg" widgetVar="StatutBlockEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="350" showHeader="false">
+           <p:dialog id="StatutBlockEditDlg" widgetVar="StatutBlockEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="60%" height="30%" showHeader="false">
 
             <h:form id="StatutBlockEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Edit Statut Block :</h4>
+                    <h4 align="center">Edit Statut Block </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
-                        <div class="row">
+                     <div class="row">
                             <div class="col-md-12">
-                                <p:panelGrid columns="4" id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
-                                    <p:outputLabel value="Block :" for="block" />
-                                    <p:selectOneMenu id="block" value="#{statutBlockController.selected.block}" >
-                                        <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
-                                                       var="blockItem"
-                                                       itemLabel="#{blockItem.nom}"
-                                                       itemValue="#{blockItem}"/>
-                                    </p:selectOneMenu>
-                                    <p:outputLabel value="Date :" for="dateChangement" />
-                                    <p:calendar id="dateChangement" pattern="MM/dd/yyyy" value="#{statutBlockController.selected.dateChangement}" title="Date" showOn="button"/>
-                                    <p:outputLabel value="Statut Initial :" for="statutInitial" />
-                                    <p:inputText id="statutInitial" value="#{statutBlockController.selected.statutInitial}" title="statutInitial" />
-                                    <p:outputLabel value="Statut Final :" for="statutFinal" />
-                                    <p:inputText id="statutFinal" value="#{statutBlockController.selected.statutFinal}" title="statutFinal" />
-                                    
+                                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                    <p:row>
+
+                                        <p:column>
+                                            <p:outputLabel value="Panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{statutBlockController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{statutBlockController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{statutBlockController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{statutBlockController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{statutBlockController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{statutBlockController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{statutBlockController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{statutBlockController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{statutBlockController.levelLayer}" >
+                                                <p:ajax event="valueChange" update="block"  listener="#{statutBlockController.doActionLevel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--Level--" />
+                                                <f:selectItems value="#{statutBlockController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel=" #{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Block" for="block" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="block" value="#{statutBlockController.block}" >
+                                                <f:selectItem value="#{null}" itemLabel="--BLOCK--" />
+                                                <f:selectItems value="#{statutBlockController.blocks}"
+                                                               var="blockItem"
+                                                               itemLabel="#{blockItem.nom}"
+                                                               itemValue="#{blockItem.id}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:outputLabel value="Date " for="Date" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="Date" pattern="dd/MM/yyyy" value="#{statutBlockController.selected.dateChangement}" title="Date"  timeZone="Africa/Casablanca"  showOn="button"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Statut Initial " for="statutInitial" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="statutInitial" value="#{statutBlockController.selected.statutFinal}" title="statutInitial" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Statut Final " for="statutFinal" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="statutFinal" value="#{statutBlockController.selected.statutFinal}" title="statutFinal" />
+                                        </p:column>
+                                    </p:row>
                                 </p:panelGrid>
                             </div>
                         </div>

@@ -23,16 +23,64 @@
                                     <p:row>
 
                                         <p:column>
-
-                                            <p:outputLabel value="Layer" for="layer" />
+                                            <p:outputLabel value="Panel" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="layer" value="#{chemicalComponentLayerController.selected.levelLayer}" >
-                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                                               var="layerItem"
-                                                               itemValue="#{layerItem}"
-                                                               itemLabel="P#{layerItem.parcel.trench.panel.nom} T#{layerItem.parcel.trench.nom} P#{layerItem.parcel.nom} #{layerItem.nom}"/>
+                                            <p:selectOneMenu value="#{chemicalComponentLayerController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{chemicalComponentLayerController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
                                             </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{chemicalComponentLayerController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{chemicalComponentLayerController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{chemicalComponentLayerController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{chemicalComponentLayerController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{chemicalComponentLayerController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{chemicalComponentLayerController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{chemicalComponentLayerController.levelLayer}" >
+                                                <f:selectItems value="#{chemicalComponentLayerController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel=" #{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+
                                         </p:column>
                                         <p:column>
 

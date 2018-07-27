@@ -23,25 +23,60 @@
                                     <p:row>
 
                                         <p:column>
-                                            <p:outputLabel value="Panel/Trench/Parcel" />
+                                            <p:outputLabel value="Panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{levelLayerController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{levelLayerController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{levelLayerController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{levelLayerController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{levelLayerController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="parcel" value="#{levelLayerController.selected.parcel}" >
-                                                <f:selectItems value="#{parcelController.itemsAvailableSelectOne}"
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{levelLayerController.parcels}"
                                                                var="p"
-                                                               itemValue="#{p}" itemLabel="P#{p.trench.panel.nom} T#{p.trench.nom} P#{p.nom}"/>
-                                            </p:selectOneMenu> </p:column>
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectBooleanButton id="type" class="myBtn" value="#{levelLayerController.selected.phosphate}" onLabel="Layer" offLabel="Sterile" />
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Name"  />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="nom" value="#{levelLayerController.selected.nom}" title="Name" />
                                         </p:column>
-                                        <p:column>
-                                            <p:selectBooleanButton id="type" class="myBtn" value="#{levelLayerController.selected.phosphate}" onLabel="Layer" offLabel="Sterile" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
 
                                         <p:column>
                                             <p:outputLabel value="Sequence" />
@@ -91,7 +126,7 @@
                     <br></br>
                     <div class="f1-buttons" align="right">
                         <p:commandButton  value="Save" class="myBtn" actionListener="#{levelLayerController.create()}" onclick="handleSubmit(args, 'LevelLayerCreateDialog');" />
-                        <p:commandLink oncomplete="handleSubmit(args,'LevelLayerCreateDialog');"> 
+                        <p:commandLink oncomplete="handleSubmit(args,'LevelLayerCreateDialog');">
                             <h:graphicImage value="../resources/images/seeMore.png" alt="retour" />
                         </p:commandLink>
                     </div>

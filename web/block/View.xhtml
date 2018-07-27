@@ -8,26 +8,80 @@
 
     <ui:composition>
 
-        <p:dialog id="BlockViewDlg" widgetVar="BlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="400" height="200" showHeader="false">
+        <p:dialog id="BlockViewDlg" widgetVar="BlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="40%" showHeader="false">
             <h:form id="BlockViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{blockController.selected != null}">
-                        <h:outputText value="Id :"/>
-                        <h:outputText value="#{blockController.selected.id}" title="Id"/>
-                        <h:outputText value="Nom :"/>
-                        <h:outputText value="#{blockController.selected.nom}" title="Nom"/>
-                        <h:outputText value="Puissance :"/>
-                        <h:outputText value="#{blockController.selected.puissance}" title="Puissance"/>
-                        <h:outputText value="Volume :"/>
-                        <h:outputText value="#{blockController.selected.volume}" title="Volume"/>
-                        <h:outputText value="Priority :"/>
-                        <h:outputText value="#{blockController.selected.priority}" title="Priority"/>
-                        <h:outputText value="Level :"/>
-                        <h:outputText value="#{blockController.selected.level.nom}" title="Level"/>
-                    </p:panelGrid>
-                    <p:commandLink oncomplete="handleSubmit(args,'BlockViewDialog');"> 
-                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                    </p:commandLink>
+                <h:panelGroup id="display" styleClass="ui-noborder">
+                    <div class="form-control">
+                        <h4 align="center">More informations :</h4>
+                        <hr></hr>
+                        <br></br>
+                        <div class="container" align="center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Panel" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{blockController.selected.level.parcel.trench.panel.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Trench "  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{blockController.selected.level.parcel.trench.panel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Parcel"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{blockController.selected.level.parcel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Level"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{blockController.selected.level.nom}" title="Level"/>
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Name"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{blockController.selected.nom}" title="Name"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Puissance" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{blockController.selected.puissance}" title="Puissance"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Volume" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{blockController.selected.volume}" title="Volume"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Priority "  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{blockController.selected.priority}" title="Priority"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <p:commandLink oncomplete="handleSubmit(args,'BlockViewDialog');"> 
+                            <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                        </p:commandLink>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

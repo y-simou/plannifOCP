@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="PossibilityStorageEditDlg" widgetVar="PossibilityStorageEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="230" showHeader="false">
+        <p:dialog id="PossibilityStorageEditDlg" widgetVar="PossibilityStorageEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="80%" showHeader="false">
 
             <h:form id="PossibilityStorageEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Edit Possibility Storage :</h4>
+                    <h4 align="center">Edit Possibility Storage </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -25,24 +25,73 @@
                                         <p:column>
                                             <p:outputLabel value="Stock :" for="stock" />
                                         </p:column>
-                                          <p:column> 
+                                        <p:column> 
                                             <p:selectOneMenu id="stock" value="#{possibilityStorageController.selected.stock}" >
                                                 <f:selectItems value="#{stockController.itemsAvailableSelectOne}"
-                                                               var="stockItem"
-                                                               itemLabel="#{stockItem.nom}"
-                                                               itemValue="#{stockItem}"/>
+                                                               var="s"
+                                                               itemLabel=" #{s.nom}"
+                                                               itemValue="#{s}"/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Level :" for="level" />
+                                            <p:outputLabel value="Panel" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu id="level" value="#{possibilityStorageController.selected.level}" >
-                                                <f:selectItems value="#{levelLayerController.itemsAvailableSelectOne}"
-                                                               var="levelItem"
-                                                               itemLabel="#{levelItem.toString()}"
-                                                               itemValue="#{levelItem}"/>
+                                            <p:selectOneMenu value="#{possibilityStorageController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{possibilityStorageController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
                                             </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{possibilityStorageController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{possibilityStorageController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{possibilityStorageController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{possibilityStorageController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{possibilityStorageController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{possibilityStorageController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{possibilityStorageController.levelLayer}" >
+                                                <f:selectItems value="#{possibilityStorageController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel=" #{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+
                                         </p:column>
                                         <p:column>
                                             <p:selectBooleanButton id="type" class="myBtn" value="#{possibilityStorageController.selected.possibility}" onLabel="Possible" offLabel="impossible" />

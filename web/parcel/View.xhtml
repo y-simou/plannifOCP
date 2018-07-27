@@ -7,7 +7,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="90%" height="100%" showHeader="false">
+        <p:dialog id="ParcelViewDlg" widgetVar="ParcelViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="100%" showHeader="false">
             <h:form id="ParcelViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -16,19 +16,16 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputText value="CCL"/>
-                                    <h:outputText value=" #{parcelController.selected.ccl.nom}" title="CCL"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <h:outputText value="Sub Panel"/>
-                                    <h:outputText value=" #{parcelController.selected.subPanel.nom}" title="Sub Panel"/>
-                                </div>
                                 <div class="col-md-5">
                                     <h:outputText value="Panel"/>
                                     <h:outputText value=" #{parcelController.selected.trench.panel.nom}" title="Panel"/>
                                 </div>
-
+                                <div class="col-md-4">
+                                    <h:outputText value="Structure #{parcelController.selected.subPanel.nom}" title="Sub Panel"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputText value="Groupe #{parcelController.selected.ccl.nom}" title="CCL"/>
+                                </div>
                             </div>
                             <hr></hr>
 
@@ -53,7 +50,7 @@
                                     <h:outputText value=" #{parcelController.selected.surface}" title="Surface"/>
                                 </div> 
                                 <div class="col-md-4">
-                                    <h:outputText value="Epaisseur"/>
+                                    <h:outputText value="Puissance"/>
                                     <h:outputText value=" #{parcelController.selected.epaisseur}" title="Epaisseur"/>
                                 </div>
                                 <div class="col-md-4">

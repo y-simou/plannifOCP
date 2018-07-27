@@ -21,40 +21,55 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Possibility Storage : </h1>
+                        Possibility Storage  </h1>
                     <hr></hr>
                     <h:form id="PossibilityStorageListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PossibilityStorageCreateDialog').show()" />
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('PossibilityStorageCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{possibilityStorageController.items}" var="item" 
-                                       rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Stock"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.stock.nom}" headerText="Stock" filterStyle="height: 20px" filterMatchMode="contains">
                                     <h:outputText value="#{item.stock.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Level"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.level.parcel.trench.panel.nom}" filterStyle="height: 30px !important" headerText="Panel" filterMatchMode="in">
+                                    <f:facet name="filter" >
+                                        <p:selectCheckboxMenu label="panels" onchange="PF('table').filter()" style="width : 80% !important;" panelStyle="width:125px" scrollHeight="150">
+                                            <f:selectItems value="#{panelController.itemsAvailableSelectMany}" var="p"  itemValue="#{p.nom}" itemLabel="#{p.nom}" />
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>  
+                                    <h:outputText value="#{item.level.parcel.trench.panel.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.level.parcel.trench.nom}" filterStyle="height: 20px" headerText="Trench" filterMatchMode="contains">
+                                    <h:outputText value="#{item.level.parcel.trench.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.level.parcel.nom}" filterStyle="height: 20px" headerText="Parcel" filterMatchMode="contains">
+                                    <h:outputText value="#{item.level.parcel.nom}"/>
+                                </p:column>
+                                <p:column filterBy="#{item.level.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains">
                                     <h:outputText value="#{item.level.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Possibility"/>
+                                <p:column filterBy="#{item.possibility}" headerText="Possible ?" filterMatchMode="equals">
+                                    <f:facet name="filter">
+                                        <p:selectOneButton onchange="PF('table').filter()">
+                                            <f:converter converterId="javax.faces.Boolean" />
+                                            <f:selectItem itemLabel="All" itemValue="" />
+                                            <f:selectItem itemLabel="yes" itemValue="true" />
+                                            <f:selectItem itemLabel="no" itemValue="false" />
+                                        </p:selectOneButton>
                                     </f:facet>
-                                    <h:outputText value="#{item.possibility ? 'possible' : 'impossible'}"/>
+                                    <h:outputText value="#{item.possibility ? 'possible' : 'impossible'}" />
                                 </p:column>
-
                                 <p:column> 
                                     <p:commandLink actionListener="#{possibilityStorageController.delete(item)}" update=":PossibilityStorageListForm" styleClass="margin"> 
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />

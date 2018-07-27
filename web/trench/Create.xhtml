@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="TrenchCreateDlg" widgetVar="TrenchCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+        <p:dialog id="TrenchCreateDlg" widgetVar="TrenchCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="60%" height="70%" showHeader="false">
 
             <h:form id="TrenchCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
@@ -40,10 +40,10 @@
                                     <p:outputLabel value="Y " for="y" />
                                     <p:inputText id="y" value="#{trenchController.selected.y}" title="Y" />
 
-                                    <p:outputLabel value="Start of Operation " for="datePDebutExploitation" />
-                                    <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePDebutExploitation}" title="Start of Operation"  showOn="button"/>
-                                    <p:outputLabel value="End of Operation " for="datePFinExploitation" />
-                                    <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePFinExploitation}" title="End of Operation"  showOn="button"/>
+                                    <p:outputLabel value="Start " for="datePDebutExploitation" />
+                                    <p:calendar id="datePDebutExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePDebutExploitation}" title="Start of Operation" timeZone="Africa/Casablanca"  showOn="button"/>
+                                    <p:outputLabel value="End " for="datePFinExploitation" />
+                                    <p:calendar id="datePFinExploitation" pattern="MM/dd/yyyy" value="#{trenchController.selected.datePFinExploitation}" title="End of Operation" timeZone="Africa/Casablanca"  showOn="button"/>
 
                                 </p:panelGrid>
                             </div>

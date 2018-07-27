@@ -31,9 +31,12 @@
                              <hr></hr>
                             <p:dataTable value="#{availabilityMachineController.items}" var="item" 
                                         rowKey="#{item.id}"
-                                         
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
                                 <p:column>
                                     <f:facet name="header">
@@ -58,9 +61,6 @@
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
                                     </p:commandLink>
                                     <p:commandButton actionListener="#{availabilityMachineController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":AvailabilityMachineEditForm" oncomplete="PF('AvailabilityMachineEditDialog').show()"  icon="ui-icon-pencil"/>
-                                    <p:commandLink actionListener="#{availabilityMachineController.setSelected(item)}" styleClass="margin" update=":AvailabilityMachineViewForm" oncomplete="PF('AvailabilityMachineViewDialog').show()"  > 
-                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </div>
@@ -70,7 +70,6 @@
                     </h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
-                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 

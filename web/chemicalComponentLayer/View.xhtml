@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="ChemicalComponentLayerViewDlg" widgetVar="ChemicalComponentLayerViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="250" showHeader="false">
+        <p:dialog id="ChemicalComponentLayerViewDlg" widgetVar="ChemicalComponentLayerViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="50%" height="60%" showHeader="false">
             <h:form id="ChemicalComponentLayerViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -15,24 +15,51 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value="#{chemicalComponentLayerController.selected.id}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Level Layer :"/>
-                                    <h:outputText value="#{chemicalComponentLayerController.selected.levelLayer.nom}" />
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Chemical Component :"/>
-                                    <h:outputText value="#{chemicalComponentLayerController.selected.chemicalComponent.nom}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Teneur :"/>
-                                    <h:outputText value="#{chemicalComponentLayerController.selected.teneur}" title="Teneur"/>
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Panel" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{chemicalComponentLayerController.selected.levelLayer.parcel.trench.panel.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Trench"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{chemicalComponentLayerController.selected.levelLayer.parcel.trench.panel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Parcel"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{chemicalComponentLayerController.selected.levelLayer.parcel.nom}"  />
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputLabel value="Layer "/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{chemicalComponentLayerController.selected.levelLayer.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputLabel value="Chemical Component "/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{chemicalComponentLayerController.selected.chemicalComponent.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="Teneur "/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{chemicalComponentLayerController.selected.teneur}" title="Teneur"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
 
                                 </div>
                             </div>
@@ -44,7 +71,7 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-     
+
 
     </ui:composition>
 </html>

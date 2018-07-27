@@ -119,7 +119,7 @@ public class Block implements Serializable {
 
     @Override
     public String toString() {
-        return "Block{" + "id=" + id + ", nom=" + nom + ", puissance=" + puissance + ", volume=" + volume + ", priority=" + priority + ", level :" + getLevel().toString() + '}';
+        return "Block{" + "id=" + id + ", nom=" + nom + ", puissance=" + puissance + ", volume=" + volume + ", priority=" + priority + ", level :" + getLevel().getNom() + '}';
     }
 
 

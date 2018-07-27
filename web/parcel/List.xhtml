@@ -21,76 +21,51 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         Parcel  </h1>
+                        Parcel  </h1>
                     <hr></hr>
                     <h:form id="ParcelListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
-                        <div class="container">
-                             <div align="right">
-                             <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ParcelCreateDialog').show()" />
+                        <div class="container-fluid">
+                            <div align="right">
+                                <p:commandButton  icon="ui-icon-plus" value="Add" class="myBtn" oncomplete="PF('ParcelCreateDialog').show()" />
                             </div>
-                             <hr></hr>
+                            <hr></hr>
                             <p:dataTable value="#{parcelController.items}" var="item" 
-                                        rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;width: 100%;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="X"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.x}" filterStyle="height: 20px" headerText="X" filterMatchMode="contains" >
                                     <h:outputText value="#{item.x}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Y"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.y}" filterStyle="height: 20px" headerText="Y" filterMatchMode="contains" >
                                     <h:outputText value="#{item.y}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Surface"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.surface}" filterStyle="height: 20px" headerText="Surface" filterMatchMode="contains" >
                                     <h:outputText value="#{item.surface}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Epaisseur"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.epaisseur}" filterStyle="height: 20px" headerText="Epaisseur" filterMatchMode="contains" >
                                     <h:outputText value="#{item.epaisseur}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Statut"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.statut}" filterStyle="height: 20px" headerText="Statut" filterMatchMode="contains" >
                                     <h:outputText value="#{item.statut}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Treatment"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.treatment}" filterStyle="height: 20px" headerText="Treatment" filterMatchMode="contains" >
                                     <h:outputText value="#{item.treatment}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Trench"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.trench}"/>
+                                <p:column filterBy="#{item.trench.nom}" filterStyle="height: 20px" headerText="Trench" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.trench.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Sub Panel"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.subPanel}"/>
+                                <p:column filterBy="#{item.subPanel.nom} -#{item.ccl.nom}" filterStyle="height: 20px" headerText="SubPanel-CCL" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.subPanel.nom} -#{item.ccl.nom}"/>
                                 </p:column>
-
                                 <p:column> 
                                     <p:commandLink actionListener="#{parcelController.delete(item)}" update=":ParcelListForm" styleClass="margin"> 
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />

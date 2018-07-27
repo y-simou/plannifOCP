@@ -1,5 +1,6 @@
 package controller;
 
+import bean.CCL;
 import bean.Parcel;
 import service.ParcelFacade;
 
@@ -14,6 +15,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
+import service.CCLFacade;
 
 @Named("parcelController")
 @SessionScoped
@@ -21,18 +24,25 @@ public class ParcelController implements Serializable {
 
     @EJB
     private service.ParcelFacade ejbFacade;
+    @EJB
+    private CCLFacade cclFacade;
     private List<Parcel> items = null;
+    private List<CCL> ccls = null;
     private Parcel selected;
+
+    public void doActionSubPanel(AjaxBehaviorEvent event) {
+        ccls = cclFacade.findBySub(selected.getSubPanel().getId());
+    }
 
     public ParcelController() {
     }
-    
-    public String redirect(){
+
+    public String redirect() {
         return "/parcel/List?faces-redirect=true";
     }
 
     public Parcel getSelected() {
-        if (selected ==null) {
+        if (selected == null) {
             selected = new Parcel();
         }
         return selected;
@@ -58,6 +68,14 @@ public class ParcelController implements Serializable {
         return selected;
     }
 
+    public List<CCL> getCcls() {
+        return ccls;
+    }
+
+    public void setCcls(List<CCL> ccls) {
+        this.ccls = ccls;
+    }
+
     public void create() {
         ejbFacade.create(selected);
     }
@@ -73,12 +91,8 @@ public class ParcelController implements Serializable {
     }
 
     public List<Parcel> getItems() {
-        if (items == null) {
-            items = ejbFacade.findAllOrder();
-        }
-        return items;
+        return ejbFacade.findAllOrder();
     }
-
 
     public Parcel getParcel(java.lang.Long id) {
         return getFacade().find(id);

@@ -31,10 +31,13 @@
                             </div>
                             <hr></hr>
                             <p:dataTable value="#{positionController.items}" var="item" 
-                                         rowKey="#{item.id}"
-                                         
+                                        rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;width: 100%" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
                                 <p:column>
                                     <f:facet name="header">

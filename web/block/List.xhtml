@@ -30,40 +30,29 @@
                             </div>
                              <hr></hr>
                             <p:dataTable value="#{blockController.items}" var="item" 
-                                        rowKey="#{item.id}"
-                                         
+                                         rowKey="#{item.id}"
+                                         paginator="true"
+                                         rows="30"
                                          class="tableCrud"
-                                         style="text-align: center;" rowStyleClass="high" 
+                                         style="text-align: center;" 
+                                         rowStyleClass="high" 
+                                         widgetVar="table"
                                          >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Nom"/>
-                                    </f:facet>
+                                
+                                <p:column filterBy="#{item.nom}" filterStyle="height: 20px" headerText="Name" filterMatchMode="contains" >
                                     <h:outputText value="#{item.nom}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Puissance"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.puissance}" filterStyle="height: 20px" headerText="Puissance" filterMatchMode="contains" >
                                     <h:outputText value="#{item.puissance}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Volume"/>
-                                    </f:facet>
+                                <p:column filterBy="#{item.volume}" filterStyle="height: 20px" headerText="Volume" filterMatchMode="contains" >
                                     <h:outputText value="#{item.volume}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Priority"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.priority}"/>
+                                <p:column filterBy="#{item.volume}" filterStyle="height: 20px" headerText="Priority" filterMatchMode="contains" >
+                                    <h:outputText value="#{item.volume}"/>
                                 </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Level"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.level.num}"/>
+                                <p:column filterBy="P#{item.level.parcel.trench.panel.nom}-T#{item.level.parcel.trench.nom}-P#{item.level.parcel.nom}-#{item.level.nom}" filterStyle="height: 20px" headerText="Level" filterMatchMode="contains" >
+                                    <h:outputText value="P#{item.level.parcel.trench.panel.nom}-T#{item.level.parcel.trench.nom}-P#{item.level.parcel.nom}-#{item.level.nom}"/>
                                 </p:column>
                                 <p:column> 
                                     <p:commandLink actionListener="#{blockController.delete(item)}" update=":BlockListForm" styleClass="margin"> 

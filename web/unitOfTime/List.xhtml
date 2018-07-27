@@ -20,7 +20,7 @@
                 <div class="content p-4">
                     <hr></hr>
                     <h1 align="center"> 
-                         UnitOfTime : </h1>
+                         Unit Of Time  </h1>
                     <hr></hr>
                     <h:form id="UnitOfTimeListForm">
                         <p:growl id="growl" showDetail="true" sticky="true" />
@@ -46,9 +46,6 @@
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
                                     </p:commandLink>
                                     <p:commandButton actionListener="#{unitOfTimeController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":UnitOfTimeEditForm" oncomplete="PF('UnitOfTimeEditDialog').show()"  icon="ui-icon-pencil"/>
-                                    <p:commandLink actionListener="#{unitOfTimeController.setSelected(item)}" styleClass="margin" update=":UnitOfTimeViewForm" oncomplete="PF('UnitOfTimeViewDialog').show()"  > 
-                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </div>
@@ -58,7 +55,6 @@
                     </h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
-                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 

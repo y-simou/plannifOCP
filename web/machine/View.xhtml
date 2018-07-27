@@ -7,7 +7,7 @@
 
     <ui:composition>
 
-        <p:dialog id="MachineViewDlg" widgetVar="MachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+        <p:dialog id="MachineViewDlg" widgetVar="MachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="40%" height="50%" showHeader="false">
             <h:form id="MachineViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,34 +17,34 @@
                         <div class="container" align="center">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{machineController.selected.id}" />
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputLabel value="Name :" for="nom" />
+                                    <h:outputLabel value="Name " for="nom" />
                                     <h:outputText id="nom" value=" #{machineController.selected.nom}" title="Name" />
                                 </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputLabel value="Type :" for="type" />
+                                    <h:outputLabel value="Type " for="type" />
                                     <h:outputText id="type" value=" #{machineController.selected.type}" title="Type" />
                                 </div>
-                                <div class="col-md-6">
-                                    <p:outputLabel value="Rendement :" for="rendement" />
-                                    <h:outputText id="rendement" value=" #{machineController.selected.rendement}" title="Rendement" />
-                                </div>
                             </div>
                             <hr></hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h:outputLabel value="Site :" for="site" />
-                                    <h:outputText id="site" value=" #{machineController.selected.site.nom}" title="site" />
+                                    <p:outputLabel value="Rendement " for="rendement" />
+                                    <h:outputText id="rendement" value=" #{machineController.selected.rendement}" title="Rendement" />
                                 </div>
                                 <div class="col-md-6">
-                                    <h:outputLabel value="Désignation :" for="designation" /><br></br>
+                                    <h:outputLabel value="Site " for="site" />
+                                    <h:outputText id="site" value=" #{machineController.selected.site.nom}" title="site" />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <h:outputLabel value="Désignation " for="designation" /><br></br>
                                     <h:outputText id="designation" value="#{machineController.selected.designation}" title="Designation" />
+                                </div>
+                                <div class="col-md-2">
                                 </div>
                             </div>
                         </div>  

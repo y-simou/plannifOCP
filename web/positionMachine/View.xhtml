@@ -8,59 +8,79 @@
 
     <ui:composition>
 
-        <p:dialog id="PositionMachineViewDlg" widgetVar="PositionMachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="400" showHeader="false">
+        <p:dialog id="PositionMachineViewDlg" widgetVar="PositionMachineViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="30%" height="40%" showHeader="false">
             <h:form id="PositionMachineViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
                         <h4 align="center">More informations :</h4>
                         <hr></hr>
                         <br></br>
+                        <br></br>
                         <div class="container" align="center">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{positionMachineController.selected.id}" />
-                                    <hr></hr>
-                                </div>
-                                <div class="col-md-12">
-                                   
-                                    <h:outputText value="Machine :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.machine.nom} " title="Machine"/>
-                                    <h:outputText value=" Type :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.machine.type} " title="type"/>
-                                    <h:outputText value=" Site :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.machine.site.nom}" title="site"/>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h:outputText value="Position Name :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.position.nom}  " title="Position"/>
-                                    <h:outputText value=" X :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.position.x} " title="x"/>
-                                    <h:outputText value=" Y :"/>
-                                    <h:outputText value=" #{positionMachineController.selected.position.y}" title="y"/>
-                                </div>
-                                <div class="col-md-12">
-                                    <hr></hr>
-                                    <h:outputText value="Date :"/>
-                                    <h:outputText value="#{positionMachineController.selected.datePosition}" title="Date">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-12" align="center">
-                                    <p:commandLink oncomplete="handleSubmit(args,'PositionMachineViewDialog');"> 
-                                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
-                                    </p:commandLink>
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Machine" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{positionMachineController.selected.machine.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Type "  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{positionMachineController.selected.machine.type}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Site"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{positionMachineController.selected.machine.site.nom}"  />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Position Name"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{positionMachineController.selected.position.nom}" title="Position"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:outputLabel value="X" />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{positionMachineController.selected.position.x}" title="x" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Y"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{positionMachineController.selected.position.y}" title="y" />
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Date "/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{positionMachineController.selected.datePosition}" title="Date" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"  timeZone="Africa/Casablanca" />
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
                                 </div>
                             </div>
                         </div>
+                        <hr></hr>
                     </div>
-
+                    <p:commandLink oncomplete="handleSubmit(args,'PositionMachineViewDialog');"> 
+                        <h:graphicImage value="../resources/images/retour.png" alt="retour" />
+                    </p:commandLink>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

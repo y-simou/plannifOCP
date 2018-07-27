@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="TreatmentCreateDlg" widgetVar="TreatmentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="80%" height="60%" showHeader="false">
+        <p:dialog id="TreatmentCreateDlg" widgetVar="TreatmentCreateDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="85%" height="60%" showHeader="false">
 
             <h:form id="TreatmentCreateForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Create Treatment :</h4>
+                    <h4 align="center">Create Treatment </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -21,14 +21,90 @@
                             <div class="col-md-12">
                                 <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Panel" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{treatmentController.panel}" >
+                                                <p:ajax event="valueChange" update="trench"  listener="#{treatmentController.doActionPanel(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--PANEL--" />
+                                                <f:selectItems value="#{panelController.itemsAvailableSelectOne}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
 
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Trench"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="trench" value="#{treatmentController.trench}" >
+                                                <p:ajax event="valueChange" update="parcel"  listener="#{treatmentController.doActionTrench(event)}"   />
+                                                <f:selectItem value="#{null}" itemLabel="--Trench--" />
+                                                <f:selectItems value="#{treatmentController.trenchs}"
+                                                               var="t"
+                                                               itemLabel="#{t.nom}"
+                                                               itemValue="#{t}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Parcel"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="parcel" value="#{treatmentController.parcel}" >
+                                                <p:ajax event="valueChange" update="level"  listener="#{treatmentController.doActionParcel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--PARCEL--" />
+                                                <f:selectItems value="#{treatmentController.parcels}"
+                                                               var="p"
+                                                               itemLabel="#{p.nom}"
+                                                               itemValue="#{p}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Level"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="level" value="#{treatmentController.levelLayer}" >
+                                                <p:ajax event="valueChange" update="block"  listener="#{treatmentController.doActionLevel(event)}" />
+                                                <f:selectItem value="#{null}" itemLabel="--LEVEL--" />
+                                                <f:selectItems value="#{treatmentController.levelLayers}"
+                                                               var="l"
+                                                               itemValue="#{l.id}"
+                                                               itemLabel="#{l.nom}"
+                                                               />
+                                            </p:selectOneMenu>
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Block " for="block" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="block" value="#{treatmentController.selected.block}" >
+                                                <f:selectItem value="#{null}" itemLabel="--BLOCK--" />
+                                                <f:selectItems value="#{treatmentController.blocks}"
+                                                               var="blockItem"
+                                                               itemLabel="#{blockItem.nom}"
+                                                               itemValue="#{blockItem}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
 
-                                            <p:outputLabel value="Operation :" for="operation" />
+                                            <p:outputLabel value="Operation " for="operation" />
 
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="operation" value="#{treatmentController.selected.operation}" >
+                                                <f:selectItem value="#{null}" itemLabel="--OPERATION--" />
                                                 <f:selectItems value="#{operationController.itemsAvailableSelectOne}"
                                                                var="operationItem"
                                                                itemValue="#{operationItem}"
@@ -37,32 +113,18 @@
                                         </p:column>
                                         <p:column>
 
-                                            <p:outputLabel value="Machine :  " for="machine" />
+                                            <p:outputLabel value="Machine  " for="machine" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="machine" value="#{treatmentController.selected.machine}" >
+                                                <f:selectItem value="#{null}" itemLabel="--MACHINE--" />
                                                 <f:selectItems value="#{machineController.itemsAvailableSelectOne}"
                                                                var="machineItem"
                                                                itemValue="#{machineItem}" itemLabel="#{machineItem.nom}-#{machineItem.type} "/>
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Block :" for="block" />
-
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu id="block" value="#{treatmentController.selected.block}" >
-                                                <f:selectItems value="#{blockController.itemsAvailableSelectOne}"
-                                                               var="blockItem"
-                                                               itemLabel="#{blockItem.nom}"
-                                                               itemValue="#{blockItem}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-
-                                        <p:column>
-                                            <p:outputLabel value="time :" for="temps" />
+                                            <p:outputLabel value="time " for="temps" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="temps" value="#{treatmentController.selected.temps}" title="time" />
@@ -72,6 +134,7 @@
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu id="unitOfTime" value="#{treatmentController.selected.unitOfTime}" >
+                                                <f:selectItem value="#{null}" itemLabel="--UNIT--" />
                                                 <f:selectItems value="#{unitOfTimeController.itemsAvailableSelectOne}"
                                                                var="unitOfTimeItem"
                                                                itemValue="#{unitOfTimeItem}"
@@ -79,7 +142,7 @@
                                             </p:selectOneMenu>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="Chronological Order :" for="chronologicalOrder" />
+                                            <p:outputLabel value="Chronological Order " for="chronologicalOrder" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="chronologicalOrder" value="#{treatmentController.selected.chronologicalOrder}" title="Chronological Order" />

@@ -47,9 +47,6 @@
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
                                     </p:commandLink>
                                     <p:commandButton actionListener="#{posteController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":PosteEditForm" oncomplete="PF('PosteEditDialog').show()"  icon="ui-icon-pencil"/>
-                                    <p:commandLink actionListener="#{posteController.setSelected(item)}" styleClass="margin" update=":PosteViewForm" oncomplete="PF('PosteViewDialog').show()"  > 
-                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </div>
@@ -59,7 +56,6 @@
                     </h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
-                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 

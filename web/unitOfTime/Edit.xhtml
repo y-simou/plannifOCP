@@ -7,12 +7,12 @@
 
     <ui:composition>
 
-        <p:dialog id="UnitOfTimeEditDlg" widgetVar="UnitOfTimeEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="240" showHeader="false">
+        <p:dialog id="UnitOfTimeEditDlg" widgetVar="UnitOfTimeEditDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="25%" height="30%" showHeader="false">
 
             <h:form id="UnitOfTimeEditForm" style="margin-top: 10px;margin-bottom: 10px">
 
                 <div class="form-control">
-                    <h4 align="center">Edit UnitOfTime :</h4>
+                    <h4 align="center">Edit Unit Of Time </h4>
                     <hr></hr>
                     <br></br>
                     <div class="container" align="center">
@@ -23,7 +23,7 @@
 
                                         <p:column>
 
-                                            <p:outputLabel value="Unit Of Time :" for="unite" />
+                                            <p:outputLabel value="Unit " for="unite" />
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="unite" value="#{unitOfTimeController.selected.unite}" title="Unit Of Time" />

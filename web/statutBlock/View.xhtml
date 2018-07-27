@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="StatutBlockViewDlg" widgetVar="StatutBlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="700" height="300" showHeader="false">
+        <p:dialog id="StatutBlockViewDlg" widgetVar="StatutBlockViewDialog" modal="true" hideEffect="blind" showEffect="blind" resizable="false" appendTo="@(body)" width="60%" height="35%" showHeader="false">
             <h:form id="StatutBlockViewForm">
                 <h:panelGroup id="display" styleClass="ui-noborder">
                     <div class="form-control">
@@ -17,30 +17,67 @@
                         <br></br>
                         <div class="container" align="center">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <h:outputLabel value="id :" />
-                                    <h:outputText value=" #{statutBlockController.selected.id}" />
-                                </div>
-                                <div class="col-md-4">
-                                    <h:outputText value="Block :"/>
-                                    <h:outputText value=" #{statutBlockController.selected.block.nom}" title="Block"/>
-                                </div>
-                                <div class="col-md-5">
-                                    <h:outputText value="Date :"/>
-                                    <h:outputText value="#{statutBlockController.selected.dateChangement}" title="Date">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </div>
-                            </div>
-                            <hr></hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h:outputText value="Statut Initial :"/>
-                                    <h:outputText value=" #{statutBlockController.selected.statutInitial}" title="Initial"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <h:outputText value="Statut Final :"/>
-                                    <h:outputText value=" #{statutBlockController.selected.statutFinal}" title="Final"/>
+                                <div class="col-md-12">
+                                    <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                                        <p:row>
+
+                                            <p:column>
+                                                <p:outputLabel value="Panel" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{statutBlockController.selected.block.level.parcel.trench.panel.nom}" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Trench "  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{statutBlockController.selected.block.level.parcel.trench.panel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Parcel"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value=" #{statutBlockController.selected.block.level.parcel.nom}"  />
+                                            </p:column>
+                                            <p:column>
+                                                <p:outputLabel value="Level"  />
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{statutBlockController.selected.block.level.nom}" title="Name"/>
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+
+                                            <p:column>
+                                                <h:outputText value="Block"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{statutBlockController.selected.block.nom}" title="Block"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="Statut Initial"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{statutBlockController.selected.statutInitial}" title="Initial"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="Statut Final"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value=" #{statutBlockController.selected.statutFinal}" title="Final"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="Date "/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{statutBlockController.selected.dateChangement}" title="Date">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Africa/Casablanca"/>
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
                                 </div>
                             </div>
                         </div>

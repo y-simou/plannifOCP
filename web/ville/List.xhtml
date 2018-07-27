@@ -53,9 +53,6 @@
                                         <h:graphicImage value="../resources/images/logo-s.png" height="20px" alt="X" />
                                     </p:commandLink>
                                     <p:commandButton actionListener="#{villeController.setSelected(item)}" styleClass="margin" style="height: 25px" update=":VilleEditForm" oncomplete="PF('VilleEditDialog').show()"  icon="ui-icon-pencil"/>
-                                    <p:commandLink actionListener="#{villeController.setSelected(item)}" styleClass="margin" update=":VilleViewForm" oncomplete="PF('VilleViewDialog').show()"  > 
-                                        <h:graphicImage value="../resources/images/seeMore.png" height="20px" alt="View" />
-                                    </p:commandLink>
                                 </p:column>
                             </p:dataTable>
                         </div>
@@ -65,7 +62,6 @@
                     </h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
-                    <ui:include src="View.xhtml"/>
                 </div>
             </div>
 
